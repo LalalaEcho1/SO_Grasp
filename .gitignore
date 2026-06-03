@@ -1,0 +1,32 @@
+__pycache__/
+*.py[cod]
+.venv/
+.mypy_cache/
+.pytest_cache/
+MUJOCO_LOG.TXT
+
+# Local experiment outputs and imported external assets.
+results/
+external/
+assets/objects/
+
+# Large datasets, checkpoints, and generated arrays.
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+*.rar
+*.7z
+*.pth
+*.pt
+*.ckpt
+*.npy
+*.npz
+*.pkl
+*.h5
+*.hdf5
+
+# Local environment and editor noise.
+.env
+.env.*
+.vscode/
