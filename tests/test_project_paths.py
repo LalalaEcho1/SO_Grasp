@@ -33,6 +33,19 @@ class ProjectPathTests(unittest.TestCase):
             "assets/scenes/generated_main_v1/scene_0001.xml",
         )
 
+    def test_legacy_windows_path_normalizes_when_project_directory_was_renamed(self):
+        server_root = Path("/home/bobo/99-students/2024_2027_wtt/SO_Grasp")
+        legacy_path = r"D:\Stacked-Object Grasping\assets\scenes\generated_main_v1\scene_0001.xml"
+
+        self.assertEqual(
+            resolve_project_path(legacy_path, root=server_root),
+            server_root / "assets" / "scenes" / "generated_main_v1" / "scene_0001.xml",
+        )
+        self.assertEqual(
+            to_project_relative(legacy_path, root=server_root),
+            "assets/scenes/generated_main_v1/scene_0001.xml",
+        )
+
     def test_is_windows_absolute_path_detects_drive_prefix(self):
         self.assertTrue(is_windows_absolute_path(r"D:\Stacked-Object Grasping\assets\scene.xml"))
         self.assertFalse(is_windows_absolute_path("assets/scenes/scene.xml"))

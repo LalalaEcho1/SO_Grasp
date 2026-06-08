@@ -5,6 +5,10 @@ from pathlib import Path
 
 
 _WINDOWS_ABSOLUTE_RE = re.compile(r"^[A-Za-z]:[\\/]")
+_LEGACY_PROJECT_NAMES = (
+    "Stacked-Object Grasping",
+    "SO_Grasp",
+)
 
 
 def project_root() -> Path:
@@ -50,10 +54,17 @@ def path_key(value: str | Path, root: str | Path | None = None) -> str:
 
 def _legacy_project_relative_part(value: str, project_name: str) -> str | None:
     normalized = value.replace("\\", "/")
-    marker = f"/{project_name}/"
-    if marker in normalized:
-        return normalized.split(marker, 1)[1]
-    prefix = f"{project_name}/"
-    if normalized.startswith(prefix):
-        return normalized[len(prefix) :]
+    for name in _project_name_candidates(project_name):
+        marker = f"/{name}/"
+        if marker in normalized:
+            return normalized.split(marker, 1)[1]
+        prefix = f"{name}/"
+        if normalized.startswith(prefix):
+            return normalized[len(prefix) :]
     return None
+
+
+def _project_name_candidates(project_name: str) -> tuple[str, ...]:
+    names = [project_name]
+    names.extend(name for name in _LEGACY_PROJECT_NAMES if name != project_name)
+    return tuple(names)
