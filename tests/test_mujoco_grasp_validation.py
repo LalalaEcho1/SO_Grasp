@@ -7,6 +7,7 @@ from pathlib import Path
 from tests import conftest  # noqa: F401
 from stacked_grasping.gripper.mujoco_grasp_validation import (
     LiteGraspValidationConfig,
+    _is_unstable_lift_delta,
     validate_lite_grasp_xml,
 )
 from stacked_grasping.gripper.robotiq_2f85_lite import Robotiq2F85LiteConfig, build_gripper_body
@@ -92,6 +93,12 @@ class MujocoGraspValidationTests(unittest.TestCase):
 
         self.assertTrue(result.compile_success)
         self.assertEqual(result.failure_reason, "missing_gripper_freejoint")
+
+    def test_unstable_lift_delta_detects_implausible_target_jump(self):
+        cfg = LiteGraspValidationConfig(lift_distance=0.08, instability_lift_multiplier=3.0)
+
+        self.assertFalse(_is_unstable_lift_delta(0.12, cfg))
+        self.assertTrue(_is_unstable_lift_delta(0.30, cfg))
 
 
 if __name__ == "__main__":
