@@ -1,0 +1,87 @@
+{
+  "version": "v1",
+  "created_for": "stacked-object grasping thesis experiments",
+  "scene_root": "data/graspnet/scenes",
+  "preview_root": "results/graspnet_candidate_previews",
+  "split_policy": "scene_level",
+  "notes": [
+    "Do not randomly split frames from the same scene into train/test.",
+    "The selected_frames list is the first fixed 15-frame experiment subset.",
+    "The preview_frames list records all generated RGB/depth/label/OD preview frames."
+  ],
+  "groups": [
+    {
+      "group_id": "A",
+      "name": "same-object key occlusion and stacking group",
+      "reason": "scene_0009 and scene_0011 contain the same object set; scene_0009 is the key case with both occlusion and stacking.",
+      "object_set": {
+        "object_count": 11,
+        "scenes": ["scene_0009", "scene_0011"]
+      },
+      "scenes": [
+        {
+          "scene": "scene_0009",
+          "split": "final_test",
+          "role": "key_showcase_and_final_test",
+          "tags": ["same_objects", "occlusion", "stacking", "key_case"],
+          "preview_frames": ["0000", "0036", "0072", "0109", "0182", "0255"],
+          "selected_frames": ["0000", "0182", "0255"]
+        },
+        {
+          "scene": "scene_0011",
+          "split": "validation",
+          "role": "same_object_validation_control",
+          "tags": ["same_objects", "occlusion", "control_scene"],
+          "preview_frames": ["0000", "0036", "0072", "0109", "0218", "0255"],
+          "selected_frames": ["0036", "0072", "0255"]
+        }
+      ]
+    },
+    {
+      "group_id": "B",
+      "name": "same-object strong occlusion group",
+      "reason": "scene_0015 and scene_0017 contain the same object set and provide another strong-occlusion comparison group.",
+      "object_set": {
+        "object_count": 11,
+        "scenes": ["scene_0015", "scene_0017"]
+      },
+      "scenes": [
+        {
+          "scene": "scene_0015",
+          "split": "final_test",
+          "role": "strong_occlusion_final_test",
+          "tags": ["same_objects", "strong_occlusion"],
+          "preview_frames": ["0000", "0036", "0072", "0145", "0218", "0255"],
+          "selected_frames": ["0000", "0218", "0255"]
+        },
+        {
+          "scene": "scene_0017",
+          "split": "validation",
+          "role": "same_object_validation_control",
+          "tags": ["same_objects", "strong_occlusion", "control_scene"],
+          "preview_frames": ["0000", "0036", "0072", "0145", "0182", "0218"],
+          "selected_frames": ["0000", "0145", "0218"]
+        }
+      ]
+    },
+    {
+      "group_id": "C",
+      "name": "supplementary complex scene",
+      "reason": "scene_0007 uses a different object set but has useful clutter and visible relation complexity.",
+      "object_set": {
+        "object_count": 10,
+        "scenes": ["scene_0007"]
+      },
+      "scenes": [
+        {
+          "scene": "scene_0007",
+          "split": "supplementary_test",
+          "role": "additional_generalization_case",
+          "tags": ["different_objects", "supplementary", "complex_layout"],
+          "preview_frames": ["0000", "0036", "0072", "0109", "0218", "0255"],
+          "selected_frames": ["0000", "0072", "0255"]
+        }
+      ]
+    }
+  ]
+}
