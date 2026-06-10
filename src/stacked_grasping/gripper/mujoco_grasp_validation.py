@@ -32,9 +32,12 @@ class LiteGraspValidationResult:
     failure_reason: str | None = None
     phase_step_count: int = 0
     target_contact_step_count: int = 0
+    lift_contact_step_count: int = 0
     initial_target_z: float | None = None
     final_target_z: float | None = None
+    max_target_z: float | None = None
     target_lift_delta_m: float | None = None
+    max_target_lift_delta_m: float | None = None
     initial_gripper_z: float | None = None
     final_gripper_z: float | None = None
     gripper_lift_delta_m: float | None = None
@@ -47,9 +50,12 @@ class LiteGraspValidationResult:
             "failure_reason": self.failure_reason,
             "phase_step_count": self.phase_step_count,
             "target_contact_step_count": self.target_contact_step_count,
+            "lift_contact_step_count": self.lift_contact_step_count,
             "initial_target_z": _rounded_or_none(self.initial_target_z),
             "final_target_z": _rounded_or_none(self.final_target_z),
+            "max_target_z": _rounded_or_none(self.max_target_z),
             "target_lift_delta_m": _rounded_or_none(self.target_lift_delta_m),
+            "max_target_lift_delta_m": _rounded_or_none(self.max_target_lift_delta_m),
             "initial_gripper_z": _rounded_or_none(self.initial_gripper_z),
             "final_gripper_z": _rounded_or_none(self.final_gripper_z),
             "gripper_lift_delta_m": _rounded_or_none(self.gripper_lift_delta_m),
@@ -117,8 +123,10 @@ def validate_lite_grasp_xml(
     closed_qpos = _finger_closed_qpos(model, left_joint_id, right_joint_id)
 
     initial_target_z = float(data.xpos[target_body_id, 2])
+    max_target_z = initial_target_z
     initial_gripper_z = float(initial_grasp_pos[2])
     contact_steps = 0
+    lift_contact_steps = 0
     phase_steps = 0
 
     for _ in range(int(cfg.settle_steps)):
@@ -127,6 +135,7 @@ def validate_lite_grasp_xml(
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        max_target_z = max(max_target_z, float(data.xpos[target_body_id, 2]))
 
     for alpha in _linspace01(cfg.approach_steps):
         pos = pregrasp_pos * (1.0 - alpha) + initial_grasp_pos * alpha
@@ -135,6 +144,7 @@ def validate_lite_grasp_xml(
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        max_target_z = max(max_target_z, float(data.xpos[target_body_id, 2]))
 
     for alpha in _linspace01(cfg.close_steps):
         finger_qpos = tuple(open_qpos[index] * (1.0 - alpha) + closed_qpos[index] * alpha for index in range(2))
@@ -143,6 +153,7 @@ def validate_lite_grasp_xml(
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        max_target_z = max(max_target_z, float(data.xpos[target_body_id, 2]))
 
     for alpha in _linspace01(cfg.lift_steps):
         pos = initial_grasp_pos * (1.0 - alpha) + lift_pos * alpha
@@ -150,20 +161,27 @@ def validate_lite_grasp_xml(
         _set_finger_qpos(model, data, left_joint_id, right_joint_id, closed_qpos)
         mujoco.mj_step(model, data)
         phase_steps += 1
-        contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        has_contact = _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        contact_steps += has_contact
+        lift_contact_steps += has_contact
+        max_target_z = max(max_target_z, float(data.xpos[target_body_id, 2]))
 
     for _ in range(int(cfg.hold_steps)):
         _set_gripper_pose(model, data, root_joint_id, lift_pos, grasp_quat)
         _set_finger_qpos(model, data, left_joint_id, right_joint_id, closed_qpos)
         mujoco.mj_step(model, data)
         phase_steps += 1
-        contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        has_contact = _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
+        contact_steps += has_contact
+        lift_contact_steps += has_contact
+        max_target_z = max(max_target_z, float(data.xpos[target_body_id, 2]))
 
     final_target_z = float(data.xpos[target_body_id, 2])
     final_gripper_z = float(data.xpos[gripper_body_id, 2])
     target_delta = final_target_z - initial_target_z
+    max_target_delta = max_target_z - initial_target_z
     gripper_delta = final_gripper_z - initial_gripper_z
-    lift_success = bool(contact_steps > 0 and target_delta >= float(cfg.lift_success_threshold_m))
+    lift_success = bool(lift_contact_steps > 0 and target_delta >= float(cfg.lift_success_threshold_m))
     failure_reason = None
     if not lift_success:
         failure_reason = "no_target_contact" if contact_steps == 0 else "insufficient_lift"
@@ -174,9 +192,12 @@ def validate_lite_grasp_xml(
         failure_reason=failure_reason,
         phase_step_count=phase_steps,
         target_contact_step_count=contact_steps,
+        lift_contact_step_count=lift_contact_steps,
         initial_target_z=initial_target_z,
         final_target_z=final_target_z,
+        max_target_z=max_target_z,
         target_lift_delta_m=target_delta,
+        max_target_lift_delta_m=max_target_delta,
         initial_gripper_z=initial_gripper_z,
         final_gripper_z=final_gripper_z,
         gripper_lift_delta_m=gripper_delta,
@@ -187,17 +208,21 @@ def validate_lite_grasp_xml(
 def _set_gripper_pose(model, data, joint_id: int, pos: np.ndarray, quat_wxyz: np.ndarray) -> None:
     qpos_addr = int(model.jnt_qposadr[joint_id])
     qvel_addr = int(model.jnt_dofadr[joint_id])
+    current_pos = np.asarray(data.qpos[qpos_addr : qpos_addr + 3], dtype=float).copy()
+    linear_velocity = _clipped_velocity(np.asarray(pos, dtype=float).reshape(3) - current_pos, _model_timestep(model))
     data.qpos[qpos_addr : qpos_addr + 3] = pos
     data.qpos[qpos_addr + 3 : qpos_addr + 7] = _normalized_quat(quat_wxyz)
-    data.qvel[qvel_addr : qvel_addr + 6] = 0.0
+    data.qvel[qvel_addr : qvel_addr + 3] = linear_velocity
+    data.qvel[qvel_addr + 3 : qvel_addr + 6] = 0.0
 
 
 def _set_finger_qpos(model, data, left_joint_id: int, right_joint_id: int, values: tuple[float, float]) -> None:
     for joint_id, value in ((left_joint_id, values[0]), (right_joint_id, values[1])):
         qpos_addr = int(model.jnt_qposadr[joint_id])
         qvel_addr = int(model.jnt_dofadr[joint_id])
+        velocity = _clipped_scalar_velocity(float(value) - float(data.qpos[qpos_addr]), _model_timestep(model))
         data.qpos[qpos_addr] = float(value)
-        data.qvel[qvel_addr] = 0.0
+        data.qvel[qvel_addr] = velocity
 
 
 def _finger_open_qpos(model, left_joint_id: int, right_joint_id: int) -> tuple[float, float]:
@@ -266,6 +291,24 @@ def _linspace01(step_count: int) -> np.ndarray:
 
 def _clamp(value: float, limits: np.ndarray) -> float:
     return float(min(max(value, float(limits[0])), float(limits[1])))
+
+
+def _model_timestep(model) -> float:
+    timestep = float(model.opt.timestep)
+    return timestep if timestep > 1e-9 else 1.0
+
+
+def _clipped_velocity(delta: np.ndarray, timestep: float, max_speed: float = 1.0) -> np.ndarray:
+    velocity = np.asarray(delta, dtype=float).reshape(3) / float(timestep)
+    speed = float(np.linalg.norm(velocity))
+    if speed <= float(max_speed) or speed <= 1e-9:
+        return velocity
+    return velocity / speed * float(max_speed)
+
+
+def _clipped_scalar_velocity(delta: float, timestep: float, max_speed: float = 1.0) -> float:
+    velocity = float(delta) / float(timestep)
+    return float(min(max(velocity, -float(max_speed)), float(max_speed)))
 
 
 def _rounded_or_none(value: float | None) -> float | None:

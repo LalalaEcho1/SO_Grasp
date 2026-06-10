@@ -15,6 +15,11 @@ from stacked_grasping.gripper.robotiq_2f85_lite import Robotiq2F85LiteConfig, bu
 
 
 DEFAULT_MESH_FILE = "textured.obj"
+DEFAULT_TABLE_FRICTION = "2.0 0.02 0.001"
+DEFAULT_OBJECT_FRICTION = "3.0 0.05 0.001"
+DEFAULT_CONTACT_CONDIM = "6"
+DEFAULT_CONTACT_SOLREF = "0.004 1"
+DEFAULT_CONTACT_SOLIMP = "0.95 0.99 0.001"
 
 
 def resolve_graspnet_model_mesh(
@@ -69,7 +74,10 @@ def build_graspnet_mujoco_scene_xml(
             "type": "plane",
             "size": "0.70 0.55 0.01",
             "material": "table_mat",
-            "friction": "1.0 0.005 0.0001",
+            "friction": DEFAULT_TABLE_FRICTION,
+            "condim": DEFAULT_CONTACT_CONDIM,
+            "solref": DEFAULT_CONTACT_SOLREF,
+            "solimp": DEFAULT_CONTACT_SOLIMP,
         },
     )
 
@@ -98,7 +106,10 @@ def build_graspnet_mujoco_scene_xml(
                 "mesh": mesh_name,
                 "material": "object_mat",
                 "density": "500",
-                "friction": "1.0 0.005 0.0001",
+                "friction": DEFAULT_OBJECT_FRICTION,
+                "condim": DEFAULT_CONTACT_CONDIM,
+                "solref": DEFAULT_CONTACT_SOLREF,
+                "solimp": DEFAULT_CONTACT_SOLIMP,
             },
         )
 

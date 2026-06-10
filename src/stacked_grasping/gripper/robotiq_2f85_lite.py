@@ -22,6 +22,11 @@ class Robotiq2F85LiteConfig:
     fingertip_size: Vec3 = (0.016, 0.012, 0.012)
     rgba_dark: str = "0.08 0.08 0.09 1"
     rgba_pad: str = "0.02 0.02 0.02 1"
+    finger_friction: str = "2.0 0.02 0.001"
+    pad_friction: str = "4.0 0.08 0.005"
+    contact_condim: int = 6
+    contact_solref: str = "0.004 1"
+    contact_solimp: str = "0.95 0.99 0.001"
 
 
 def build_gripper_body(config: Robotiq2F85LiteConfig | None = None) -> ET.Element:
@@ -144,7 +149,8 @@ def _append_finger(
             "size": _fmt_vec(cfg.finger_size),
             "pos": "0 0 -0.045000",
             "material": "robotiq_dark",
-        },
+        }
+        | _contact_attributes(cfg, cfg.finger_friction),
     )
     ET.SubElement(
         finger,
@@ -155,7 +161,8 @@ def _append_finger(
             "size": _fmt_vec(cfg.fingertip_size),
             "pos": f"0 {-sign * 0.004:.6f} -0.098000",
             "material": "robotiq_pad",
-        },
+        }
+        | _contact_attributes(cfg, cfg.pad_friction),
     )
 
 
@@ -220,7 +227,21 @@ def _replace_pos(config: Robotiq2F85LiteConfig, pos: Vec3) -> Robotiq2F85LiteCon
         fingertip_size=config.fingertip_size,
         rgba_dark=config.rgba_dark,
         rgba_pad=config.rgba_pad,
+        finger_friction=config.finger_friction,
+        pad_friction=config.pad_friction,
+        contact_condim=config.contact_condim,
+        contact_solref=config.contact_solref,
+        contact_solimp=config.contact_solimp,
     )
+
+
+def _contact_attributes(config: Robotiq2F85LiteConfig, friction: str) -> dict[str, str]:
+    return {
+        "friction": friction,
+        "condim": str(int(config.contact_condim)),
+        "solref": config.contact_solref,
+        "solimp": config.contact_solimp,
+    }
 
 
 def _relative_posix_path(path: Path, start: Path) -> str:

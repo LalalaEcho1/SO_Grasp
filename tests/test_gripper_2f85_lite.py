@@ -50,6 +50,27 @@ class Robotiq2F85LiteTests(unittest.TestCase):
         self.assertEqual(root_freejoint.attrib["name"], "robotiq_root_freejoint")
         self.assertEqual(list(body)[0].tag, "freejoint")
 
+    def test_build_gripper_body_adds_high_friction_contact_params_to_fingertips(self):
+        body = build_gripper_body(
+            Robotiq2F85LiteConfig(
+                pad_friction="4.0 0.08 0.005",
+                contact_condim=6,
+                contact_solref="0.004 1",
+                contact_solimp="0.95 0.99 0.001",
+            )
+        )
+
+        left_pad = body.find(".//geom[@name='robotiq_left_finger_pad']")
+        right_pad = body.find(".//geom[@name='robotiq_right_finger_pad']")
+
+        self.assertIsNotNone(left_pad)
+        self.assertIsNotNone(right_pad)
+        for pad in (left_pad, right_pad):
+            self.assertEqual(pad.attrib["friction"], "4.0 0.08 0.005")
+            self.assertEqual(pad.attrib["condim"], "6")
+            self.assertEqual(pad.attrib["solref"], "0.004 1")
+            self.assertEqual(pad.attrib["solimp"], "0.95 0.99 0.001")
+
     def test_attach_gripper_to_scene_xml_places_gripper_above_target_object(self):
         xml_text = attach_gripper_to_scene_xml(
             MINIMAL_SCENE,

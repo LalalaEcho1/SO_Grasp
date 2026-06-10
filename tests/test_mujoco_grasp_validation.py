@@ -68,7 +68,10 @@ class MujocoGraspValidationTests(unittest.TestCase):
         self.assertEqual(payload["target_body_name"], "target_box")
         self.assertEqual(payload["phase_step_count"], 13)
         self.assertIn("target_contact_step_count", payload)
+        self.assertIn("lift_contact_step_count", payload)
         self.assertIn("target_lift_delta_m", payload)
+        self.assertIn("max_target_lift_delta_m", payload)
+        self.assertIn("max_target_z", payload)
         self.assertGreater(payload["gripper_lift_delta_m"], 0.03)
         self.assertIsInstance(payload["lift_success"], bool)
 
