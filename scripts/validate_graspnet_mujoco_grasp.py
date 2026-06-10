@@ -19,8 +19,10 @@ if str(PROJECT_ROOT) not in sys.path:
 from stacked_grasping.gripper.candidate_io import load_graspnet_records  # noqa: E402
 from stacked_grasping.gripper.external_graspnet_data import AnnotationObject, GraspNetRealSenseSource, normalize_frame_id  # noqa: E402
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_outputs_to_candidates  # noqa: E402
+from stacked_grasping.gripper.graspnet_predictions import transform_graspnet_records  # noqa: E402
 from stacked_grasping.gripper.graspnet_mujoco_scene import (  # noqa: E402
     mujoco_body_name_for_annotation,
+    transform_annotation_objects,
     write_graspnet_mujoco_scene_xml,
 )
 from stacked_grasping.gripper.mujoco_grasp_validation import (  # noqa: E402
@@ -43,6 +45,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--camera", default="realsense")
     parser.add_argument("--mesh-file", default="textured.obj")
     parser.add_argument("--candidate-rank", type=int, default=0, help="0 selects the highest-score prediction.")
+    parser.add_argument("--no-align-to-table", dest="align_to_table", action="store_false", help="Keep raw camera-frame coordinates.")
+    parser.set_defaults(align_to_table=True)
     parser.add_argument("--settle-steps", type=int, default=20)
     parser.add_argument("--approach-steps", type=int, default=40)
     parser.add_argument("--close-steps", type=int, default=40)
@@ -67,6 +71,7 @@ def main() -> None:
         camera=args.camera,
         mesh_file=args.mesh_file,
         candidate_rank=args.candidate_rank,
+        align_to_table=args.align_to_table,
         validation_config=LiteGraspValidationConfig(
             settle_steps=args.settle_steps,
             approach_steps=args.approach_steps,
@@ -107,6 +112,7 @@ def validate_graspnet_mujoco_grasp(
     camera: str = "realsense",
     mesh_file: str = "textured.obj",
     candidate_rank: int = 0,
+    align_to_table: bool = True,
     validation_config: LiteGraspValidationConfig | None = None,
 ) -> dict[str, object]:
     frame_id = normalize_frame_id(frame)
@@ -126,8 +132,15 @@ def validate_graspnet_mujoco_grasp(
     if candidate_rank < 0 or candidate_rank >= len(records):
         raise ValueError(f"candidate_rank {candidate_rank} is out of range for {len(records)} candidates.")
 
+    align_transform = _load_table_alignment_transform(scene_root, scene, camera, frame_id) if align_to_table else None
+    if align_transform is not None:
+        annotations = transform_annotation_objects(annotations, align_transform)
+        records_for_candidates = transform_graspnet_records(records, align_transform)
+    else:
+        records_for_candidates = records
+
     selected_grasp = graspnet_outputs_to_candidates(
-        [records[candidate_rank]],
+        [records_for_candidates[candidate_rank]],
         generator="graspnet-dynamic-validation",
     )[0]
     target_annotation = select_target_annotation_for_grasp(annotations, selected_grasp)
@@ -158,11 +171,13 @@ def validate_graspnet_mujoco_grasp(
         "summary_path": str(summary_path),
         "candidate_rank": int(candidate_rank),
         "candidate_count": len(records),
+        "coordinate_frame": "table_aligned" if align_transform is not None else "camera",
         "selected_grasp_score": round(float(selected_grasp.score), 6),
         "selected_grasp_position": selected_grasp.position.round(6).tolist(),
         "selected_grasp_object_id": selected_grasp.object_id,
         "target_object_id": int(target_annotation.object_id),
         "target_object_name": target_annotation.name,
+        "target_position": np.asarray(target_annotation.position, dtype=float).round(6).tolist(),
         "target_body_name": target_body_name,
         "validation": validation.to_dict(),
     }
@@ -219,6 +234,22 @@ def _prediction_file_for_scene_frame(prediction_root: str | Path, scene: str, ca
             return candidate
     searched = "\n  ".join(str(path) for path in candidates)
     raise FileNotFoundError(f"No GraspNet prediction file found. Searched:\n  {searched}")
+
+
+def _load_table_alignment_transform(scene_root: str | Path, scene: str, camera: str, frame: str) -> np.ndarray:
+    camera_path = Path(scene_root) / scene / camera
+    if not camera_path.exists():
+        camera_path = Path(scene_root) / scene
+    camera_poses = np.load(camera_path / "camera_poses.npy")
+    align_mat = np.load(camera_path / "cam0_wrt_table.npy")
+    frame_index = int(frame)
+    if camera_poses.ndim != 3 or camera_poses.shape[1:] != (4, 4):
+        raise ValueError(f"camera_poses.npy under {camera_path} must have shape (N, 4, 4).")
+    if frame_index >= camera_poses.shape[0]:
+        raise ValueError(f"Frame {frame} is out of range for camera_poses with {camera_poses.shape[0]} frames.")
+    if align_mat.shape != (4, 4):
+        raise ValueError(f"cam0_wrt_table.npy under {camera_path} must have shape (4, 4).")
+    return np.asarray(align_mat, dtype=float) @ np.asarray(camera_poses[frame_index], dtype=float)
 
 
 if __name__ == "__main__":

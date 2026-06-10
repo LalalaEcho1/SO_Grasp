@@ -120,6 +120,28 @@ def mujoco_body_name_for_annotation(annotation: AnnotationObject) -> str:
     return f"obj_{int(annotation.object_id):03d}_{safe_stem}"
 
 
+def transform_annotation_objects(
+    annotation_objects: Sequence[AnnotationObject],
+    transform_matrix: np.ndarray,
+) -> list[AnnotationObject]:
+    transform = np.asarray(transform_matrix, dtype=float)
+    if transform.shape != (4, 4):
+        raise ValueError("transform_matrix must have shape (4, 4).")
+    rotation = transform[:3, :3]
+    translation = transform[:3, 3]
+    transformed: list[AnnotationObject] = []
+    for annotation in annotation_objects:
+        object_rotation = _quat_wxyz_to_rotation(annotation.orientation_quat_wxyz)
+        transformed.append(
+            replace(
+                annotation,
+                position=rotation @ np.asarray(annotation.position, dtype=float).reshape(3) + translation,
+                orientation_quat_wxyz=_rotation_matrix_to_quat_wxyz(rotation @ object_rotation),
+            )
+        )
+    return transformed
+
+
 def write_graspnet_mujoco_scene_xml(
     path: str | Path,
     annotation_objects: Sequence[AnnotationObject],
@@ -172,6 +194,79 @@ def _fmt_quat(values: Iterable[float]) -> str:
     else:
         quat = quat / norm
     return _fmt_vec(quat)
+
+
+def _quat_wxyz_to_rotation(values: Iterable[float]) -> np.ndarray:
+    w, x, y, z = _normalized_quat(values)
+    return np.array(
+        [
+            [1.0 - 2.0 * (y * y + z * z), 2.0 * (x * y - z * w), 2.0 * (x * z + y * w)],
+            [2.0 * (x * y + z * w), 1.0 - 2.0 * (x * x + z * z), 2.0 * (y * z - x * w)],
+            [2.0 * (x * z - y * w), 2.0 * (y * z + x * w), 1.0 - 2.0 * (x * x + y * y)],
+        ],
+        dtype=float,
+    )
+
+
+def _rotation_matrix_to_quat_wxyz(rotation: np.ndarray) -> np.ndarray:
+    matrix = np.asarray(rotation, dtype=float).reshape(3, 3)
+    trace = float(np.trace(matrix))
+    if trace > 0.0:
+        scale = np.sqrt(trace + 1.0) * 2.0
+        quat = np.array(
+            [
+                0.25 * scale,
+                (matrix[2, 1] - matrix[1, 2]) / scale,
+                (matrix[0, 2] - matrix[2, 0]) / scale,
+                (matrix[1, 0] - matrix[0, 1]) / scale,
+            ],
+            dtype=float,
+        )
+    else:
+        diag = np.diag(matrix)
+        axis = int(np.argmax(diag))
+        if axis == 0:
+            scale = np.sqrt(1.0 + matrix[0, 0] - matrix[1, 1] - matrix[2, 2]) * 2.0
+            quat = np.array(
+                [
+                    (matrix[2, 1] - matrix[1, 2]) / scale,
+                    0.25 * scale,
+                    (matrix[0, 1] + matrix[1, 0]) / scale,
+                    (matrix[0, 2] + matrix[2, 0]) / scale,
+                ],
+                dtype=float,
+            )
+        elif axis == 1:
+            scale = np.sqrt(1.0 + matrix[1, 1] - matrix[0, 0] - matrix[2, 2]) * 2.0
+            quat = np.array(
+                [
+                    (matrix[0, 2] - matrix[2, 0]) / scale,
+                    (matrix[0, 1] + matrix[1, 0]) / scale,
+                    0.25 * scale,
+                    (matrix[1, 2] + matrix[2, 1]) / scale,
+                ],
+                dtype=float,
+            )
+        else:
+            scale = np.sqrt(1.0 + matrix[2, 2] - matrix[0, 0] - matrix[1, 1]) * 2.0
+            quat = np.array(
+                [
+                    (matrix[1, 0] - matrix[0, 1]) / scale,
+                    (matrix[0, 2] + matrix[2, 0]) / scale,
+                    (matrix[1, 2] + matrix[2, 1]) / scale,
+                    0.25 * scale,
+                ],
+                dtype=float,
+            )
+    return _normalized_quat(quat)
+
+
+def _normalized_quat(values: Iterable[float]) -> np.ndarray:
+    quat = np.asarray(list(values), dtype=float).reshape(4)
+    norm = float(np.linalg.norm(quat))
+    if norm <= 1e-9:
+        return np.array([1.0, 0.0, 0.0, 0.0], dtype=float)
+    return quat / norm
 
 
 def _tuple3(values: Iterable[float]) -> tuple[float, float, float]:

@@ -78,6 +78,16 @@ def _write_prediction(prediction_root: Path, scene: str, frame: str) -> None:
     np.save(prediction_dir / f"{frame}.npy", row)
 
 
+def _write_alignment(scene_root: Path, scene: str) -> None:
+    realsense = scene_root / scene / "realsense"
+    realsense.mkdir(parents=True, exist_ok=True)
+    camera_poses = np.repeat(np.eye(4, dtype=np.float32)[None, :, :], 1, axis=0)
+    align = np.eye(4, dtype=np.float32)
+    align[:3, 3] = [0.1, 0.0, 0.2]
+    np.save(realsense / "camera_poses.npy", camera_poses)
+    np.save(realsense / "cam0_wrt_table.npy", align)
+
+
 class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
     def test_select_target_annotation_prefers_object_id_when_valid(self):
         annotations = [
@@ -118,6 +128,7 @@ class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
                 out_dir=out_dir,
                 scene="scene_0000",
                 frame="0000",
+                align_to_table=False,
                 validation_config=LiteGraspValidationConfig(
                     settle_steps=2,
                     approach_steps=2,
@@ -134,6 +145,39 @@ class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
             self.assertEqual(summary["target_object_id"], 0)
             self.assertEqual(summary["validation"]["compile_success"], True)
             self.assertIn("target_lift_delta_m", summary["validation"])
+
+    def test_validate_graspnet_mujoco_grasp_can_align_to_table_frame(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            scene_root = root / "scenes"
+            dataset_root = root / "graspnet"
+            prediction_root = root / "predictions"
+            out_dir = root / "results"
+            _write_cube_obj(dataset_root / "models" / "000" / "textured.obj")
+            _write_annotation(scene_root, "scene_0000", "0000")
+            _write_prediction(prediction_root, "scene_0000", "0000")
+            _write_alignment(scene_root, "scene_0000")
+
+            summary = validate_graspnet_mujoco_grasp(
+                scene_root=scene_root,
+                dataset_root=dataset_root,
+                prediction_root=prediction_root,
+                out_dir=out_dir,
+                scene="scene_0000",
+                frame="0000",
+                align_to_table=True,
+                validation_config=LiteGraspValidationConfig(
+                    settle_steps=0,
+                    approach_steps=0,
+                    close_steps=0,
+                    lift_steps=0,
+                    hold_steps=0,
+                ),
+            )
+
+        self.assertEqual(summary["coordinate_frame"], "table_aligned")
+        self.assertEqual(summary["selected_grasp_position"], [0.1, 0.0, 0.28])
+        self.assertEqual(summary["target_position"], [0.1, 0.0, 0.23])
 
     def test_script_help_runs(self):
         script = conftest.PROJECT_ROOT / "scripts" / "validate_graspnet_mujoco_grasp.py"
