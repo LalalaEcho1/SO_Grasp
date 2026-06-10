@@ -143,26 +143,32 @@ def _append_finger(
     ET.SubElement(
         finger,
         "geom",
-        {
-            "name": f"robotiq_{name}_finger_link",
-            "type": "box",
-            "size": _fmt_vec(cfg.finger_size),
-            "pos": "0 0 -0.045000",
-            "material": "robotiq_dark",
-        }
-        | _contact_attributes(cfg, cfg.finger_friction),
+        _with_contact_attributes(
+            {
+                "name": f"robotiq_{name}_finger_link",
+                "type": "box",
+                "size": _fmt_vec(cfg.finger_size),
+                "pos": "0 0 -0.045000",
+                "material": "robotiq_dark",
+            },
+            cfg,
+            cfg.finger_friction,
+        ),
     )
     ET.SubElement(
         finger,
         "geom",
-        {
-            "name": f"robotiq_{name}_finger_pad",
-            "type": "box",
-            "size": _fmt_vec(cfg.fingertip_size),
-            "pos": f"0 {-sign * 0.004:.6f} -0.098000",
-            "material": "robotiq_pad",
-        }
-        | _contact_attributes(cfg, cfg.pad_friction),
+        _with_contact_attributes(
+            {
+                "name": f"robotiq_{name}_finger_pad",
+                "type": "box",
+                "size": _fmt_vec(cfg.fingertip_size),
+                "pos": f"0 {-sign * 0.004:.6f} -0.098000",
+                "material": "robotiq_pad",
+            },
+            cfg,
+            cfg.pad_friction,
+        ),
     )
 
 
@@ -242,6 +248,16 @@ def _contact_attributes(config: Robotiq2F85LiteConfig, friction: str) -> dict[st
         "solref": config.contact_solref,
         "solimp": config.contact_solimp,
     }
+
+
+def _with_contact_attributes(
+    attributes: dict[str, str],
+    config: Robotiq2F85LiteConfig,
+    friction: str,
+) -> dict[str, str]:
+    merged = dict(attributes)
+    merged.update(_contact_attributes(config, friction))
+    return merged
 
 
 def _relative_posix_path(path: Path, start: Path) -> str:
