@@ -14,6 +14,7 @@ QuatWxyz = Tuple[float, float, float, float]
 class Robotiq2F85LiteConfig:
     pos: Vec3 = (0.0, 0.0, 0.85)
     quat: QuatWxyz | None = None
+    include_freejoint: bool = False
     opening: float = 0.085
     approach_height: float = 0.20
     palm_size: Vec3 = (0.055, 0.020, 0.018)
@@ -29,6 +30,8 @@ def build_gripper_body(config: Robotiq2F85LiteConfig | None = None) -> ET.Elemen
     if cfg.quat is not None:
         attributes["quat"] = _fmt_vec(cfg.quat)
     body = ET.Element("body", attributes)
+    if cfg.include_freejoint:
+        ET.SubElement(body, "freejoint", {"name": "robotiq_root_freejoint"})
 
     ET.SubElement(
         body,
@@ -209,6 +212,7 @@ def _replace_pos(config: Robotiq2F85LiteConfig, pos: Vec3) -> Robotiq2F85LiteCon
     return Robotiq2F85LiteConfig(
         pos=pos,
         quat=config.quat,
+        include_freejoint=config.include_freejoint,
         opening=config.opening,
         approach_height=config.approach_height,
         palm_size=config.palm_size,

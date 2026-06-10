@@ -41,6 +41,15 @@ class Robotiq2F85LiteTests(unittest.TestCase):
         self.assertIsNotNone(body.find(".//joint[@name='robotiq_left_slide']"))
         self.assertIsNotNone(body.find(".//joint[@name='robotiq_right_slide']"))
 
+    def test_build_gripper_body_can_include_root_freejoint_for_dynamic_validation(self):
+        body = build_gripper_body(Robotiq2F85LiteConfig(include_freejoint=True))
+
+        root_freejoint = body.find("freejoint")
+
+        self.assertIsNotNone(root_freejoint)
+        self.assertEqual(root_freejoint.attrib["name"], "robotiq_root_freejoint")
+        self.assertEqual(list(body)[0].tag, "freejoint")
+
     def test_attach_gripper_to_scene_xml_places_gripper_above_target_object(self):
         xml_text = attach_gripper_to_scene_xml(
             MINIMAL_SCENE,
