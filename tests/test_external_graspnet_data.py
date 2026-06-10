@@ -147,7 +147,9 @@ class ExternalGraspNetDataTests(unittest.TestCase):
             <obj>
                 <obj_id>0</obj_id>
                 <obj_name>003_cracker_box.ply</obj_name>
+                <obj_path>models/003_cracker_box.ply</obj_path>
                 <pos_in_world>0.1 0.2 0.3</pos_in_world>
+                <ori_in_world>0.5 0.5 0.5 0.5</ori_in_world>
             </obj>
             <obj>
                 <obj_id>14</obj_id>
@@ -162,6 +164,9 @@ class ExternalGraspNetDataTests(unittest.TestCase):
         self.assertEqual([obj.object_id for obj in objects], [0, 14])
         self.assertEqual([obj.label_id for obj in objects], [1, 15])
         self.assertEqual(objects[0].name, "003_cracker_box.ply")
+        self.assertEqual(objects[0].model_path, "models/003_cracker_box.ply")
+        np.testing.assert_allclose(objects[0].orientation_quat_wxyz, np.array([0.5, 0.5, 0.5, 0.5]))
+        np.testing.assert_allclose(objects[1].orientation_quat_wxyz, np.array([1.0, 0.0, 0.0, 0.0]))
         np.testing.assert_allclose(objects[1].position, np.array([-0.1, 0.0, 0.4]))
 
     def test_assess_single_view_od_sufficiency_reports_hidden_and_unobservable_pairs(self):

@@ -3,7 +3,7 @@ from __future__ import annotations
 import io
 import zipfile
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from itertools import combinations
 from pathlib import Path, PurePosixPath
 from typing import Iterable, Sequence
@@ -38,6 +38,8 @@ class AnnotationObject:
     label_id: int
     name: str
     position: np.ndarray
+    model_path: str | None = None
+    orientation_quat_wxyz: np.ndarray = field(default_factory=lambda: np.array([1.0, 0.0, 0.0, 0.0], dtype=float))
 
 
 class GraspNetRealSenseSource:
@@ -211,15 +213,19 @@ def parse_graspnet_annotation_xml(xml_text: str) -> list[AnnotationObject]:
     for obj_node in root.findall("obj"):
         object_id = int(_required_text(obj_node, "obj_id"))
         name = _optional_text(obj_node, "obj_name", default=f"object_{object_id}")
+        model_path = _optional_text(obj_node, "obj_path", default=None)
         position = np.fromstring(_required_text(obj_node, "pos_in_world"), sep=" ", dtype=float)
         if position.shape != (3,):
             raise ValueError(f"Annotation object {object_id} pos_in_world must contain 3 values.")
+        orientation = _parse_annotation_quat_wxyz(obj_node, object_id)
         objects.append(
             AnnotationObject(
                 object_id=object_id,
                 label_id=object_id + 1,
                 name=name,
                 position=position,
+                model_path=model_path,
+                orientation_quat_wxyz=orientation,
             )
         )
     return objects
@@ -396,11 +402,24 @@ def _required_text(node: ET.Element, child_name: str) -> str:
     return text
 
 
-def _optional_text(node: ET.Element, child_name: str, *, default: str) -> str:
+def _optional_text(node: ET.Element, child_name: str, *, default: str | None) -> str | None:
     child = node.find(child_name)
     if child is None or child.text is None:
         return default
     return child.text.strip()
+
+
+def _parse_annotation_quat_wxyz(node: ET.Element, object_id: int) -> np.ndarray:
+    raw = _optional_text(node, "ori_in_world", default="")
+    if raw == "":
+        return np.array([1.0, 0.0, 0.0, 0.0], dtype=float)
+    quat = np.fromstring(raw, sep=" ", dtype=float)
+    if quat.shape != (4,):
+        raise ValueError(f"Annotation object {object_id} ori_in_world must contain 4 values.")
+    norm = float(np.linalg.norm(quat))
+    if norm <= 1e-9:
+        raise ValueError(f"Annotation object {object_id} ori_in_world must be a non-zero quaternion.")
+    return quat / norm
 
 
 def _ensure_rgb(color: np.ndarray) -> np.ndarray:

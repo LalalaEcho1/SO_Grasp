@@ -7,11 +7,13 @@ import xml.etree.ElementTree as ET
 
 
 Vec3 = Tuple[float, float, float]
+QuatWxyz = Tuple[float, float, float, float]
 
 
 @dataclass(frozen=True)
 class Robotiq2F85LiteConfig:
     pos: Vec3 = (0.0, 0.0, 0.85)
+    quat: QuatWxyz | None = None
     opening: float = 0.085
     approach_height: float = 0.20
     palm_size: Vec3 = (0.055, 0.020, 0.018)
@@ -23,7 +25,10 @@ class Robotiq2F85LiteConfig:
 
 def build_gripper_body(config: Robotiq2F85LiteConfig | None = None) -> ET.Element:
     cfg = config or Robotiq2F85LiteConfig()
-    body = ET.Element("body", {"name": "robotiq_2f85_lite", "pos": _fmt_vec(cfg.pos)})
+    attributes = {"name": "robotiq_2f85_lite", "pos": _fmt_vec(cfg.pos)}
+    if cfg.quat is not None:
+        attributes["quat"] = _fmt_vec(cfg.quat)
+    body = ET.Element("body", attributes)
 
     ET.SubElement(
         body,
@@ -203,6 +208,7 @@ def _fmt_vec(values: Iterable[float]) -> str:
 def _replace_pos(config: Robotiq2F85LiteConfig, pos: Vec3) -> Robotiq2F85LiteConfig:
     return Robotiq2F85LiteConfig(
         pos=pos,
+        quat=config.quat,
         opening=config.opening,
         approach_height=config.approach_height,
         palm_size=config.palm_size,
