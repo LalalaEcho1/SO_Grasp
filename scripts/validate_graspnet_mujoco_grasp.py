@@ -22,6 +22,7 @@ from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_out
 from stacked_grasping.gripper.graspnet_predictions import transform_graspnet_records  # noqa: E402
 from stacked_grasping.gripper.graspnet_mujoco_scene import (  # noqa: E402
     mujoco_body_name_for_annotation,
+    robotiq_lite_config_from_graspnet_candidate,
     transform_annotation_objects,
     write_graspnet_mujoco_scene_xml,
 )
@@ -29,7 +30,6 @@ from stacked_grasping.gripper.mujoco_grasp_validation import (  # noqa: E402
     LiteGraspValidationConfig,
     validate_lite_grasp_xml,
 )
-from stacked_grasping.gripper.robotiq_2f85_lite import Robotiq2F85LiteConfig  # noqa: E402
 
 
 def parse_args() -> argparse.Namespace:
@@ -151,7 +151,8 @@ def validate_graspnet_mujoco_grasp(
         annotations,
         dataset_root=dataset_root,
         selected_grasp=selected_grasp,
-        gripper_config=Robotiq2F85LiteConfig(include_freejoint=True),
+        gripper_config=robotiq_lite_config_from_graspnet_candidate(selected_grasp, include_freejoint=True),
+        selected_grasp_controls_gripper_pose=False,
         mesh_file=mesh_file,
     )
     validation = validate_lite_grasp_xml(

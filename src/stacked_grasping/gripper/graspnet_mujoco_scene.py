@@ -51,6 +51,7 @@ def build_graspnet_mujoco_scene_xml(
     output_path: str | Path | None = None,
     selected_grasp: GraspPoseCandidate | None = None,
     gripper_config: Robotiq2F85LiteConfig | None = None,
+    selected_grasp_controls_gripper_pose: bool = True,
     include_freejoints: bool = True,
     mesh_file: str = DEFAULT_MESH_FILE,
 ) -> str:
@@ -103,11 +104,14 @@ def build_graspnet_mujoco_scene_xml(
 
     if selected_grasp is not None:
         cfg = gripper_config or Robotiq2F85LiteConfig()
-        gripper_cfg = replace(
-            cfg,
-            pos=_tuple3(selected_grasp.position),
-            quat=_tuple4(selected_grasp.orientation_quat_wxyz),
-        )
+        if selected_grasp_controls_gripper_pose:
+            gripper_cfg = replace(
+                cfg,
+                pos=_tuple3(selected_grasp.position),
+                quat=_tuple4(selected_grasp.orientation_quat_wxyz),
+            )
+        else:
+            gripper_cfg = cfg
         worldbody.append(build_gripper_body(gripper_cfg))
 
     _indent(root)
@@ -142,6 +146,36 @@ def transform_annotation_objects(
     return transformed
 
 
+def robotiq_lite_config_from_graspnet_candidate(
+    grasp: GraspPoseCandidate,
+    *,
+    include_freejoint: bool = False,
+    opening_margin: float = 0.01,
+    max_opening: float = 0.085,
+    min_opening: float = 0.02,
+    grasp_center_local: tuple[float, float, float] = (0.0, 0.0, -0.143),
+) -> Robotiq2F85LiteConfig:
+    grasp_rotation = _quat_wxyz_to_rotation(grasp.orientation_quat_wxyz)
+    approach = _normalized(np.asarray(grasp.approach_direction, dtype=float).reshape(3))
+    if float(np.linalg.norm(approach)) <= 1e-9:
+        approach = _normalized(grasp_rotation[:, 0])
+    closing = grasp_rotation[:, 1] - approach * float(np.dot(grasp_rotation[:, 1], approach))
+    closing = _normalized(closing)
+    if float(np.linalg.norm(closing)) <= 1e-9:
+        closing = _any_perpendicular(approach)
+    span = _normalized(np.cross(approach, closing))
+    body_rotation = np.column_stack((span, closing, -approach))
+    local_grasp_center = np.asarray(grasp_center_local, dtype=float).reshape(3)
+    body_position = np.asarray(grasp.position, dtype=float).reshape(3) - body_rotation @ local_grasp_center
+    opening = min(max(float(grasp.required_opening) + float(opening_margin), float(min_opening)), float(max_opening))
+    return Robotiq2F85LiteConfig(
+        pos=_tuple3(body_position),
+        quat=_tuple4(_rotation_matrix_to_quat_wxyz(body_rotation)),
+        include_freejoint=include_freejoint,
+        opening=opening,
+    )
+
+
 def write_graspnet_mujoco_scene_xml(
     path: str | Path,
     annotation_objects: Sequence[AnnotationObject],
@@ -149,6 +183,7 @@ def write_graspnet_mujoco_scene_xml(
     dataset_root: str | Path,
     selected_grasp: GraspPoseCandidate | None = None,
     gripper_config: Robotiq2F85LiteConfig | None = None,
+    selected_grasp_controls_gripper_pose: bool = True,
     include_freejoints: bool = True,
     mesh_file: str = DEFAULT_MESH_FILE,
 ) -> Path:
@@ -160,6 +195,7 @@ def write_graspnet_mujoco_scene_xml(
         output_path=output,
         selected_grasp=selected_grasp,
         gripper_config=gripper_config,
+        selected_grasp_controls_gripper_pose=selected_grasp_controls_gripper_pose,
         include_freejoints=include_freejoints,
         mesh_file=mesh_file,
     )
@@ -280,6 +316,22 @@ def _tuple4(values: Iterable[float]) -> tuple[float, float, float, float]:
     if norm > 1e-9:
         array = array / norm
     return (float(array[0]), float(array[1]), float(array[2]), float(array[3]))
+
+
+def _normalized(vector: np.ndarray) -> np.ndarray:
+    arr = np.asarray(vector, dtype=float)
+    norm = float(np.linalg.norm(arr))
+    if norm <= 1e-9:
+        return np.zeros_like(arr)
+    return arr / norm
+
+
+def _any_perpendicular(axis: np.ndarray) -> np.ndarray:
+    vector = _normalized(np.asarray(axis, dtype=float))
+    reference = np.array([1.0, 0.0, 0.0], dtype=float)
+    if abs(float(np.dot(vector, reference))) > 0.9:
+        reference = np.array([0.0, 1.0, 0.0], dtype=float)
+    return _normalized(np.cross(vector, reference))
 
 
 def _indent(elem: ET.Element, level: int = 0) -> None:

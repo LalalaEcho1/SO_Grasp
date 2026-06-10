@@ -14,6 +14,7 @@ from stacked_grasping.gripper.graspnet_mujoco_scene import (
     build_graspnet_mujoco_scene_xml,
     mujoco_body_name_for_annotation,
     resolve_graspnet_model_mesh,
+    robotiq_lite_config_from_graspnet_candidate,
 )
 
 
@@ -112,6 +113,39 @@ class GraspNetMujocoSceneTests(unittest.TestCase):
         self.assertEqual(gripper.attrib["pos"], "0.110000 0.210000 0.510000")
         self.assertEqual(gripper.attrib["quat"], "0.000000 0.000000 0.000000 1.000000")
 
+    def test_robotiq_lite_config_from_graspnet_candidate_maps_graspnet_axes_to_lite_geometry(self):
+        candidate = GraspPoseCandidate(
+            object_name="box",
+            generator="graspnet",
+            position=np.array([0.1, 0.2, 0.3]),
+            pregrasp_position=np.array([0.0, 0.2, 0.3]),
+            approach_direction=np.array([1.0, 0.0, 0.0]),
+            closing_axis="6d",
+            orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+            required_opening=0.04,
+        )
+
+        config = robotiq_lite_config_from_graspnet_candidate(candidate, include_freejoint=True)
+
+        self.assertTrue(config.include_freejoint)
+        self.assertAlmostEqual(config.opening, 0.05)
+        np.testing.assert_allclose(config.pos, np.array([-0.043, 0.2, 0.3]), atol=1e-6)
+        rotation = _quat_wxyz_to_rotation_for_test(config.quat)
+        np.testing.assert_allclose(rotation[:, 1], np.array([0.0, 1.0, 0.0]), atol=1e-6)
+        np.testing.assert_allclose(-rotation[:, 2], np.array([1.0, 0.0, 0.0]), atol=1e-6)
+
 
 if __name__ == "__main__":
     unittest.main()
+
+
+def _quat_wxyz_to_rotation_for_test(quat: np.ndarray | tuple[float, float, float, float]) -> np.ndarray:
+    w, x, y, z = np.asarray(quat, dtype=float)
+    return np.array(
+        [
+            [1.0 - 2.0 * (y * y + z * z), 2.0 * (x * y - z * w), 2.0 * (x * z + y * w)],
+            [2.0 * (x * y + z * w), 1.0 - 2.0 * (x * x + z * z), 2.0 * (y * z - x * w)],
+            [2.0 * (x * z - y * w), 2.0 * (y * z + x * w), 1.0 - 2.0 * (x * x + y * y)],
+        ],
+        dtype=float,
+    )
