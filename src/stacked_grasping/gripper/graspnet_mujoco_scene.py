@@ -161,7 +161,7 @@ def robotiq_lite_config_from_graspnet_candidate(
     grasp: GraspPoseCandidate,
     *,
     include_freejoint: bool = False,
-    opening_margin: float = 0.01,
+    opening_margin: float = 0.004,
     max_opening: float = 0.085,
     min_opening: float = 0.02,
     grasp_center_local: tuple[float, float, float] = (0.0, 0.0, -0.143),

@@ -47,6 +47,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--candidate-rank", type=int, default=0, help="0 selects the highest-score prediction.")
     parser.add_argument("--no-align-to-table", dest="align_to_table", action="store_false", help="Keep raw camera-frame coordinates.")
     parser.set_defaults(align_to_table=True)
+    parser.add_argument("--gripper-opening-margin", type=float, default=0.004)
     parser.add_argument("--settle-steps", type=int, default=20)
     parser.add_argument("--approach-steps", type=int, default=40)
     parser.add_argument("--close-steps", type=int, default=40)
@@ -72,6 +73,7 @@ def main() -> None:
         mesh_file=args.mesh_file,
         candidate_rank=args.candidate_rank,
         align_to_table=args.align_to_table,
+        gripper_opening_margin=args.gripper_opening_margin,
         validation_config=LiteGraspValidationConfig(
             settle_steps=args.settle_steps,
             approach_steps=args.approach_steps,
@@ -113,6 +115,7 @@ def validate_graspnet_mujoco_grasp(
     mesh_file: str = "textured.obj",
     candidate_rank: int = 0,
     align_to_table: bool = True,
+    gripper_opening_margin: float = 0.004,
     validation_config: LiteGraspValidationConfig | None = None,
 ) -> dict[str, object]:
     frame_id = normalize_frame_id(frame)
@@ -151,7 +154,11 @@ def validate_graspnet_mujoco_grasp(
         annotations,
         dataset_root=dataset_root,
         selected_grasp=selected_grasp,
-        gripper_config=robotiq_lite_config_from_graspnet_candidate(selected_grasp, include_freejoint=True),
+        gripper_config=robotiq_lite_config_from_graspnet_candidate(
+            selected_grasp,
+            include_freejoint=True,
+            opening_margin=gripper_opening_margin,
+        ),
         selected_grasp_controls_gripper_pose=False,
         mesh_file=mesh_file,
     )
@@ -173,6 +180,7 @@ def validate_graspnet_mujoco_grasp(
         "candidate_rank": int(candidate_rank),
         "candidate_count": len(records),
         "coordinate_frame": "table_aligned" if align_transform is not None else "camera",
+        "gripper_opening_margin": round(float(gripper_opening_margin), 6),
         "selected_grasp_score": round(float(selected_grasp.score), 6),
         "selected_grasp_position": selected_grasp.position.round(6).tolist(),
         "selected_grasp_object_id": selected_grasp.object_id,

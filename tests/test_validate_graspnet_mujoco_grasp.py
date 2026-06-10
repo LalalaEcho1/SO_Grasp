@@ -191,6 +191,7 @@ class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
 
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--lift-distance", result.stdout)
+        self.assertIn("--gripper-opening-margin", result.stdout)
 
 
 if __name__ == "__main__":

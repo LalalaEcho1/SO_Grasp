@@ -134,7 +134,7 @@ class GraspNetMujocoSceneTests(unittest.TestCase):
         config = robotiq_lite_config_from_graspnet_candidate(candidate, include_freejoint=True)
 
         self.assertTrue(config.include_freejoint)
-        self.assertAlmostEqual(config.opening, 0.05)
+        self.assertAlmostEqual(config.opening, 0.044)
         np.testing.assert_allclose(config.pos, np.array([-0.043, 0.2, 0.3]), atol=1e-6)
         rotation = _quat_wxyz_to_rotation_for_test(config.quat)
         np.testing.assert_allclose(rotation[:, 1], np.array([0.0, 1.0, 0.0]), atol=1e-6)
