@@ -541,6 +541,7 @@ def _od_pointcloud_compact_score(candidate: dict) -> float:
     opening_penalty = min(opening_over_limit / 0.02, 1.0)
     feasible_bonus = 0.05 if bool(candidate.get("pointcloud_feasible")) else 0.0
     high_risk_penalty = 0.30 if bool(candidate.get("object_high_risk")) else 0.0
+    binding_penalty = 0.70 if _has_unbound_status(candidate) else 0.0
     return (
         0.20 * score
         + 0.60 * object_score
@@ -549,7 +550,13 @@ def _od_pointcloud_compact_score(candidate: dict) -> float:
         - 0.50 * collision_iou
         - 0.50 * opening_penalty
         - high_risk_penalty
+        - binding_penalty
     )
+
+
+def _has_unbound_status(candidate: dict) -> bool:
+    status = candidate.get("binding_status")
+    return status is not None and str(status) != "bound"
 
 
 def _mean(values: Sequence[float]) -> float | None:

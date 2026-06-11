@@ -199,6 +199,33 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertEqual(selected["candidate_rank"], 1)
         self.assertEqual(selected["target_object_id"], 2)
 
+    def test_choose_od_pointcloud_compact_candidate_penalizes_unbound_candidate(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.50, success=True, pointcloud_feasible=True),
+            _candidate(1, target_id=2, score=0.50, success=False, pointcloud_feasible=False),
+        ]
+        candidates[0].update(
+            {
+                "binding_status": "bound",
+                "pointcloud_empty_ratio": 0.20,
+                "object_adaptive_v2_score_norm": 0.40,
+                "object_high_risk": False,
+            }
+        )
+        candidates[1].update(
+            {
+                "binding_status": "binding-background",
+                "pointcloud_empty_ratio": 0.10,
+                "object_adaptive_v2_score_norm": 1.00,
+                "object_high_risk": False,
+            }
+        )
+
+        selected = choose_od_pointcloud_compact_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 0)
+        self.assertEqual(selected["target_object_id"], 1)
+
     def test_analyze_dynamic_topk_rerank_reports_policy_success_rates(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
