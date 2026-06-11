@@ -201,8 +201,15 @@ def compute_frame_pointcloud_features(
     features: dict[int, dict[str, object]] = {}
     for rank, diagnostic in zip(selected_ranks, diagnostics):
         binding = bindings[rank]
+        record = records[rank]
+        grasp_width = float(record.get("width", 0.0))
         pointcloud_feasible = bool(binding.status == "bound" and diagnostic.feasible)
         features[rank] = {
+            "grasp_width_m": round(grasp_width, 6),
+            "grasp_height_m": _rounded_or_none(float(record["height"])) if "height" in record else None,
+            "grasp_depth_m": _rounded_or_none(float(record["depth"])) if "depth" in record else None,
+            "opening_limit_m": round(float(pointcloud_config.max_opening), 6),
+            "opening_over_limit_m": round(max(0.0, grasp_width - float(pointcloud_config.max_opening)), 6),
             "binding_status": binding.status,
             "binding_pixel": list(binding.pixel) if binding.pixel is not None else None,
             "binding_label_id": binding.label_id,
@@ -226,6 +233,7 @@ def aggregate_candidate_features(rows: Sequence[dict[str, object]]) -> dict[str,
     candidate_count = len(rows)
     bound_count = sum(1 for row in rows if row.get("binding_status") == "bound")
     feasible_count = sum(1 for row in rows if row.get("pointcloud_feasible"))
+    opening_exceeded_count = sum(1 for row in rows if _float_value(row.get("opening_over_limit_m")) > 0.0)
     return {
         "frame_count": len({(row.get("scene"), row.get("frame")) for row in rows}),
         "candidate_count": candidate_count,
@@ -233,6 +241,8 @@ def aggregate_candidate_features(rows: Sequence[dict[str, object]]) -> dict[str,
         "bound_ratio": _rate(bound_count, candidate_count),
         "pointcloud_feasible_count": feasible_count,
         "pointcloud_feasible_ratio": _rate(feasible_count, candidate_count),
+        "opening_exceeded_count": opening_exceeded_count,
+        "opening_exceeded_ratio": _rate(opening_exceeded_count, candidate_count),
     }
 
 
@@ -248,6 +258,11 @@ def write_candidate_features_csv(path: Path, rows: Sequence[dict[str, object]]) 
         "target_object_name",
         "lift_success",
         "failure_reason",
+        "grasp_width_m",
+        "grasp_height_m",
+        "grasp_depth_m",
+        "opening_limit_m",
+        "opening_over_limit_m",
         "binding_status",
         "binding_label_id",
         "binding_object_id",
@@ -291,6 +306,12 @@ def _rate(count: int, total: int) -> float | None:
 
 def _rounded_or_none(value: float | None) -> float | None:
     return None if value is None else round(float(value), 6)
+
+
+def _float_value(value: object, *, default: float = 0.0) -> float:
+    if value is None:
+        return default
+    return float(value)
 
 
 def _csv_value(value: object) -> object:

@@ -123,9 +123,15 @@ class ExportGraspNetDynamicTopKPointCloudFeaturesTests(unittest.TestCase):
             candidate = enriched["frame_results"][0]["candidate_results"][0]
             self.assertEqual(candidate["binding_status"], "bound")
             self.assertEqual(candidate["binding_object_id"], 0)
+            self.assertAlmostEqual(candidate["grasp_width_m"], 0.04)
+            self.assertAlmostEqual(candidate["opening_limit_m"], 0.085)
+            self.assertAlmostEqual(candidate["opening_over_limit_m"], 0.0)
             self.assertIn("pointcloud_feasible", candidate)
             self.assertIn("pointcloud_collision_iou", candidate)
             self.assertIn("pointcloud_empty_ratio", candidate)
+            aggregate = enriched["pointcloud_feature_aggregate"]
+            self.assertEqual(aggregate["opening_exceeded_count"], 0)
+            self.assertEqual(aggregate["opening_exceeded_ratio"], 0.0)
             self.assertTrue((out_dir / "dynamic_topk_pointcloud_features_summary.json").exists())
             self.assertTrue((out_dir / "dynamic_topk_pointcloud_features_candidates.csv").exists())
 
