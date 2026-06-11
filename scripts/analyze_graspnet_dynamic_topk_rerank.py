@@ -7,7 +7,7 @@ import sys
 from collections import Counter, defaultdict
 from datetime import datetime
 from pathlib import Path
-from typing import Callable, Sequence
+from typing import Callable, Mapping, Sequence
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -17,8 +17,14 @@ if str(SRC_ROOT) not in sys.path:
 if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
+from stacked_grasping.gripper.external_graspnet_data import GraspNetRealSenseSource, RealSenseFrame  # noqa: E402
+from stacked_grasping.gripper.external_graspnet_scene import build_external_graspnet_episode_inputs  # noqa: E402
+from stacked_grasping.planning.adaptive_score_v2 import rank_objects_v2  # noqa: E402
+from stacked_grasping.relations.graph import build_relation_graph  # noqa: E402
+
 
 PolicyFn = Callable[[Sequence[dict]], object]
+ObjectPriorProvider = Callable[[dict], Mapping[str, Mapping[str, object]]]
 
 
 POLICY_ORDER = (
@@ -29,6 +35,7 @@ POLICY_ORDER = (
     "pointcloud-feasible-score",
     "pointcloud-soft-score",
     "pointcloud-low-collision",
+    "od-pointcloud-compact",
 )
 
 
@@ -38,6 +45,13 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--summary", type=Path, required=True, help="Path to split_dynamic_topk_summary.json.")
     parser.add_argument("--out-dir", type=Path, help="Defaults to <summary parent>/rerank_analysis.")
+    parser.add_argument("--scene-root", type=Path, help="Optional GraspNet scenes root used to attach OD object priors.")
+    parser.add_argument("--camera", default="realsense")
+    parser.add_argument("--factor-depth", type=int, default=1000)
+    parser.add_argument("--min-points-per-object", type=int, default=20)
+    parser.add_argument("--min-half-extent", type=float, default=0.01)
+    parser.add_argument("--object-padding", type=float, default=0.002)
+    parser.add_argument("--min-boundary-pixels", type=int, default=50)
     parser.add_argument("--no-save", action="store_true", help="Run analysis without writing JSON/CSV outputs.")
     parser.add_argument("--json", action="store_true")
     return parser.parse_args()
@@ -45,10 +59,24 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     args = parse_args()
+    object_prior_provider = (
+        build_external_graspnet_object_prior_provider(
+            scene_root=args.scene_root,
+            camera=args.camera,
+            factor_depth=args.factor_depth,
+            min_points_per_object=args.min_points_per_object,
+            min_half_extent=args.min_half_extent,
+            object_padding=args.object_padding,
+            min_boundary_pixels=args.min_boundary_pixels,
+        )
+        if args.scene_root is not None
+        else None
+    )
     summary = analyze_dynamic_topk_rerank(
         summary_path=args.summary,
         out_dir=args.out_dir or args.summary.parent / "rerank_analysis",
         save_outputs=not args.no_save,
+        object_prior_provider=object_prior_provider,
     )
     if args.json:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -68,6 +96,7 @@ def analyze_dynamic_topk_rerank(
     summary_path: str | Path,
     out_dir: str | Path,
     save_outputs: bool = True,
+    object_prior_provider: ObjectPriorProvider | None = None,
 ) -> dict[str, object]:
     source = Path(summary_path)
     topk_summary = json.loads(source.read_text(encoding="utf-8"))
@@ -82,6 +111,8 @@ def analyze_dynamic_topk_rerank(
             [dict(candidate) for candidate in frame.get("candidate_results", [])],
             key=lambda item: int(item.get("candidate_rank", 10**6)),
         )
+        if object_prior_provider is not None:
+            attach_object_prior_features(candidates, object_prior_provider(frame))
         for candidate in candidates:
             candidate_rows.append(candidate_label_row(frame, candidate))
         for policy_name, policy_fn in _policy_functions().items():
@@ -192,6 +223,116 @@ def choose_pointcloud_low_collision_candidate(candidates: Sequence[dict]) -> dic
     )
 
 
+def choose_od_pointcloud_compact_candidate(candidates: Sequence[dict]) -> dict | None:
+    if not candidates:
+        return None
+    return max(candidates, key=lambda item: (_od_pointcloud_compact_score(item), -_rank(item)))
+
+
+def attach_object_prior_features(
+    candidates: Sequence[dict],
+    prior_by_object: Mapping[str, Mapping[str, object]],
+) -> None:
+    for candidate in candidates:
+        prior = prior_by_object.get(str(candidate.get("target_object_name")))
+        if prior is not None:
+            candidate.update(dict(prior))
+
+
+def build_external_graspnet_object_prior_provider(
+    *,
+    scene_root: str | Path,
+    camera: str = "realsense",
+    factor_depth: int = 1000,
+    min_points_per_object: int = 20,
+    min_half_extent: float = 0.01,
+    object_padding: float = 0.002,
+    min_boundary_pixels: int = 50,
+) -> ObjectPriorProvider:
+    root = Path(scene_root)
+    cache: dict[tuple[str, str], dict[str, dict[str, object]]] = {}
+
+    def provider(frame_result: dict) -> Mapping[str, Mapping[str, object]]:
+        scene = str(frame_result["scene"])
+        frame_id = str(frame_result["frame"])
+        key = (scene, frame_id)
+        if key not in cache:
+            cache[key] = compute_external_graspnet_object_priors(
+                scene_root=root,
+                scene=scene,
+                frame=frame_id,
+                camera=camera,
+                factor_depth=factor_depth,
+                min_points_per_object=min_points_per_object,
+                min_half_extent=min_half_extent,
+                object_padding=object_padding,
+                min_boundary_pixels=min_boundary_pixels,
+            )
+        return cache[key]
+
+    return provider
+
+
+def compute_external_graspnet_object_priors(
+    *,
+    scene_root: Path,
+    scene: str,
+    frame: str,
+    camera: str,
+    factor_depth: int,
+    min_points_per_object: int,
+    min_half_extent: float,
+    object_padding: float,
+    min_boundary_pixels: int,
+) -> dict[str, dict[str, object]]:
+    source_path = scene_root / scene / camera
+    if not source_path.is_dir():
+        source_path = scene_root / scene
+    with GraspNetRealSenseSource.open(source_path) as source:
+        loaded = source.load_frame(frame)
+        real_frame = RealSenseFrame(
+            frame=loaded.frame,
+            color=loaded.color,
+            depth_raw=loaded.depth_raw,
+            label=loaded.label,
+            intrinsic_matrix=loaded.intrinsic_matrix,
+            camera_pose=loaded.camera_pose,
+            cam0_wrt_table=loaded.cam0_wrt_table,
+            factor_depth=factor_depth,
+        )
+        annotations = source.load_annotation_objects(real_frame.frame)
+
+    episode_inputs = build_external_graspnet_episode_inputs(
+        real_frame,
+        annotations,
+        [],
+        min_points_per_object=min_points_per_object,
+        min_half_extent=min_half_extent,
+        padding=object_padding,
+        min_boundary_pixels=min_boundary_pixels,
+    )
+    graph = build_relation_graph(
+        episode_inputs.scene.read_objects(),
+        episode_inputs.scene.read_object_contact_pairs(),
+    )
+    ranking = rank_objects_v2(graph)
+    raw_scores = [float(item.adaptive_v2_score) for item in ranking]
+    min_score = min(raw_scores) if raw_scores else 0.0
+    max_score = max(raw_scores) if raw_scores else 1.0
+    span = max(max_score - min_score, 1e-9)
+    return {
+        item.name: {
+            "object_rank": index,
+            "object_adaptive_v2_score": round(float(item.adaptive_v2_score), 6),
+            "object_adaptive_v2_score_norm": round((float(item.adaptive_v2_score) - min_score) / span, 6),
+            "object_grasp_risk": round(float(item.grasp_risk), 6),
+            "object_high_risk": bool(item.high_risk),
+            "object_height_priority": round(float(item.height_priority), 6),
+        }
+        for index, item in enumerate(ranking)
+    }
+
+
 def policy_result_row(frame: dict, selected: dict | None, policy_name: str) -> dict[str, object]:
     return {
         "policy": policy_name,
@@ -216,6 +357,10 @@ def policy_result_row(frame: dict, selected: dict | None, policy_name: str) -> d
         "pointcloud_empty_ratio": selected.get("pointcloud_empty_ratio") if selected else None,
         "grasp_width_m": selected.get("grasp_width_m") if selected else None,
         "opening_over_limit_m": selected.get("opening_over_limit_m") if selected else None,
+        "object_rank": selected.get("object_rank") if selected else None,
+        "object_adaptive_v2_score_norm": selected.get("object_adaptive_v2_score_norm") if selected else None,
+        "object_grasp_risk": selected.get("object_grasp_risk") if selected else None,
+        "object_high_risk": selected.get("object_high_risk") if selected else None,
     }
 
 
@@ -240,6 +385,10 @@ def candidate_label_row(frame: dict, candidate: dict) -> dict[str, object]:
         "pointcloud_empty_ratio": candidate.get("pointcloud_empty_ratio"),
         "grasp_width_m": candidate.get("grasp_width_m"),
         "opening_over_limit_m": candidate.get("opening_over_limit_m"),
+        "object_rank": candidate.get("object_rank"),
+        "object_adaptive_v2_score_norm": candidate.get("object_adaptive_v2_score_norm"),
+        "object_grasp_risk": candidate.get("object_grasp_risk"),
+        "object_high_risk": candidate.get("object_high_risk"),
     }
 
 
@@ -315,6 +464,10 @@ def write_policy_results_csv(path: Path, rows: Sequence[dict[str, object]]) -> N
         "pointcloud_empty_ratio",
         "grasp_width_m",
         "opening_over_limit_m",
+        "object_rank",
+        "object_adaptive_v2_score_norm",
+        "object_grasp_risk",
+        "object_high_risk",
     ]
     _write_csv(path, fieldnames, rows)
 
@@ -341,6 +494,7 @@ def _policy_functions() -> dict[str, PolicyFn]:
         "pointcloud-feasible-score": choose_pointcloud_feasible_score_candidate,
         "pointcloud-soft-score": choose_pointcloud_soft_score_candidate,
         "pointcloud-low-collision": choose_pointcloud_low_collision_candidate,
+        "od-pointcloud-compact": choose_od_pointcloud_compact_candidate,
     }
 
 
@@ -376,6 +530,26 @@ def _pointcloud_soft_score(candidate: dict) -> float:
         empty_ratio = max(0.0, _float_value(candidate.get("pointcloud_empty_ratio"), default=0.0))
         return score - max(0.0, 0.05 - empty_ratio) / 0.05 * 0.25
     return score - 0.08
+
+
+def _od_pointcloud_compact_score(candidate: dict) -> float:
+    score = _float_value(candidate.get("selected_grasp_score"), default=0.0)
+    object_score = _float_value(candidate.get("object_adaptive_v2_score_norm"), default=0.5)
+    empty_ratio = max(0.0, _float_value(candidate.get("pointcloud_empty_ratio"), default=0.0))
+    collision_iou = max(0.0, _float_value(candidate.get("pointcloud_collision_iou"), default=1.0))
+    opening_over_limit = max(0.0, _float_value(candidate.get("opening_over_limit_m"), default=0.0))
+    opening_penalty = min(opening_over_limit / 0.02, 1.0)
+    feasible_bonus = 0.05 if bool(candidate.get("pointcloud_feasible")) else 0.0
+    high_risk_penalty = 0.30 if bool(candidate.get("object_high_risk")) else 0.0
+    return (
+        0.20 * score
+        + 0.60 * object_score
+        + feasible_bonus
+        - 1.20 * empty_ratio
+        - 0.50 * collision_iou
+        - 0.50 * opening_penalty
+        - high_risk_penalty
+    )
 
 
 def _mean(values: Sequence[float]) -> float | None:

@@ -10,6 +10,8 @@ from pathlib import Path
 from tests import conftest  # noqa: F401
 from scripts.analyze_graspnet_dynamic_topk_rerank import (
     analyze_dynamic_topk_rerank,
+    attach_object_prior_features,
+    choose_od_pointcloud_compact_candidate,
     choose_object_consensus_candidate,
     choose_pointcloud_feasible_score_candidate,
     choose_pointcloud_soft_score_candidate,
@@ -140,6 +142,63 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertEqual(selected["candidate_rank"], 0)
         self.assertEqual(selected["target_object_id"], 1)
 
+    def test_attach_object_prior_features_adds_adaptive_v2_fields_to_candidate_targets(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=False),
+            _candidate(1, target_id=2, score=0.75, success=True),
+        ]
+        prior_by_object = {
+            "object_001.ply": {
+                "object_rank": 3,
+                "object_adaptive_v2_score": 0.2,
+                "object_adaptive_v2_score_norm": 0.1,
+                "object_grasp_risk": 0.4,
+                "object_high_risk": True,
+                "object_height_priority": 0.2,
+            },
+            "object_002.ply": {
+                "object_rank": 0,
+                "object_adaptive_v2_score": 1.2,
+                "object_adaptive_v2_score_norm": 0.9,
+                "object_grasp_risk": 0.1,
+                "object_high_risk": False,
+                "object_height_priority": 0.8,
+            },
+        }
+
+        attach_object_prior_features(candidates, prior_by_object)
+
+        self.assertEqual(candidates[0]["object_rank"], 3)
+        self.assertAlmostEqual(candidates[1]["object_adaptive_v2_score_norm"], 0.9)
+        self.assertEqual(candidates[1]["object_high_risk"], False)
+
+    def test_choose_od_pointcloud_compact_candidate_combines_object_prior_and_compact_grasp(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=False, pointcloud_feasible=True),
+            _candidate(1, target_id=2, score=0.72, success=True, pointcloud_feasible=True),
+        ]
+        candidates[0].update(
+            {
+                "pointcloud_empty_ratio": 0.82,
+                "object_adaptive_v2_score_norm": 0.1,
+                "object_grasp_risk": 0.35,
+                "object_high_risk": True,
+            }
+        )
+        candidates[1].update(
+            {
+                "pointcloud_empty_ratio": 0.16,
+                "object_adaptive_v2_score_norm": 0.9,
+                "object_grasp_risk": 0.05,
+                "object_high_risk": False,
+            }
+        )
+
+        selected = choose_od_pointcloud_compact_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 1)
+        self.assertEqual(selected["target_object_id"], 2)
+
     def test_analyze_dynamic_topk_rerank_reports_policy_success_rates(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -173,8 +232,43 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
                 save_outputs=False,
             )
 
-            self.assertEqual(result["output_saved"], False)
-            self.assertFalse(out_dir.exists())
+        self.assertEqual(result["output_saved"], False)
+        self.assertFalse(out_dir.exists())
+
+    def test_analyze_dynamic_topk_rerank_can_attach_object_priors_from_provider(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            summary_path = root / "split_dynamic_topk_summary.json"
+            out_dir = root / "analysis"
+            summary_path.write_text(json.dumps(_summary(), ensure_ascii=False), encoding="utf-8")
+
+            result = analyze_dynamic_topk_rerank(
+                summary_path=summary_path,
+                out_dir=out_dir,
+                save_outputs=False,
+                object_prior_provider=lambda frame: {
+                    "object_001.ply": {
+                        "object_rank": 1,
+                        "object_adaptive_v2_score": 0.1,
+                        "object_adaptive_v2_score_norm": 0.2,
+                        "object_grasp_risk": 0.4,
+                        "object_high_risk": True,
+                        "object_height_priority": 0.1,
+                    },
+                    "object_002.ply": {
+                        "object_rank": 0,
+                        "object_adaptive_v2_score": 1.0,
+                        "object_adaptive_v2_score_norm": 0.9,
+                        "object_grasp_risk": 0.1,
+                        "object_high_risk": False,
+                        "object_height_priority": 0.9,
+                    },
+                },
+            )
+
+            first_policy_row = result["policy_results"][0]
+            self.assertIn("od-pointcloud-compact", result["policy_aggregate"])
+            self.assertIn("object_adaptive_v2_score_norm", first_policy_row)
 
     def test_script_help_runs(self):
         script = conftest.PROJECT_ROOT / "scripts" / "analyze_graspnet_dynamic_topk_rerank.py"
@@ -190,6 +284,7 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertIn("--summary", result.stdout)
         self.assertIn("--out-dir", result.stdout)
         self.assertIn("--no-save", result.stdout)
+        self.assertIn("--scene-root", result.stdout)
 
 
 if __name__ == "__main__":
