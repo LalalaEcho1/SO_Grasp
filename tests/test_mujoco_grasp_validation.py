@@ -4,9 +4,14 @@ import tempfile
 import unittest
 from pathlib import Path
 
+import numpy as np
+
 from tests import conftest  # noqa: F401
+from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate
+from stacked_grasping.gripper.graspnet_mujoco_scene import robotiq_lite_config_from_graspnet_candidate
 from stacked_grasping.gripper.mujoco_grasp_validation import (
     LiteGraspValidationConfig,
+    _gripper_approach_axis,
     _is_unstable_lift_delta,
     validate_lite_grasp_xml,
 )
@@ -99,6 +104,25 @@ class MujocoGraspValidationTests(unittest.TestCase):
 
         self.assertFalse(_is_unstable_lift_delta(0.12, cfg))
         self.assertTrue(_is_unstable_lift_delta(0.30, cfg))
+
+    def test_gripper_approach_axis_uses_lite_fingertip_direction(self):
+        candidate = GraspPoseCandidate(
+            object_name="box",
+            generator="graspnet",
+            position=np.array([0.1, 0.2, 0.3]),
+            pregrasp_position=np.array([0.0, 0.2, 0.3]),
+            approach_direction=np.array([1.0, 0.0, 0.0]),
+            closing_axis="6d",
+            orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+            required_opening=0.04,
+        )
+        config = robotiq_lite_config_from_graspnet_candidate(candidate)
+
+        np.testing.assert_allclose(
+            _gripper_approach_axis(config.quat),
+            candidate.approach_direction,
+            atol=1e-6,
+        )
 
 
 if __name__ == "__main__":

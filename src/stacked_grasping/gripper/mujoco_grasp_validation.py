@@ -117,7 +117,7 @@ def validate_lite_grasp_xml(
     qpos_addr = int(model.jnt_qposadr[root_joint_id])
     initial_grasp_pos = np.asarray(data.qpos[qpos_addr : qpos_addr + 3], dtype=float).copy()
     grasp_quat = _normalized_quat(data.qpos[qpos_addr + 3 : qpos_addr + 7])
-    approach_axis = _quat_wxyz_to_rotation(grasp_quat)[:, 0]
+    approach_axis = _gripper_approach_axis(grasp_quat)
     pregrasp_pos = initial_grasp_pos - approach_axis * float(cfg.pregrasp_distance)
     lift_pos = initial_grasp_pos + np.array([0.0, 0.0, float(cfg.lift_distance)], dtype=float)
 
@@ -255,6 +255,11 @@ def _has_target_gripper_contact(model, data, target_body_id: int, gripper_body_i
         ):
             return 1
     return 0
+
+
+def _gripper_approach_axis(quat_wxyz: Iterable[float]) -> np.ndarray:
+    rotation = _quat_wxyz_to_rotation(quat_wxyz)
+    return -rotation[:, 2]
 
 
 def _body_subtree_ids(model, root_body_id: int) -> set[int]:
