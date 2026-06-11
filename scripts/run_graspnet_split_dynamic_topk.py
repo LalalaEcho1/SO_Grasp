@@ -22,7 +22,7 @@ from scripts.validate_graspnet_mujoco_grasp import validate_graspnet_mujoco_gras
 from stacked_grasping.gripper.mujoco_grasp_validation import LiteGraspValidationConfig  # noqa: E402
 
 
-Validator = Callable[..., dict[str, object]]
+Validator = Callable[..., dict]
 
 
 def parse_args() -> argparse.Namespace:
