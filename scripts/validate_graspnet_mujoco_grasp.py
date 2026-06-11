@@ -3,8 +3,9 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from dataclasses import replace
 from pathlib import Path
-from typing import Sequence
+from typing import Mapping, Sequence
 
 import numpy as np
 
@@ -142,10 +143,12 @@ def validate_graspnet_mujoco_grasp(
     else:
         records_for_candidates = records
 
-    selected_grasp = graspnet_outputs_to_candidates(
-        [records_for_candidates[candidate_rank]],
+    selected_record = records_for_candidates[candidate_rank]
+    selected_grasp_raw = graspnet_outputs_to_candidates(
+        [selected_record],
         generator="graspnet-dynamic-validation",
     )[0]
+    selected_grasp = apply_graspnet_depth_offset(selected_grasp_raw, selected_record)
     target_annotation = select_target_annotation_for_grasp(annotations, selected_grasp)
     target_body_name = mujoco_body_name_for_annotation(target_annotation)
 
@@ -182,6 +185,8 @@ def validate_graspnet_mujoco_grasp(
         "coordinate_frame": "table_aligned" if align_transform is not None else "camera",
         "gripper_opening_margin": round(float(gripper_opening_margin), 6),
         "selected_grasp_score": round(float(selected_grasp.score), 6),
+        "selected_grasp_depth": round(float(selected_record.get("depth", 0.0)), 6),
+        "selected_grasp_raw_translation": selected_grasp_raw.position.round(6).tolist(),
         "selected_grasp_position": selected_grasp.position.round(6).tolist(),
         "selected_grasp_object_id": selected_grasp.object_id,
         "target_object_id": int(target_annotation.object_id),
@@ -192,6 +197,23 @@ def validate_graspnet_mujoco_grasp(
     }
     summary_path.write_text(json.dumps(summary, ensure_ascii=False, indent=2), encoding="utf-8")
     return summary
+
+
+def apply_graspnet_depth_offset(
+    grasp: GraspPoseCandidate,
+    record: Mapping[str, object],
+) -> GraspPoseCandidate:
+    depth = float(record.get("depth", 0.0))
+    approach = np.asarray(grasp.approach_direction, dtype=float).reshape(3)
+    norm = float(np.linalg.norm(approach))
+    if norm <= 1e-9 or abs(depth) <= 1e-12:
+        return grasp
+    offset = approach / norm * depth
+    return replace(
+        grasp,
+        position=np.asarray(grasp.position, dtype=float).reshape(3) + offset,
+        pregrasp_position=np.asarray(grasp.pregrasp_position, dtype=float).reshape(3) + offset,
+    )
 
 
 def select_target_annotation_for_grasp(

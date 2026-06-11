@@ -176,7 +176,8 @@ class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
             )
 
         self.assertEqual(summary["coordinate_frame"], "table_aligned")
-        self.assertEqual(summary["selected_grasp_position"], [0.1, 0.0, 0.28])
+        self.assertEqual(summary["selected_grasp_position"], [0.13, 0.0, 0.28])
+        self.assertEqual(summary["selected_grasp_depth"], 0.03)
         self.assertEqual(summary["target_position"], [0.1, 0.0, 0.23])
 
     def test_script_help_runs(self):
