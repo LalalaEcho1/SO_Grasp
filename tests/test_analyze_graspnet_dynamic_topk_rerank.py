@@ -11,6 +11,7 @@ from tests import conftest  # noqa: F401
 from scripts.analyze_graspnet_dynamic_topk_rerank import (
     analyze_dynamic_topk_rerank,
     choose_object_consensus_candidate,
+    choose_pointcloud_feasible_score_candidate,
 )
 
 
@@ -20,8 +21,9 @@ def _candidate(
     target_id: int,
     score: float,
     success: bool,
+    pointcloud_feasible: bool | None = None,
 ) -> dict[str, object]:
-    return {
+    row = {
         "group_id": "A",
         "split": "final_test",
         "scene": "scene_0000",
@@ -37,6 +39,11 @@ def _candidate(
         "target_lift_delta_m": 0.03 if success else 0.002,
         "max_target_lift_delta_m": 0.035 if success else 0.01,
     }
+    if pointcloud_feasible is not None:
+        row["pointcloud_feasible"] = pointcloud_feasible
+        row["pointcloud_collision_iou"] = 0.001 if pointcloud_feasible else 0.2
+        row["pointcloud_empty_ratio"] = 0.5 if pointcloud_feasible else 0.001
+    return row
 
 
 def _summary() -> dict[str, object]:
@@ -86,6 +93,18 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         ]
 
         selected = choose_object_consensus_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 1)
+        self.assertEqual(selected["target_object_id"], 2)
+
+    def test_choose_pointcloud_feasible_score_candidate_prefers_feasible_candidate_without_dynamic_labels(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=False, pointcloud_feasible=False),
+            _candidate(1, target_id=2, score=0.82, success=True, pointcloud_feasible=True),
+            _candidate(2, target_id=3, score=0.60, success=False, pointcloud_feasible=True),
+        ]
+
+        selected = choose_pointcloud_feasible_score_candidate(candidates)
 
         self.assertEqual(selected["candidate_rank"], 1)
         self.assertEqual(selected["target_object_id"], 2)

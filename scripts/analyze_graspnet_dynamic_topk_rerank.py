@@ -26,6 +26,8 @@ POLICY_ORDER = (
     "graspnet-score",
     "object-consensus",
     "object-consensus-score",
+    "pointcloud-feasible-score",
+    "pointcloud-low-collision",
 )
 
 
@@ -154,6 +156,29 @@ def choose_object_consensus_score_candidate(candidates: Sequence[dict]) -> dict 
     return max(candidates, key=key)
 
 
+def choose_pointcloud_feasible_score_candidate(candidates: Sequence[dict]) -> dict | None:
+    if not candidates:
+        return None
+    feasible = [candidate for candidate in candidates if bool(candidate.get("pointcloud_feasible"))]
+    pool = feasible if feasible else list(candidates)
+    return max(pool, key=lambda item: (_float_value(item.get("selected_grasp_score")), -_rank(item)))
+
+
+def choose_pointcloud_low_collision_candidate(candidates: Sequence[dict]) -> dict | None:
+    if not candidates:
+        return None
+    return max(
+        candidates,
+        key=lambda item: (
+            1.0 if bool(item.get("pointcloud_feasible")) else 0.0,
+            -_float_value(item.get("pointcloud_collision_iou"), default=1.0),
+            _float_value(item.get("pointcloud_empty_ratio"), default=0.0),
+            _float_value(item.get("selected_grasp_score")),
+            -_rank(item),
+        ),
+    )
+
+
 def policy_result_row(frame: dict, selected: dict | None, policy_name: str) -> dict[str, object]:
     return {
         "policy": policy_name,
@@ -172,6 +197,10 @@ def policy_result_row(frame: dict, selected: dict | None, policy_name: str) -> d
         "simulation_unstable": bool(selected.get("simulation_unstable")) if selected else False,
         "target_lift_delta_m": selected.get("target_lift_delta_m") if selected else None,
         "max_target_lift_delta_m": selected.get("max_target_lift_delta_m") if selected else None,
+        "pointcloud_feasible": selected.get("pointcloud_feasible") if selected else None,
+        "pointcloud_failure_reason": selected.get("pointcloud_failure_reason") if selected else None,
+        "pointcloud_collision_iou": selected.get("pointcloud_collision_iou") if selected else None,
+        "pointcloud_empty_ratio": selected.get("pointcloud_empty_ratio") if selected else None,
     }
 
 
@@ -190,6 +219,10 @@ def candidate_label_row(frame: dict, candidate: dict) -> dict[str, object]:
         "simulation_unstable": bool(candidate.get("simulation_unstable")),
         "target_lift_delta_m": candidate.get("target_lift_delta_m"),
         "max_target_lift_delta_m": candidate.get("max_target_lift_delta_m"),
+        "pointcloud_feasible": candidate.get("pointcloud_feasible"),
+        "pointcloud_failure_reason": candidate.get("pointcloud_failure_reason"),
+        "pointcloud_collision_iou": candidate.get("pointcloud_collision_iou"),
+        "pointcloud_empty_ratio": candidate.get("pointcloud_empty_ratio"),
     }
 
 
@@ -259,6 +292,10 @@ def write_policy_results_csv(path: Path, rows: Sequence[dict[str, object]]) -> N
         "simulation_unstable",
         "target_lift_delta_m",
         "max_target_lift_delta_m",
+        "pointcloud_feasible",
+        "pointcloud_failure_reason",
+        "pointcloud_collision_iou",
+        "pointcloud_empty_ratio",
     ]
     _write_csv(path, fieldnames, rows)
 
@@ -282,6 +319,8 @@ def _policy_functions() -> dict[str, PolicyFn]:
         "graspnet-score": choose_graspnet_score_candidate,
         "object-consensus": choose_object_consensus_candidate,
         "object-consensus-score": choose_object_consensus_score_candidate,
+        "pointcloud-feasible-score": choose_pointcloud_feasible_score_candidate,
+        "pointcloud-low-collision": choose_pointcloud_low_collision_candidate,
     }
 
 
