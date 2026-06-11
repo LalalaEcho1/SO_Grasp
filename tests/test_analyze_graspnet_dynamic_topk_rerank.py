@@ -11,6 +11,7 @@ from tests import conftest  # noqa: F401
 from scripts.analyze_graspnet_dynamic_topk_rerank import (
     analyze_dynamic_topk_rerank,
     attach_object_prior_features,
+    choose_graspnet_safe_rerank_candidate,
     choose_od_pointcloud_compact_candidate,
     choose_object_consensus_candidate,
     choose_pointcloud_feasible_score_candidate,
@@ -225,6 +226,32 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
 
         self.assertEqual(selected["candidate_rank"], 0)
         self.assertEqual(selected["target_object_id"], 1)
+
+    def test_choose_graspnet_safe_rerank_candidate_keeps_safe_top1(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=True, pointcloud_feasible=True),
+            _candidate(1, target_id=2, score=0.75, success=False, pointcloud_feasible=True),
+        ]
+        candidates[0].update({"binding_status": "bound", "object_adaptive_v2_score_norm": 0.10})
+        candidates[1].update({"binding_status": "bound", "object_adaptive_v2_score_norm": 1.00})
+
+        selected = choose_graspnet_safe_rerank_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 0)
+        self.assertEqual(selected["target_object_id"], 1)
+
+    def test_choose_graspnet_safe_rerank_candidate_replaces_unbound_top1(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=False, pointcloud_feasible=False),
+            _candidate(1, target_id=2, score=0.75, success=True, pointcloud_feasible=True),
+        ]
+        candidates[0].update({"binding_status": "binding-background"})
+        candidates[1].update({"binding_status": "bound"})
+
+        selected = choose_graspnet_safe_rerank_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 1)
+        self.assertEqual(selected["target_object_id"], 2)
 
     def test_analyze_dynamic_topk_rerank_reports_policy_success_rates(self):
         with tempfile.TemporaryDirectory() as tmp_dir:

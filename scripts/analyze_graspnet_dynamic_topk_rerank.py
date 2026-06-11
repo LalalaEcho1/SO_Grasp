@@ -29,6 +29,7 @@ ObjectPriorProvider = Callable[[dict], Mapping[str, Mapping[str, object]]]
 
 POLICY_ORDER = (
     "top1",
+    "graspnet-safe-rerank",
     "graspnet-score",
     "object-consensus",
     "object-consensus-score",
@@ -157,6 +158,19 @@ def choose_graspnet_score_candidate(candidates: Sequence[dict]) -> dict | None:
     if not candidates:
         return None
     return max(candidates, key=lambda item: (_float_value(item.get("selected_grasp_score")), -_rank(item)))
+
+
+def choose_graspnet_safe_rerank_candidate(candidates: Sequence[dict]) -> dict | None:
+    if not candidates:
+        return None
+    ordered = sorted(candidates, key=_rank)
+    top1 = ordered[0]
+    if _is_graspnet_safe_candidate(top1):
+        return top1
+    safe_candidates = [candidate for candidate in ordered if _is_graspnet_safe_candidate(candidate)]
+    if not safe_candidates:
+        return top1
+    return max(safe_candidates, key=lambda item: (_safe_rerank_score(item), -_rank(item)))
 
 
 def choose_object_consensus_candidate(candidates: Sequence[dict]) -> dict | None:
@@ -488,6 +502,7 @@ def write_candidate_label_analysis_csv(path: Path, rows: Sequence[dict[str, obje
 def _policy_functions() -> dict[str, PolicyFn]:
     return {
         "top1": choose_top1_candidate,
+        "graspnet-safe-rerank": choose_graspnet_safe_rerank_candidate,
         "graspnet-score": choose_graspnet_score_candidate,
         "object-consensus": choose_object_consensus_candidate,
         "object-consensus-score": choose_object_consensus_score_candidate,
@@ -530,6 +545,30 @@ def _pointcloud_soft_score(candidate: dict) -> float:
         empty_ratio = max(0.0, _float_value(candidate.get("pointcloud_empty_ratio"), default=0.0))
         return score - max(0.0, 0.05 - empty_ratio) / 0.05 * 0.25
     return score - 0.08
+
+
+def _is_graspnet_safe_candidate(candidate: dict) -> bool:
+    if _has_unbound_status(candidate):
+        return False
+    reason = str(candidate.get("pointcloud_failure_reason") or "")
+    if reason in {"binding-background", "pointcloud-collision", "no-bound-object"}:
+        return False
+    collision_iou = max(0.0, _float_value(candidate.get("pointcloud_collision_iou"), default=0.0))
+    if collision_iou > 0.08:
+        return False
+    opening_over_limit = max(0.0, _float_value(candidate.get("opening_over_limit_m"), default=0.0))
+    if opening_over_limit > 0.012:
+        return False
+    empty_ratio = _float_value(candidate.get("pointcloud_empty_ratio"), default=None)
+    return not (empty_ratio is not None and empty_ratio < 0.02)
+
+
+def _safe_rerank_score(candidate: dict) -> float:
+    score = _float_value(candidate.get("selected_grasp_score"), default=0.0)
+    object_score = _float_value(candidate.get("object_adaptive_v2_score_norm"), default=0.5)
+    feasible_bonus = 0.03 if bool(candidate.get("pointcloud_feasible")) else 0.0
+    rank_penalty = 0.03 * float(_rank(candidate))
+    return score + 0.08 * object_score + feasible_bonus - rank_penalty
 
 
 def _od_pointcloud_compact_score(candidate: dict) -> float:
