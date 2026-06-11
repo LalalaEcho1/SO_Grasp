@@ -27,6 +27,7 @@ POLICY_ORDER = (
     "object-consensus",
     "object-consensus-score",
     "pointcloud-feasible-score",
+    "pointcloud-soft-score",
     "pointcloud-low-collision",
 )
 
@@ -37,6 +38,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--summary", type=Path, required=True, help="Path to split_dynamic_topk_summary.json.")
     parser.add_argument("--out-dir", type=Path, help="Defaults to <summary parent>/rerank_analysis.")
+    parser.add_argument("--no-save", action="store_true", help="Run analysis without writing JSON/CSV outputs.")
     parser.add_argument("--json", action="store_true")
     return parser.parse_args()
 
@@ -46,6 +48,7 @@ def main() -> None:
     summary = analyze_dynamic_topk_rerank(
         summary_path=args.summary,
         out_dir=args.out_dir or args.summary.parent / "rerank_analysis",
+        save_outputs=not args.no_save,
     )
     if args.json:
         print(json.dumps(summary, ensure_ascii=False, indent=2))
@@ -64,11 +67,13 @@ def analyze_dynamic_topk_rerank(
     *,
     summary_path: str | Path,
     out_dir: str | Path,
+    save_outputs: bool = True,
 ) -> dict[str, object]:
     source = Path(summary_path)
     topk_summary = json.loads(source.read_text(encoding="utf-8"))
     target = Path(out_dir)
-    target.mkdir(parents=True, exist_ok=True)
+    if save_outputs:
+        target.mkdir(parents=True, exist_ok=True)
 
     policy_rows: list[dict[str, object]] = []
     candidate_rows: list[dict[str, object]] = []
@@ -89,6 +94,7 @@ def analyze_dynamic_topk_rerank(
         "created_at": datetime.now().isoformat(timespec="seconds"),
         "summary_path": str(source),
         "output_dir": str(target),
+        "output_saved": bool(save_outputs),
         "top_k": topk_summary.get("top_k"),
         "frame_count": len(topk_summary.get("frame_results", [])),
         "candidate_count": len(candidate_rows),
@@ -97,15 +103,16 @@ def analyze_dynamic_topk_rerank(
         "policy_results": policy_rows,
     }
 
-    (target / "dynamic_topk_rerank_analysis.json").write_text(
-        json.dumps(result, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    write_policy_results_csv(target / "dynamic_topk_rerank_policy_results.csv", policy_rows)
-    write_candidate_label_analysis_csv(
-        target / "dynamic_topk_candidate_label_analysis.csv",
-        label_analysis["by_rank"],
-    )
+    if save_outputs:
+        (target / "dynamic_topk_rerank_analysis.json").write_text(
+            json.dumps(result, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        write_policy_results_csv(target / "dynamic_topk_rerank_policy_results.csv", policy_rows)
+        write_candidate_label_analysis_csv(
+            target / "dynamic_topk_candidate_label_analysis.csv",
+            label_analysis["by_rank"],
+        )
     return result
 
 
@@ -164,6 +171,12 @@ def choose_pointcloud_feasible_score_candidate(candidates: Sequence[dict]) -> di
     return max(pool, key=lambda item: (_float_value(item.get("selected_grasp_score")), -_rank(item)))
 
 
+def choose_pointcloud_soft_score_candidate(candidates: Sequence[dict]) -> dict | None:
+    if not candidates:
+        return None
+    return max(candidates, key=lambda item: (_pointcloud_soft_score(item), -_rank(item)))
+
+
 def choose_pointcloud_low_collision_candidate(candidates: Sequence[dict]) -> dict | None:
     if not candidates:
         return None
@@ -201,6 +214,8 @@ def policy_result_row(frame: dict, selected: dict | None, policy_name: str) -> d
         "pointcloud_failure_reason": selected.get("pointcloud_failure_reason") if selected else None,
         "pointcloud_collision_iou": selected.get("pointcloud_collision_iou") if selected else None,
         "pointcloud_empty_ratio": selected.get("pointcloud_empty_ratio") if selected else None,
+        "grasp_width_m": selected.get("grasp_width_m") if selected else None,
+        "opening_over_limit_m": selected.get("opening_over_limit_m") if selected else None,
     }
 
 
@@ -223,6 +238,8 @@ def candidate_label_row(frame: dict, candidate: dict) -> dict[str, object]:
         "pointcloud_failure_reason": candidate.get("pointcloud_failure_reason"),
         "pointcloud_collision_iou": candidate.get("pointcloud_collision_iou"),
         "pointcloud_empty_ratio": candidate.get("pointcloud_empty_ratio"),
+        "grasp_width_m": candidate.get("grasp_width_m"),
+        "opening_over_limit_m": candidate.get("opening_over_limit_m"),
     }
 
 
@@ -296,6 +313,8 @@ def write_policy_results_csv(path: Path, rows: Sequence[dict[str, object]]) -> N
         "pointcloud_failure_reason",
         "pointcloud_collision_iou",
         "pointcloud_empty_ratio",
+        "grasp_width_m",
+        "opening_over_limit_m",
     ]
     _write_csv(path, fieldnames, rows)
 
@@ -320,6 +339,7 @@ def _policy_functions() -> dict[str, PolicyFn]:
         "object-consensus": choose_object_consensus_candidate,
         "object-consensus-score": choose_object_consensus_score_candidate,
         "pointcloud-feasible-score": choose_pointcloud_feasible_score_candidate,
+        "pointcloud-soft-score": choose_pointcloud_soft_score_candidate,
         "pointcloud-low-collision": choose_pointcloud_low_collision_candidate,
     }
 
@@ -338,6 +358,24 @@ def _float_value(value: object, *, default: float = float("-inf")) -> float:
     if value is None:
         return default
     return float(value)
+
+
+def _pointcloud_soft_score(candidate: dict) -> float:
+    score = _float_value(candidate.get("selected_grasp_score"), default=0.0)
+    reason = str(candidate.get("pointcloud_failure_reason") or "")
+    opening_over_limit = max(0.0, _float_value(candidate.get("opening_over_limit_m"), default=0.0))
+
+    if bool(candidate.get("pointcloud_feasible")):
+        return score + 0.03
+    if reason == "opening-too-small":
+        return score - min(opening_over_limit / 0.02, 1.0) * 0.35
+    if reason == "pointcloud-collision":
+        collision_iou = max(0.0, _float_value(candidate.get("pointcloud_collision_iou"), default=1.0))
+        return score - min(collision_iou / 0.05, 1.0) * 0.35
+    if reason == "empty-grasp":
+        empty_ratio = max(0.0, _float_value(candidate.get("pointcloud_empty_ratio"), default=0.0))
+        return score - max(0.0, 0.05 - empty_ratio) / 0.05 * 0.25
+    return score - 0.08
 
 
 def _mean(values: Sequence[float]) -> float | None:

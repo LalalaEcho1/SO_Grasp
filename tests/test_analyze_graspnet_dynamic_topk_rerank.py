@@ -12,6 +12,7 @@ from scripts.analyze_graspnet_dynamic_topk_rerank import (
     analyze_dynamic_topk_rerank,
     choose_object_consensus_candidate,
     choose_pointcloud_feasible_score_candidate,
+    choose_pointcloud_soft_score_candidate,
 )
 
 
@@ -22,6 +23,7 @@ def _candidate(
     score: float,
     success: bool,
     pointcloud_feasible: bool | None = None,
+    opening_over_limit_m: float | None = None,
 ) -> dict[str, object]:
     row = {
         "group_id": "A",
@@ -43,6 +45,9 @@ def _candidate(
         row["pointcloud_feasible"] = pointcloud_feasible
         row["pointcloud_collision_iou"] = 0.001 if pointcloud_feasible else 0.2
         row["pointcloud_empty_ratio"] = 0.5 if pointcloud_feasible else 0.001
+        row["pointcloud_failure_reason"] = None if pointcloud_feasible else "opening-too-small"
+        row["opening_over_limit_m"] = 0.0 if opening_over_limit_m is None else opening_over_limit_m
+        row["grasp_width_m"] = 0.085 + row["opening_over_limit_m"]
     return row
 
 
@@ -109,6 +114,32 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertEqual(selected["candidate_rank"], 1)
         self.assertEqual(selected["target_object_id"], 2)
 
+    def test_choose_pointcloud_soft_score_candidate_tolerates_small_opening_excess(self):
+        candidates = [
+            _candidate(
+                0,
+                target_id=1,
+                score=0.92,
+                success=True,
+                pointcloud_feasible=False,
+                opening_over_limit_m=0.003,
+            ),
+            _candidate(1, target_id=2, score=0.80, success=False, pointcloud_feasible=True),
+            _candidate(
+                2,
+                target_id=3,
+                score=0.95,
+                success=False,
+                pointcloud_feasible=False,
+                opening_over_limit_m=0.04,
+            ),
+        ]
+
+        selected = choose_pointcloud_soft_score_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 0)
+        self.assertEqual(selected["target_object_id"], 1)
+
     def test_analyze_dynamic_topk_rerank_reports_policy_success_rates(self):
         with tempfile.TemporaryDirectory() as tmp_dir:
             root = Path(tmp_dir)
@@ -129,6 +160,22 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
             self.assertTrue((out_dir / "dynamic_topk_rerank_policy_results.csv").exists())
             self.assertTrue((out_dir / "dynamic_topk_candidate_label_analysis.csv").exists())
 
+    def test_analyze_dynamic_topk_rerank_can_run_without_saving_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            summary_path = root / "split_dynamic_topk_summary.json"
+            out_dir = root / "analysis"
+            summary_path.write_text(json.dumps(_summary(), ensure_ascii=False), encoding="utf-8")
+
+            result = analyze_dynamic_topk_rerank(
+                summary_path=summary_path,
+                out_dir=out_dir,
+                save_outputs=False,
+            )
+
+            self.assertEqual(result["output_saved"], False)
+            self.assertFalse(out_dir.exists())
+
     def test_script_help_runs(self):
         script = conftest.PROJECT_ROOT / "scripts" / "analyze_graspnet_dynamic_topk_rerank.py"
 
@@ -142,6 +189,7 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--summary", result.stdout)
         self.assertIn("--out-dir", result.stdout)
+        self.assertIn("--no-save", result.stdout)
 
 
 if __name__ == "__main__":
