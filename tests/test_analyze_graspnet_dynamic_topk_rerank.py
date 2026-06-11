@@ -240,6 +240,25 @@ class AnalyzeGraspNetDynamicTopKRerankTests(unittest.TestCase):
         self.assertEqual(selected["candidate_rank"], 0)
         self.assertEqual(selected["target_object_id"], 1)
 
+    def test_choose_graspnet_safe_rerank_candidate_treats_pointcloud_warnings_as_soft(self):
+        candidates = [
+            _candidate(0, target_id=1, score=0.95, success=True, pointcloud_feasible=False, opening_over_limit_m=0.02),
+            _candidate(1, target_id=2, score=0.75, success=False, pointcloud_feasible=True),
+        ]
+        candidates[0].update(
+            {
+                "binding_status": "bound",
+                "pointcloud_failure_reason": "pointcloud-collision",
+                "pointcloud_collision_iou": 0.2,
+            }
+        )
+        candidates[1].update({"binding_status": "bound"})
+
+        selected = choose_graspnet_safe_rerank_candidate(candidates)
+
+        self.assertEqual(selected["candidate_rank"], 0)
+        self.assertEqual(selected["target_object_id"], 1)
+
     def test_choose_graspnet_safe_rerank_candidate_replaces_unbound_top1(self):
         candidates = [
             _candidate(0, target_id=1, score=0.95, success=False, pointcloud_feasible=False),

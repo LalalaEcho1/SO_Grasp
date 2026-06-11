@@ -551,16 +551,7 @@ def _is_graspnet_safe_candidate(candidate: dict) -> bool:
     if _has_unbound_status(candidate):
         return False
     reason = str(candidate.get("pointcloud_failure_reason") or "")
-    if reason in {"binding-background", "pointcloud-collision", "no-bound-object"}:
-        return False
-    collision_iou = max(0.0, _float_value(candidate.get("pointcloud_collision_iou"), default=0.0))
-    if collision_iou > 0.08:
-        return False
-    opening_over_limit = max(0.0, _float_value(candidate.get("opening_over_limit_m"), default=0.0))
-    if opening_over_limit > 0.012:
-        return False
-    empty_ratio = _float_value(candidate.get("pointcloud_empty_ratio"), default=None)
-    return not (empty_ratio is not None and empty_ratio < 0.02)
+    return reason not in {"binding-background", "no-bound-object"}
 
 
 def _safe_rerank_score(candidate: dict) -> float:
