@@ -4,6 +4,7 @@ import argparse
 import csv
 import json
 import sys
+import tempfile
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
@@ -38,6 +39,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--mesh-file", default="textured.obj")
     parser.add_argument("--top-k", type=int, default=10)
     parser.add_argument("--stop-on-success", action="store_true")
+    parser.add_argument("--no-save", action="store_true", help="Run with a temporary scratch directory and do not write outputs.")
     parser.add_argument("--no-align-to-table", dest="align_to_table", action="store_false")
     parser.set_defaults(align_to_table=True)
     parser.add_argument("--gripper-opening-margin", type=float, default=0.004)
@@ -65,6 +67,7 @@ def main() -> None:
         mesh_file=args.mesh_file,
         top_k=args.top_k,
         stop_on_success=args.stop_on_success,
+        save_outputs=not args.no_save,
         align_to_table=args.align_to_table,
         gripper_opening_margin=args.gripper_opening_margin,
         validation_config=LiteGraspValidationConfig(
@@ -84,6 +87,7 @@ def main() -> None:
 
     print("GraspNet split dynamic top-K validation finished")
     print(f"  output_dir: {summary['output_dir']}")
+    print(f"  output_saved: {summary['output_saved']}")
     print(f"  frames: {summary['processed_frame_count']}/{summary['frame_count']}")
     print(f"  top_k: {summary['top_k']}")
     print(f"  candidate_evaluations: {summary['candidate_evaluation_count']}")
@@ -103,6 +107,7 @@ def run_graspnet_split_dynamic_topk(
     mesh_file: str = "textured.obj",
     top_k: int = 10,
     stop_on_success: bool = False,
+    save_outputs: bool = True,
     align_to_table: bool = True,
     gripper_opening_margin: float = 0.004,
     validation_config: LiteGraspValidationConfig | None = None,
@@ -114,10 +119,68 @@ def run_graspnet_split_dynamic_topk(
     config_file = Path(config_path)
     config = json.loads(config_file.read_text(encoding="utf-8"))
     resolved_scene_root = _resolve_scene_root(scene_root, config, base_dir=config_file.parent.parent)
-    target = Path(out_dir)
-    target.mkdir(parents=True, exist_ok=True)
-    entries = flatten_split_config(config)
+    requested_target = Path(out_dir)
 
+    if save_outputs:
+        return _run_graspnet_split_dynamic_topk_core(
+            config_file=config_file,
+            resolved_scene_root=resolved_scene_root,
+            dataset_root=Path(dataset_root),
+            prediction_root=Path(prediction_root),
+            requested_target=requested_target,
+            scratch_target=requested_target,
+            camera=camera,
+            mesh_file=mesh_file,
+            top_k=int(top_k),
+            stop_on_success=stop_on_success,
+            save_outputs=True,
+            align_to_table=align_to_table,
+            gripper_opening_margin=gripper_opening_margin,
+            validation_config=validation_config,
+            validator=validator,
+        )
+
+    with tempfile.TemporaryDirectory(prefix="graspnet_dynamic_topk_") as scratch_dir:
+        return _run_graspnet_split_dynamic_topk_core(
+            config_file=config_file,
+            resolved_scene_root=resolved_scene_root,
+            dataset_root=Path(dataset_root),
+            prediction_root=Path(prediction_root),
+            requested_target=requested_target,
+            scratch_target=Path(scratch_dir),
+            camera=camera,
+            mesh_file=mesh_file,
+            top_k=int(top_k),
+            stop_on_success=stop_on_success,
+            save_outputs=False,
+            align_to_table=align_to_table,
+            gripper_opening_margin=gripper_opening_margin,
+            validation_config=validation_config,
+            validator=validator,
+        )
+
+
+def _run_graspnet_split_dynamic_topk_core(
+    *,
+    config_file: Path,
+    resolved_scene_root: Path,
+    dataset_root: Path,
+    prediction_root: Path,
+    requested_target: Path,
+    scratch_target: Path,
+    camera: str,
+    mesh_file: str,
+    top_k: int,
+    stop_on_success: bool,
+    save_outputs: bool,
+    align_to_table: bool,
+    gripper_opening_margin: float,
+    validation_config: LiteGraspValidationConfig | None,
+    validator: Validator,
+) -> dict[str, object]:
+    if save_outputs:
+        scratch_target.mkdir(parents=True, exist_ok=True)
+    entries = flatten_split_config(json.loads(config_file.read_text(encoding="utf-8")))
     frame_results: list[dict[str, object]] = []
     candidate_rows: list[dict[str, object]] = []
     missing_frames: list[dict[str, object]] = []
@@ -126,12 +189,12 @@ def run_graspnet_split_dynamic_topk(
             frame_result, rows = run_entry_dynamic_topk(
                 entry,
                 scene_root=resolved_scene_root,
-                dataset_root=Path(dataset_root),
-                prediction_root=Path(prediction_root),
-                out_dir=target,
+                dataset_root=dataset_root,
+                prediction_root=prediction_root,
+                out_dir=scratch_target,
                 camera=camera,
                 mesh_file=mesh_file,
-                top_k=int(top_k),
+                top_k=top_k,
                 stop_on_success=stop_on_success,
                 align_to_table=align_to_table,
                 gripper_opening_margin=gripper_opening_margin,
@@ -150,8 +213,9 @@ def run_graspnet_split_dynamic_topk(
         "scene_root": str(resolved_scene_root),
         "dataset_root": str(dataset_root),
         "prediction_root": str(prediction_root),
-        "output_dir": str(target),
-        "top_k": int(top_k),
+        "output_dir": str(requested_target),
+        "output_saved": bool(save_outputs),
+        "top_k": top_k,
         "stop_on_success": bool(stop_on_success),
         "frame_count": len(entries),
         "processed_frame_count": len(frame_results),
@@ -166,13 +230,14 @@ def run_graspnet_split_dynamic_topk(
         "failure_reason_counts": dict(Counter(str(row.get("failure_reason")) for row in candidate_rows)),
         "frame_results": frame_results,
     }
-    (target / "split_dynamic_topk_summary.json").write_text(
-        json.dumps(summary, ensure_ascii=False, indent=2),
-        encoding="utf-8",
-    )
-    write_frame_results_csv(target / "split_dynamic_topk_frame_results.csv", frame_results)
-    write_candidate_results_csv(target / "split_dynamic_topk_candidate_results.csv", candidate_rows)
-    write_missing_frames_csv(target / "missing_dynamic_topk_frames.csv", missing_frames)
+    if save_outputs:
+        (scratch_target / "split_dynamic_topk_summary.json").write_text(
+            json.dumps(summary, ensure_ascii=False, indent=2),
+            encoding="utf-8",
+        )
+        write_frame_results_csv(scratch_target / "split_dynamic_topk_frame_results.csv", frame_results)
+        write_candidate_results_csv(scratch_target / "split_dynamic_topk_candidate_results.csv", candidate_rows)
+        write_missing_frames_csv(scratch_target / "missing_dynamic_topk_frames.csv", missing_frames)
     return summary
 
 

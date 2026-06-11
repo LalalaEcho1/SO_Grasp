@@ -107,6 +107,34 @@ class RunGraspNetSplitDynamicTopKTests(unittest.TestCase):
             self.assertTrue((out_dir / "split_dynamic_topk_frame_results.csv").exists())
             self.assertTrue((out_dir / "split_dynamic_topk_candidate_results.csv").exists())
 
+    def test_run_graspnet_split_dynamic_topk_can_run_without_saving_outputs(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            config_path = root / "split.json"
+            config_path.write_text(json.dumps(_split_config(), ensure_ascii=False), encoding="utf-8")
+            out_dir = root / "results"
+            validator_out_dirs: list[Path] = []
+
+            def fake_validator(**kwargs):
+                validator_out_dirs.append(Path(kwargs["out_dir"]))
+                return _candidate_summary(int(kwargs["candidate_rank"]), success=False, lift=0.001)
+
+            summary = run_graspnet_split_dynamic_topk(
+                config_path=config_path,
+                scene_root=root / "scenes",
+                dataset_root=root / "dataset",
+                prediction_root=root / "predictions",
+                out_dir=out_dir,
+                top_k=1,
+                save_outputs=False,
+                validator=fake_validator,
+            )
+
+            self.assertEqual(summary["output_saved"], False)
+            self.assertFalse(out_dir.exists())
+            self.assertEqual(len(validator_out_dirs), 1)
+            self.assertNotEqual(validator_out_dirs[0], out_dir)
+
     def test_script_help_runs(self):
         script = conftest.PROJECT_ROOT / "scripts" / "run_graspnet_split_dynamic_topk.py"
 
@@ -120,6 +148,7 @@ class RunGraspNetSplitDynamicTopKTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
         self.assertIn("--top-k", result.stdout)
         self.assertIn("--stop-on-success", result.stdout)
+        self.assertIn("--no-save", result.stdout)
 
 
 if __name__ == "__main__":
