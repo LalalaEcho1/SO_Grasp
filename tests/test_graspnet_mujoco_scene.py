@@ -18,6 +18,51 @@ from stacked_grasping.gripper.graspnet_mujoco_scene import (
 )
 
 
+def _write_minimal_hand_xml(path: Path) -> None:
+    assets = path.parent / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    (assets / "hand.stl").write_text(
+        "\n".join(
+            [
+                "solid hand",
+                "facet normal 0 0 1",
+                "outer loop",
+                "vertex 0 0 0",
+                "vertex 0.01 0 0",
+                "vertex 0 0.01 0",
+                "endloop",
+                "endfacet",
+                "endsolid hand",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    path.write_text(
+        """\
+<mujoco model="panda hand">
+  <compiler angle="radian" meshdir="assets"/>
+  <default>
+    <default class="finger">
+      <joint axis="0 1 0" type="slide" range="0 0.04"/>
+    </default>
+  </default>
+  <asset>
+    <mesh name="hand_c" file="hand.stl"/>
+  </asset>
+  <worldbody>
+    <body name="hand">
+      <geom mesh="hand_c"/>
+      <body name="left_finger"><joint name="finger_joint1" class="finger"/></body>
+      <body name="right_finger"><joint name="finger_joint2" class="finger"/></body>
+    </body>
+  </worldbody>
+</mujoco>
+""",
+        encoding="utf-8",
+    )
+
+
 def _write_obj(path: Path) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
@@ -139,6 +184,55 @@ class GraspNetMujocoSceneTests(unittest.TestCase):
         rotation = _quat_wxyz_to_rotation_for_test(config.quat)
         np.testing.assert_allclose(rotation[:, 1], np.array([0.0, 1.0, 0.0]), atol=1e-6)
         np.testing.assert_allclose(-rotation[:, 2], np.array([1.0, 0.0, 0.0]), atol=1e-6)
+
+    def test_build_scene_xml_can_attach_franka_hand_backend(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            dataset_root = root / "graspnet"
+            hand_xml = root / "franka" / "hand.xml"
+            output_path = root / "results" / "scene_0000_0000.xml"
+            _write_obj(dataset_root / "models" / "000" / "textured.obj")
+            _write_minimal_hand_xml(hand_xml)
+            annotations = [
+                AnnotationObject(
+                    object_id=0,
+                    label_id=1,
+                    name="003_cracker_box.ply",
+                    model_path="models/003_cracker_box.ply",
+                    position=np.array([0.1, 0.2, 0.3]),
+                    orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+                ),
+            ]
+            candidate = GraspPoseCandidate(
+                object_name="003_cracker_box.ply",
+                generator="graspnet-bound",
+                position=np.array([0.11, 0.21, 0.51]),
+                pregrasp_position=np.array([0.01, 0.21, 0.51]),
+                approach_direction=np.array([1.0, 0.0, 0.0]),
+                closing_axis="6d",
+                orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+                required_opening=0.04,
+                score=0.9,
+                object_id=0,
+            )
+
+            xml_text = build_graspnet_mujoco_scene_xml(
+                annotations,
+                dataset_root=dataset_root,
+                output_path=output_path,
+                selected_grasp=candidate,
+                gripper_backend="franka-hand",
+                franka_hand_xml=hand_xml,
+            )
+
+        xml_root = ET.fromstring(xml_text)
+        franka_hand = xml_root.find(".//body[@name='franka_hand']")
+        hand_mesh = xml_root.find(".//mesh[@name='hand_c']")
+
+        self.assertIsNotNone(franka_hand)
+        self.assertIsNotNone(franka_hand.find("freejoint[@name='franka_hand_freejoint']"))
+        self.assertIsNotNone(hand_mesh)
+        self.assertEqual(hand_mesh.attrib["file"], "../franka/assets/hand.stl")
 
 
 if __name__ == "__main__":

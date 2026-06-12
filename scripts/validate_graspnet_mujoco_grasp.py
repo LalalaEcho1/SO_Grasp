@@ -19,23 +19,27 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from stacked_grasping.gripper.candidate_io import load_graspnet_records  # noqa: E402
 from stacked_grasping.gripper.external_graspnet_data import AnnotationObject, GraspNetRealSenseSource, normalize_frame_id  # noqa: E402
+from stacked_grasping.gripper.franka_hand import FRANKA_HAND_BACKEND, resolve_franka_hand_xml  # noqa: E402
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_outputs_to_candidates  # noqa: E402
 from stacked_grasping.gripper.graspnet_predictions import transform_graspnet_records  # noqa: E402
 from stacked_grasping.gripper.graspnet_mujoco_scene import (  # noqa: E402
+    LITE_GRIPPER_BACKEND,
     mujoco_body_name_for_annotation,
     robotiq_lite_config_from_graspnet_candidate,
     transform_annotation_objects,
     write_graspnet_mujoco_scene_xml,
 )
 from stacked_grasping.gripper.mujoco_grasp_validation import (  # noqa: E402
+    FRANKA_HAND_GRIPPER_SPEC,
     LiteGraspValidationConfig,
+    validate_grasp_xml,
     validate_lite_grasp_xml,
 )
 
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Validate one GraspNet prediction in a MuJoCo scene with a Robotiq 2F-85 Lite gripper."
+        description="Validate one GraspNet prediction in a MuJoCo scene with a selected gripper backend."
     )
     parser.add_argument("--scene-root", type=Path, required=True)
     parser.add_argument("--dataset-root", type=Path, required=True)
@@ -49,6 +53,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--no-align-to-table", dest="align_to_table", action="store_false", help="Keep raw camera-frame coordinates.")
     parser.set_defaults(align_to_table=True)
     parser.add_argument("--gripper-opening-margin", type=float, default=0.004)
+    parser.add_argument(
+        "--gripper-backend",
+        choices=[LITE_GRIPPER_BACKEND, FRANKA_HAND_BACKEND],
+        default=LITE_GRIPPER_BACKEND,
+        help="Use the lightweight Robotiq geometry or the real Franka/Panda hand mesh backend.",
+    )
+    parser.add_argument(
+        "--franka-hand-xml",
+        type=Path,
+        default=None,
+        help="Path to the Franka/Panda hand.xml used when --gripper-backend=franka-hand.",
+    )
     parser.add_argument("--settle-steps", type=int, default=20)
     parser.add_argument("--approach-steps", type=int, default=40)
     parser.add_argument("--close-steps", type=int, default=40)
@@ -75,6 +91,8 @@ def main() -> None:
         candidate_rank=args.candidate_rank,
         align_to_table=args.align_to_table,
         gripper_opening_margin=args.gripper_opening_margin,
+        gripper_backend=args.gripper_backend,
+        franka_hand_xml=args.franka_hand_xml,
         validation_config=LiteGraspValidationConfig(
             settle_steps=args.settle_steps,
             approach_steps=args.approach_steps,
@@ -118,12 +136,15 @@ def validate_graspnet_mujoco_grasp(
     align_to_table: bool = True,
     gripper_opening_margin: float = 0.004,
     validation_config: LiteGraspValidationConfig | None = None,
+    gripper_backend: str = LITE_GRIPPER_BACKEND,
+    franka_hand_xml: str | Path | None = None,
 ) -> dict[str, object]:
     frame_id = normalize_frame_id(frame)
     output_dir = Path(out_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
-    xml_path = output_dir / f"{scene}_{camera}_{frame_id}_candidate{candidate_rank:03d}_dynamic.xml"
-    summary_path = output_dir / f"{scene}_{camera}_{frame_id}_candidate{candidate_rank:03d}_dynamic_summary.json"
+    backend_suffix = "" if gripper_backend == LITE_GRIPPER_BACKEND else f"_{gripper_backend.replace('-', '_')}"
+    xml_path = output_dir / f"{scene}_{camera}_{frame_id}_candidate{candidate_rank:03d}_dynamic{backend_suffix}.xml"
+    summary_path = output_dir / f"{scene}_{camera}_{frame_id}_candidate{candidate_rank:03d}_dynamic{backend_suffix}_summary.json"
 
     realsense_path = _realsense_path_for_scene(scene_root, scene, camera)
     with GraspNetRealSenseSource.open(realsense_path) as source:
@@ -151,25 +172,40 @@ def validate_graspnet_mujoco_grasp(
     selected_grasp = apply_graspnet_depth_offset(selected_grasp_raw, selected_record)
     target_annotation = select_target_annotation_for_grasp(annotations, selected_grasp)
     target_body_name = mujoco_body_name_for_annotation(target_annotation)
+    resolved_franka_hand_xml = (
+        resolve_franka_hand_xml(explicit_path=franka_hand_xml) if gripper_backend == FRANKA_HAND_BACKEND else None
+    )
 
     write_graspnet_mujoco_scene_xml(
         xml_path,
         annotations,
         dataset_root=dataset_root,
         selected_grasp=selected_grasp,
+        gripper_backend=gripper_backend,
         gripper_config=robotiq_lite_config_from_graspnet_candidate(
             selected_grasp,
             include_freejoint=True,
             opening_margin=gripper_opening_margin,
         ),
+        franka_hand_xml=resolved_franka_hand_xml,
         selected_grasp_controls_gripper_pose=False,
         mesh_file=mesh_file,
     )
-    validation = validate_lite_grasp_xml(
-        xml_path,
-        target_body_name=target_body_name,
-        config=validation_config,
-    )
+    if gripper_backend == LITE_GRIPPER_BACKEND:
+        validation = validate_lite_grasp_xml(
+            xml_path,
+            target_body_name=target_body_name,
+            config=validation_config,
+        )
+    elif gripper_backend == FRANKA_HAND_BACKEND:
+        validation = validate_grasp_xml(
+            xml_path,
+            target_body_name=target_body_name,
+            gripper_spec=FRANKA_HAND_GRIPPER_SPEC,
+            config=validation_config,
+        )
+    else:
+        raise ValueError(f"Unsupported gripper_backend: {gripper_backend}")
     summary = {
         "scene": scene,
         "camera": camera,
@@ -183,6 +219,8 @@ def validate_graspnet_mujoco_grasp(
         "candidate_rank": int(candidate_rank),
         "candidate_count": len(records),
         "coordinate_frame": "table_aligned" if align_transform is not None else "camera",
+        "gripper_backend": gripper_backend,
+        "franka_hand_xml": str(resolved_franka_hand_xml) if resolved_franka_hand_xml is not None else None,
         "gripper_opening_margin": round(float(gripper_opening_margin), 6),
         "selected_grasp_score": round(float(selected_grasp.score), 6),
         "selected_grasp_depth": round(float(selected_record.get("depth", 0.0)), 6),

@@ -10,9 +10,11 @@ from tests import conftest  # noqa: F401
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate
 from stacked_grasping.gripper.graspnet_mujoco_scene import robotiq_lite_config_from_graspnet_candidate
 from stacked_grasping.gripper.mujoco_grasp_validation import (
+    FRANKA_HAND_GRIPPER_SPEC,
     LiteGraspValidationConfig,
     _gripper_approach_axis,
     _is_unstable_lift_delta,
+    validate_grasp_xml,
     validate_lite_grasp_xml,
 )
 from stacked_grasping.gripper.robotiq_2f85_lite import Robotiq2F85LiteConfig, build_gripper_body
@@ -123,6 +125,54 @@ class MujocoGraspValidationTests(unittest.TestCase):
             candidate.approach_direction,
             atol=1e-6,
         )
+
+    def test_validate_grasp_xml_supports_franka_hand_joint_names(self):
+        xml = """\
+<mujoco>
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <worldbody>
+    <geom name="floor" type="plane" size="0.5 0.5 0.01"/>
+    <body name="target_box" pos="0 0 0.03">
+      <freejoint name="target_box_freejoint"/>
+      <geom name="target_box_geom" type="box" size="0.02 0.02 0.02" density="500"/>
+    </body>
+    <body name="franka_hand" pos="0 0 0.14">
+      <freejoint name="franka_hand_freejoint"/>
+      <geom name="franka_palm" type="box" size="0.03 0.01 0.02"/>
+      <body name="left_finger" pos="0 0 0.04">
+        <joint name="finger_joint1" type="slide" axis="0 1 0" range="0 0.04"/>
+        <geom name="left_finger_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+      <body name="right_finger" pos="0 0 0.04">
+        <joint name="finger_joint2" type="slide" axis="0 1 0" range="0 0.04"/>
+        <geom name="right_finger_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
+"""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            xml_path = Path(tmp_dir) / "franka_hand_validation.xml"
+            xml_path.write_text(xml, encoding="utf-8")
+
+            result = validate_grasp_xml(
+                xml_path,
+                target_body_name="target_box",
+                gripper_spec=FRANKA_HAND_GRIPPER_SPEC,
+                config=LiteGraspValidationConfig(
+                    settle_steps=1,
+                    approach_steps=1,
+                    close_steps=1,
+                    lift_steps=1,
+                    hold_steps=1,
+                ),
+            )
+
+        self.assertTrue(result.compile_success)
+        self.assertEqual(result.target_body_name, "target_box")
+        self.assertNotEqual(result.failure_reason, "missing_gripper_freejoint")
+        self.assertNotEqual(result.failure_reason, "missing_finger_slide_joints")
 
 
 if __name__ == "__main__":

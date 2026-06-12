@@ -10,6 +10,13 @@ from typing import Iterable, Sequence
 import numpy as np
 
 from stacked_grasping.gripper.external_graspnet_data import AnnotationObject
+from stacked_grasping.gripper.franka_hand import (
+    FRANKA_HAND_BACKEND,
+    FrankaHandConfig,
+    append_franka_hand_to_mujoco_root,
+    franka_hand_config_from_graspnet_candidate,
+    resolve_franka_hand_xml,
+)
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate
 from stacked_grasping.gripper.robotiq_2f85_lite import Robotiq2F85LiteConfig, build_gripper_body
 
@@ -20,6 +27,7 @@ DEFAULT_OBJECT_FRICTION = "3.0 0.05 0.001"
 DEFAULT_CONTACT_CONDIM = "6"
 DEFAULT_CONTACT_SOLREF = "0.004 1"
 DEFAULT_CONTACT_SOLIMP = "0.95 0.99 0.001"
+LITE_GRIPPER_BACKEND = "lite"
 
 
 def resolve_graspnet_model_mesh(
@@ -56,6 +64,9 @@ def build_graspnet_mujoco_scene_xml(
     output_path: str | Path | None = None,
     selected_grasp: GraspPoseCandidate | None = None,
     gripper_config: Robotiq2F85LiteConfig | None = None,
+    gripper_backend: str = LITE_GRIPPER_BACKEND,
+    franka_hand_config: FrankaHandConfig | None = None,
+    franka_hand_xml: str | Path | None = None,
     selected_grasp_controls_gripper_pose: bool = True,
     include_freejoints: bool = True,
     mesh_file: str = DEFAULT_MESH_FILE,
@@ -113,7 +124,7 @@ def build_graspnet_mujoco_scene_xml(
             },
         )
 
-    if selected_grasp is not None:
+    if selected_grasp is not None and gripper_backend == LITE_GRIPPER_BACKEND:
         cfg = gripper_config or Robotiq2F85LiteConfig()
         if selected_grasp_controls_gripper_pose:
             gripper_cfg = replace(
@@ -124,6 +135,20 @@ def build_graspnet_mujoco_scene_xml(
         else:
             gripper_cfg = cfg
         worldbody.append(build_gripper_body(gripper_cfg))
+    elif selected_grasp is not None and gripper_backend == FRANKA_HAND_BACKEND:
+        hand_xml = resolve_franka_hand_xml(explicit_path=franka_hand_xml)
+        cfg = franka_hand_config or franka_hand_config_from_graspnet_candidate(
+            selected_grasp,
+            include_freejoint=True,
+        )
+        append_franka_hand_to_mujoco_root(
+            root,
+            hand_xml_path=hand_xml,
+            output_path=output_path,
+            config=cfg,
+        )
+    elif selected_grasp is not None:
+        raise ValueError(f"Unsupported gripper_backend: {gripper_backend}")
 
     _indent(root)
     return ET.tostring(root, encoding="unicode")
@@ -194,6 +219,9 @@ def write_graspnet_mujoco_scene_xml(
     dataset_root: str | Path,
     selected_grasp: GraspPoseCandidate | None = None,
     gripper_config: Robotiq2F85LiteConfig | None = None,
+    gripper_backend: str = LITE_GRIPPER_BACKEND,
+    franka_hand_config: FrankaHandConfig | None = None,
+    franka_hand_xml: str | Path | None = None,
     selected_grasp_controls_gripper_pose: bool = True,
     include_freejoints: bool = True,
     mesh_file: str = DEFAULT_MESH_FILE,
@@ -206,6 +234,9 @@ def write_graspnet_mujoco_scene_xml(
         output_path=output,
         selected_grasp=selected_grasp,
         gripper_config=gripper_config,
+        gripper_backend=gripper_backend,
+        franka_hand_config=franka_hand_config,
+        franka_hand_xml=franka_hand_xml,
         selected_grasp_controls_gripper_pose=selected_grasp_controls_gripper_pose,
         include_freejoints=include_freejoints,
         mesh_file=mesh_file,

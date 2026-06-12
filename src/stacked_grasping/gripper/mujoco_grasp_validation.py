@@ -14,6 +14,43 @@ RIGHT_SLIDE_JOINT_NAME = "robotiq_right_slide"
 
 
 @dataclass(frozen=True)
+class GripperValidationSpec:
+    root_body_name: str
+    root_joint_name: str
+    left_slide_joint_name: str
+    right_slide_joint_name: str
+    approach_axis_column: int
+    approach_axis_sign: float
+    left_open_limit: str = "upper"
+    right_open_limit: str = "lower"
+    left_closed_qpos: float = 0.0
+    right_closed_qpos: float = 0.0
+
+
+LITE_GRIPPER_SPEC = GripperValidationSpec(
+    root_body_name=GRIPPER_BODY_NAME,
+    root_joint_name=GRIPPER_ROOT_JOINT_NAME,
+    left_slide_joint_name=LEFT_SLIDE_JOINT_NAME,
+    right_slide_joint_name=RIGHT_SLIDE_JOINT_NAME,
+    approach_axis_column=2,
+    approach_axis_sign=-1.0,
+    left_open_limit="upper",
+    right_open_limit="lower",
+)
+
+FRANKA_HAND_GRIPPER_SPEC = GripperValidationSpec(
+    root_body_name="franka_hand",
+    root_joint_name="franka_hand_freejoint",
+    left_slide_joint_name="finger_joint1",
+    right_slide_joint_name="finger_joint2",
+    approach_axis_column=2,
+    approach_axis_sign=1.0,
+    left_open_limit="upper",
+    right_open_limit="upper",
+)
+
+
+@dataclass(frozen=True)
 class LiteGraspValidationConfig:
     settle_steps: int = 20
     approach_steps: int = 40
@@ -72,6 +109,21 @@ def validate_lite_grasp_xml(
     target_body_name: str,
     config: LiteGraspValidationConfig | None = None,
 ) -> LiteGraspValidationResult:
+    return validate_grasp_xml(
+        xml_path,
+        target_body_name=target_body_name,
+        gripper_spec=LITE_GRIPPER_SPEC,
+        config=config,
+    )
+
+
+def validate_grasp_xml(
+    xml_path: str | Path,
+    *,
+    target_body_name: str,
+    gripper_spec: GripperValidationSpec,
+    config: LiteGraspValidationConfig | None = None,
+) -> LiteGraspValidationResult:
     cfg = config or LiteGraspValidationConfig()
     try:
         import mujoco
@@ -93,8 +145,8 @@ def validate_lite_grasp_xml(
             failure_reason="missing_target_body",
         )
 
-    gripper_body_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, GRIPPER_BODY_NAME)
-    root_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, GRIPPER_ROOT_JOINT_NAME)
+    gripper_body_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_BODY, gripper_spec.root_body_name)
+    root_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, gripper_spec.root_joint_name)
     if gripper_body_id < 0 or root_joint_id < 0:
         return LiteGraspValidationResult(
             compile_success=True,
@@ -102,8 +154,8 @@ def validate_lite_grasp_xml(
             failure_reason="missing_gripper_freejoint",
         )
 
-    left_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, LEFT_SLIDE_JOINT_NAME)
-    right_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, RIGHT_SLIDE_JOINT_NAME)
+    left_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, gripper_spec.left_slide_joint_name)
+    right_joint_id = mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_JOINT, gripper_spec.right_slide_joint_name)
     if left_joint_id < 0 or right_joint_id < 0:
         return LiteGraspValidationResult(
             compile_success=True,
@@ -117,13 +169,13 @@ def validate_lite_grasp_xml(
     qpos_addr = int(model.jnt_qposadr[root_joint_id])
     initial_grasp_pos = np.asarray(data.qpos[qpos_addr : qpos_addr + 3], dtype=float).copy()
     grasp_quat = _normalized_quat(data.qpos[qpos_addr + 3 : qpos_addr + 7])
-    approach_axis = _gripper_approach_axis(grasp_quat)
+    approach_axis = _gripper_approach_axis(grasp_quat, gripper_spec=gripper_spec)
     pregrasp_pos = initial_grasp_pos - approach_axis * float(cfg.pregrasp_distance)
     lift_pos = initial_grasp_pos + np.array([0.0, 0.0, float(cfg.lift_distance)], dtype=float)
 
     gripper_body_ids = _body_subtree_ids(model, gripper_body_id)
-    open_qpos = _finger_open_qpos(model, left_joint_id, right_joint_id)
-    closed_qpos = _finger_closed_qpos(model, left_joint_id, right_joint_id)
+    open_qpos = _finger_open_qpos(model, left_joint_id, right_joint_id, gripper_spec=gripper_spec)
+    closed_qpos = _finger_closed_qpos(model, left_joint_id, right_joint_id, gripper_spec=gripper_spec)
 
     initial_target_z = float(data.xpos[target_body_id, 2])
     max_target_z = initial_target_z
@@ -235,14 +287,29 @@ def _set_finger_qpos(model, data, left_joint_id: int, right_joint_id: int, value
         data.qvel[qvel_addr] = velocity
 
 
-def _finger_open_qpos(model, left_joint_id: int, right_joint_id: int) -> tuple[float, float]:
-    return (float(model.jnt_range[left_joint_id, 1]), float(model.jnt_range[right_joint_id, 0]))
+def _finger_open_qpos(
+    model,
+    left_joint_id: int,
+    right_joint_id: int,
+    *,
+    gripper_spec: GripperValidationSpec,
+) -> tuple[float, float]:
+    return (
+        _joint_limit_value(model, left_joint_id, gripper_spec.left_open_limit),
+        _joint_limit_value(model, right_joint_id, gripper_spec.right_open_limit),
+    )
 
 
-def _finger_closed_qpos(model, left_joint_id: int, right_joint_id: int) -> tuple[float, float]:
+def _finger_closed_qpos(
+    model,
+    left_joint_id: int,
+    right_joint_id: int,
+    *,
+    gripper_spec: GripperValidationSpec,
+) -> tuple[float, float]:
     left_range = model.jnt_range[left_joint_id]
     right_range = model.jnt_range[right_joint_id]
-    return (_clamp(0.0, left_range), _clamp(0.0, right_range))
+    return (_clamp(gripper_spec.left_closed_qpos, left_range), _clamp(gripper_spec.right_closed_qpos, right_range))
 
 
 def _has_target_gripper_contact(model, data, target_body_id: int, gripper_body_ids: set[int]) -> int:
@@ -257,9 +324,13 @@ def _has_target_gripper_contact(model, data, target_body_id: int, gripper_body_i
     return 0
 
 
-def _gripper_approach_axis(quat_wxyz: Iterable[float]) -> np.ndarray:
+def _gripper_approach_axis(
+    quat_wxyz: Iterable[float],
+    *,
+    gripper_spec: GripperValidationSpec = LITE_GRIPPER_SPEC,
+) -> np.ndarray:
     rotation = _quat_wxyz_to_rotation(quat_wxyz)
-    return -rotation[:, 2]
+    return float(gripper_spec.approach_axis_sign) * rotation[:, int(gripper_spec.approach_axis_column)]
 
 
 def _body_subtree_ids(model, root_body_id: int) -> set[int]:
@@ -306,6 +377,14 @@ def _linspace01(step_count: int) -> np.ndarray:
 
 def _clamp(value: float, limits: np.ndarray) -> float:
     return float(min(max(value, float(limits[0])), float(limits[1])))
+
+
+def _joint_limit_value(model, joint_id: int, side: str) -> float:
+    if side == "lower":
+        return float(model.jnt_range[joint_id, 0])
+    if side == "upper":
+        return float(model.jnt_range[joint_id, 1])
+    raise ValueError(f"Unsupported joint limit side: {side}")
 
 
 def _model_timestep(model) -> float:
