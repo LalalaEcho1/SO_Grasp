@@ -135,6 +135,41 @@ class RunGraspNetSplitDynamicTopKTests(unittest.TestCase):
             self.assertEqual(len(validator_out_dirs), 1)
             self.assertNotEqual(validator_out_dirs[0], out_dir)
 
+    def test_run_graspnet_split_dynamic_topk_passes_gripper_backend_to_validator(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            config_path = root / "split.json"
+            config_path.write_text(json.dumps(_split_config(), ensure_ascii=False), encoding="utf-8")
+            gripper_xml = root / "mujoco_menagerie" / "robotiq_2f85" / "2f85.xml"
+            seen_kwargs: list[dict[str, object]] = []
+
+            def fake_validator(**kwargs):
+                seen_kwargs.append(dict(kwargs))
+                return {
+                    **_candidate_summary(int(kwargs["candidate_rank"]), success=False, lift=0.001),
+                    "gripper_backend": kwargs["gripper_backend"],
+                    "robotiq_2f85_xml": str(kwargs["robotiq_2f85_xml"]),
+                }
+
+            summary = run_graspnet_split_dynamic_topk(
+                config_path=config_path,
+                scene_root=root / "scenes",
+                dataset_root=root / "dataset",
+                prediction_root=root / "predictions",
+                out_dir=root / "results",
+                top_k=1,
+                save_outputs=False,
+                gripper_backend="robotiq-2f85",
+                robotiq_2f85_xml=gripper_xml,
+                validator=fake_validator,
+            )
+
+        self.assertEqual(summary["gripper_backend"], "robotiq-2f85")
+        self.assertEqual(summary["robotiq_2f85_xml"], str(gripper_xml))
+        self.assertEqual(len(seen_kwargs), 1)
+        self.assertEqual(seen_kwargs[0]["gripper_backend"], "robotiq-2f85")
+        self.assertEqual(seen_kwargs[0]["robotiq_2f85_xml"], gripper_xml)
+
     def test_script_help_runs(self):
         script = conftest.PROJECT_ROOT / "scripts" / "run_graspnet_split_dynamic_topk.py"
 
@@ -149,6 +184,8 @@ class RunGraspNetSplitDynamicTopKTests(unittest.TestCase):
         self.assertIn("--top-k", result.stdout)
         self.assertIn("--stop-on-success", result.stdout)
         self.assertIn("--no-save", result.stdout)
+        self.assertIn("--gripper-backend", result.stdout)
+        self.assertIn("--robotiq-2f85-xml", result.stdout)
 
 
 if __name__ == "__main__":

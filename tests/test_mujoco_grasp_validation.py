@@ -199,6 +199,9 @@ class MujocoGraspValidationTests(unittest.TestCase):
       </body>
     </body>
   </worldbody>
+  <actuator>
+    <position name="fingers_actuator" joint="left_driver_joint" kp="1" ctrlrange="0 255"/>
+  </actuator>
 </mujoco>
 """
         with tempfile.TemporaryDirectory() as tmp_dir:
@@ -222,6 +225,46 @@ class MujocoGraspValidationTests(unittest.TestCase):
         self.assertEqual(result.target_body_name, "target_box")
         self.assertNotEqual(result.failure_reason, "missing_gripper_freejoint")
         self.assertNotEqual(result.failure_reason, "missing_finger_slide_joints")
+        self.assertNotEqual(result.failure_reason, "missing_finger_actuator")
+
+    def test_validate_grasp_xml_reports_missing_robotiq_2f85_actuator(self):
+        xml = """\
+<mujoco>
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <worldbody>
+    <geom name="floor" type="plane" size="0.5 0.5 0.01"/>
+    <body name="target_box" pos="0 0 0.03">
+      <freejoint name="target_box_freejoint"/>
+      <geom name="target_box_geom" type="box" size="0.02 0.02 0.02" density="500"/>
+    </body>
+    <body name="robotiq_2f85" pos="0 0 0.16">
+      <freejoint name="robotiq_2f85_freejoint"/>
+      <geom name="robotiq_base" type="box" size="0.03 0.01 0.02"/>
+      <body name="left_driver">
+        <joint name="left_driver_joint" type="hinge" axis="1 0 0" range="0 0.8"/>
+        <geom name="left_driver_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+      <body name="right_driver">
+        <joint name="right_driver_joint" type="hinge" axis="1 0 0" range="0 0.8"/>
+        <geom name="right_driver_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
+"""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            xml_path = Path(tmp_dir) / "robotiq_2f85_missing_actuator.xml"
+            xml_path.write_text(xml, encoding="utf-8")
+
+            result = validate_grasp_xml(
+                xml_path,
+                target_body_name="target_box",
+                gripper_spec=ROBOTIQ_2F85_GRIPPER_SPEC,
+            )
+
+        self.assertTrue(result.compile_success)
+        self.assertEqual(result.failure_reason, "missing_finger_actuator")
 
 
 if __name__ == "__main__":

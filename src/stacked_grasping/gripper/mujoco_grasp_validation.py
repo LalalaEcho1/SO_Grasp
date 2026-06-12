@@ -25,6 +25,9 @@ class GripperValidationSpec:
     right_open_limit: str = "lower"
     left_closed_qpos: float = 0.0
     right_closed_qpos: float = 0.0
+    finger_actuator_name: str | None = None
+    open_ctrl: float = 0.0
+    closed_ctrl: float = 0.0
 
 
 LITE_GRIPPER_SPEC = GripperValidationSpec(
@@ -60,6 +63,9 @@ ROBOTIQ_2F85_GRIPPER_SPEC = GripperValidationSpec(
     right_open_limit="lower",
     left_closed_qpos=0.8,
     right_closed_qpos=0.8,
+    finger_actuator_name="fingers_actuator",
+    open_ctrl=0.0,
+    closed_ctrl=255.0,
 )
 
 
@@ -175,6 +181,13 @@ def validate_grasp_xml(
             target_body_name=target_body_name,
             failure_reason="missing_finger_slide_joints",
         )
+    finger_actuator_id = _finger_actuator_id(model, mujoco, gripper_spec=gripper_spec)
+    if gripper_spec.finger_actuator_name is not None and finger_actuator_id < 0:
+        return LiteGraspValidationResult(
+            compile_success=True,
+            target_body_name=target_body_name,
+            failure_reason="missing_finger_actuator",
+        )
 
     mujoco.mj_resetData(model, data)
     mujoco.mj_forward(model, data)
@@ -199,7 +212,15 @@ def validate_grasp_xml(
 
     for _ in range(int(cfg.settle_steps)):
         _set_gripper_pose(model, data, root_joint_id, pregrasp_pos, grasp_quat)
-        _set_finger_qpos(model, data, left_joint_id, right_joint_id, open_qpos)
+        _set_finger_command(
+            model,
+            data,
+            left_joint_id,
+            right_joint_id,
+            open_qpos,
+            finger_actuator_id=finger_actuator_id,
+            actuator_ctrl=float(gripper_spec.open_ctrl),
+        )
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
@@ -208,7 +229,15 @@ def validate_grasp_xml(
     for alpha in _linspace01(cfg.approach_steps):
         pos = pregrasp_pos * (1.0 - alpha) + initial_grasp_pos * alpha
         _set_gripper_pose(model, data, root_joint_id, pos, grasp_quat)
-        _set_finger_qpos(model, data, left_joint_id, right_joint_id, open_qpos)
+        _set_finger_command(
+            model,
+            data,
+            left_joint_id,
+            right_joint_id,
+            open_qpos,
+            finger_actuator_id=finger_actuator_id,
+            actuator_ctrl=float(gripper_spec.open_ctrl),
+        )
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
@@ -216,8 +245,19 @@ def validate_grasp_xml(
 
     for alpha in _linspace01(cfg.close_steps):
         finger_qpos = tuple(open_qpos[index] * (1.0 - alpha) + closed_qpos[index] * alpha for index in range(2))
+        finger_ctrl = float(gripper_spec.open_ctrl) * (1.0 - float(alpha)) + float(gripper_spec.closed_ctrl) * float(
+            alpha
+        )
         _set_gripper_pose(model, data, root_joint_id, initial_grasp_pos, grasp_quat)
-        _set_finger_qpos(model, data, left_joint_id, right_joint_id, finger_qpos)
+        _set_finger_command(
+            model,
+            data,
+            left_joint_id,
+            right_joint_id,
+            finger_qpos,
+            finger_actuator_id=finger_actuator_id,
+            actuator_ctrl=finger_ctrl,
+        )
         mujoco.mj_step(model, data)
         phase_steps += 1
         contact_steps += _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
@@ -226,7 +266,15 @@ def validate_grasp_xml(
     for alpha in _linspace01(cfg.lift_steps):
         pos = initial_grasp_pos * (1.0 - alpha) + lift_pos * alpha
         _set_gripper_pose(model, data, root_joint_id, pos, grasp_quat)
-        _set_finger_qpos(model, data, left_joint_id, right_joint_id, closed_qpos)
+        _set_finger_command(
+            model,
+            data,
+            left_joint_id,
+            right_joint_id,
+            closed_qpos,
+            finger_actuator_id=finger_actuator_id,
+            actuator_ctrl=float(gripper_spec.closed_ctrl),
+        )
         mujoco.mj_step(model, data)
         phase_steps += 1
         has_contact = _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
@@ -236,7 +284,15 @@ def validate_grasp_xml(
 
     for _ in range(int(cfg.hold_steps)):
         _set_gripper_pose(model, data, root_joint_id, lift_pos, grasp_quat)
-        _set_finger_qpos(model, data, left_joint_id, right_joint_id, closed_qpos)
+        _set_finger_command(
+            model,
+            data,
+            left_joint_id,
+            right_joint_id,
+            closed_qpos,
+            finger_actuator_id=finger_actuator_id,
+            actuator_ctrl=float(gripper_spec.closed_ctrl),
+        )
         mujoco.mj_step(model, data)
         phase_steps += 1
         has_contact = _has_target_gripper_contact(model, data, target_body_id, gripper_body_ids)
@@ -298,6 +354,32 @@ def _set_finger_qpos(model, data, left_joint_id: int, right_joint_id: int, value
         velocity = _clipped_scalar_velocity(float(value) - float(data.qpos[qpos_addr]), _model_timestep(model))
         data.qpos[qpos_addr] = float(value)
         data.qvel[qvel_addr] = velocity
+
+
+def _set_finger_command(
+    model,
+    data,
+    left_joint_id: int,
+    right_joint_id: int,
+    qpos_values: tuple[float, float],
+    *,
+    finger_actuator_id: int,
+    actuator_ctrl: float,
+) -> None:
+    if finger_actuator_id >= 0:
+        data.ctrl[finger_actuator_id] = float(actuator_ctrl)
+        return
+    _set_finger_qpos(model, data, left_joint_id, right_joint_id, qpos_values)
+
+
+def _finger_actuator_id(model, mujoco_module, *, gripper_spec: GripperValidationSpec) -> int:
+    if gripper_spec.finger_actuator_name is None:
+        return -1
+    return mujoco_module.mj_name2id(
+        model,
+        mujoco_module.mjtObj.mjOBJ_ACTUATOR,
+        gripper_spec.finger_actuator_name,
+    )
 
 
 def _finger_open_qpos(

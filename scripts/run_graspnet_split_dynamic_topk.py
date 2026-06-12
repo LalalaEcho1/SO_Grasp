@@ -20,7 +20,10 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from scripts.run_graspnet_split_od_baselines import flatten_split_config  # noqa: E402
 from scripts.validate_graspnet_mujoco_grasp import validate_graspnet_mujoco_grasp  # noqa: E402
+from stacked_grasping.gripper.franka_hand import FRANKA_HAND_BACKEND  # noqa: E402
 from stacked_grasping.gripper.mujoco_grasp_validation import LiteGraspValidationConfig  # noqa: E402
+from stacked_grasping.gripper.robotiq_2f85 import ROBOTIQ_2F85_BACKEND  # noqa: E402
+from stacked_grasping.gripper.graspnet_mujoco_scene import LITE_GRIPPER_BACKEND  # noqa: E402
 
 
 Validator = Callable[..., dict]
@@ -43,6 +46,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--no-align-to-table", dest="align_to_table", action="store_false")
     parser.set_defaults(align_to_table=True)
     parser.add_argument("--gripper-opening-margin", type=float, default=0.004)
+    parser.add_argument(
+        "--gripper-backend",
+        choices=[LITE_GRIPPER_BACKEND, FRANKA_HAND_BACKEND, ROBOTIQ_2F85_BACKEND],
+        default=LITE_GRIPPER_BACKEND,
+    )
+    parser.add_argument("--franka-hand-xml", type=Path, default=None)
+    parser.add_argument("--robotiq-2f85-xml", type=Path, default=None)
     parser.add_argument("--settle-steps", type=int, default=20)
     parser.add_argument("--approach-steps", type=int, default=40)
     parser.add_argument("--close-steps", type=int, default=40)
@@ -70,6 +80,9 @@ def main() -> None:
         save_outputs=not args.no_save,
         align_to_table=args.align_to_table,
         gripper_opening_margin=args.gripper_opening_margin,
+        gripper_backend=args.gripper_backend,
+        franka_hand_xml=args.franka_hand_xml,
+        robotiq_2f85_xml=args.robotiq_2f85_xml,
         validation_config=LiteGraspValidationConfig(
             settle_steps=args.settle_steps,
             approach_steps=args.approach_steps,
@@ -110,6 +123,9 @@ def run_graspnet_split_dynamic_topk(
     save_outputs: bool = True,
     align_to_table: bool = True,
     gripper_opening_margin: float = 0.004,
+    gripper_backend: str = LITE_GRIPPER_BACKEND,
+    franka_hand_xml: str | Path | None = None,
+    robotiq_2f85_xml: str | Path | None = None,
     validation_config: LiteGraspValidationConfig | None = None,
     validator: Validator = validate_graspnet_mujoco_grasp,
 ) -> dict[str, object]:
@@ -136,6 +152,9 @@ def run_graspnet_split_dynamic_topk(
             save_outputs=True,
             align_to_table=align_to_table,
             gripper_opening_margin=gripper_opening_margin,
+            gripper_backend=gripper_backend,
+            franka_hand_xml=franka_hand_xml,
+            robotiq_2f85_xml=robotiq_2f85_xml,
             validation_config=validation_config,
             validator=validator,
         )
@@ -155,6 +174,9 @@ def run_graspnet_split_dynamic_topk(
             save_outputs=False,
             align_to_table=align_to_table,
             gripper_opening_margin=gripper_opening_margin,
+            gripper_backend=gripper_backend,
+            franka_hand_xml=franka_hand_xml,
+            robotiq_2f85_xml=robotiq_2f85_xml,
             validation_config=validation_config,
             validator=validator,
         )
@@ -175,6 +197,9 @@ def _run_graspnet_split_dynamic_topk_core(
     save_outputs: bool,
     align_to_table: bool,
     gripper_opening_margin: float,
+    gripper_backend: str,
+    franka_hand_xml: str | Path | None,
+    robotiq_2f85_xml: str | Path | None,
     validation_config: LiteGraspValidationConfig | None,
     validator: Validator,
 ) -> dict[str, object]:
@@ -198,6 +223,9 @@ def _run_graspnet_split_dynamic_topk_core(
                 stop_on_success=stop_on_success,
                 align_to_table=align_to_table,
                 gripper_opening_margin=gripper_opening_margin,
+                gripper_backend=gripper_backend,
+                franka_hand_xml=franka_hand_xml,
+                robotiq_2f85_xml=robotiq_2f85_xml,
                 validation_config=validation_config,
                 validator=validator,
             )
@@ -216,6 +244,9 @@ def _run_graspnet_split_dynamic_topk_core(
         "output_dir": str(requested_target),
         "output_saved": bool(save_outputs),
         "top_k": top_k,
+        "gripper_backend": gripper_backend,
+        "franka_hand_xml": str(franka_hand_xml) if franka_hand_xml is not None else None,
+        "robotiq_2f85_xml": str(robotiq_2f85_xml) if robotiq_2f85_xml is not None else None,
         "stop_on_success": bool(stop_on_success),
         "frame_count": len(entries),
         "processed_frame_count": len(frame_results),
@@ -254,6 +285,9 @@ def run_entry_dynamic_topk(
     stop_on_success: bool,
     align_to_table: bool,
     gripper_opening_margin: float,
+    gripper_backend: str,
+    franka_hand_xml: str | Path | None,
+    robotiq_2f85_xml: str | Path | None,
     validation_config: LiteGraspValidationConfig | None,
     validator: Validator,
 ) -> tuple[dict[str, object], list[dict[str, object]]]:
@@ -275,6 +309,9 @@ def run_entry_dynamic_topk(
                 candidate_rank=rank,
                 align_to_table=align_to_table,
                 gripper_opening_margin=gripper_opening_margin,
+                gripper_backend=gripper_backend,
+                franka_hand_xml=franka_hand_xml,
+                robotiq_2f85_xml=robotiq_2f85_xml,
                 validation_config=validation_config,
             )
         except ValueError as exc:
@@ -329,6 +366,9 @@ def candidate_row_from_summary(entry: dict[str, object], summary: dict[str, obje
         "target_object_id": summary.get("target_object_id"),
         "target_object_name": summary.get("target_object_name"),
         "target_body_name": summary.get("target_body_name"),
+        "gripper_backend": summary.get("gripper_backend"),
+        "franka_hand_xml": summary.get("franka_hand_xml"),
+        "robotiq_2f85_xml": summary.get("robotiq_2f85_xml"),
         "compile_success": validation.get("compile_success"),
         "lift_success": validation.get("lift_success"),
         "failure_reason": validation.get("failure_reason"),
@@ -379,6 +419,10 @@ def write_candidate_results_csv(path: Path, rows: Sequence[dict[str, object]]) -
         "selected_grasp_score",
         "target_object_id",
         "target_object_name",
+        "target_body_name",
+        "gripper_backend",
+        "franka_hand_xml",
+        "robotiq_2f85_xml",
         "compile_success",
         "lift_success",
         "failure_reason",
