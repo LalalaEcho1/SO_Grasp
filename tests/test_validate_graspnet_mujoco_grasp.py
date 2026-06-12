@@ -195,6 +195,7 @@ class ValidateGraspNetMujocoGraspTests(unittest.TestCase):
         self.assertIn("--gripper-opening-margin", result.stdout)
         self.assertIn("--gripper-backend", result.stdout)
         self.assertIn("--franka-hand-xml", result.stdout)
+        self.assertIn("--robotiq-2f85-xml", result.stdout)
 
 
 if __name__ == "__main__":

@@ -49,6 +49,19 @@ FRANKA_HAND_GRIPPER_SPEC = GripperValidationSpec(
     right_open_limit="upper",
 )
 
+ROBOTIQ_2F85_GRIPPER_SPEC = GripperValidationSpec(
+    root_body_name="robotiq_2f85",
+    root_joint_name="robotiq_2f85_freejoint",
+    left_slide_joint_name="left_driver_joint",
+    right_slide_joint_name="right_driver_joint",
+    approach_axis_column=2,
+    approach_axis_sign=1.0,
+    left_open_limit="lower",
+    right_open_limit="lower",
+    left_closed_qpos=0.8,
+    right_closed_qpos=0.8,
+)
+
 
 @dataclass(frozen=True)
 class LiteGraspValidationConfig:

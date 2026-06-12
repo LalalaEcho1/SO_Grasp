@@ -22,6 +22,7 @@ from stacked_grasping.gripper.external_graspnet_data import AnnotationObject, Gr
 from stacked_grasping.gripper.franka_hand import FRANKA_HAND_BACKEND, resolve_franka_hand_xml  # noqa: E402
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_outputs_to_candidates  # noqa: E402
 from stacked_grasping.gripper.graspnet_predictions import transform_graspnet_records  # noqa: E402
+from stacked_grasping.gripper.robotiq_2f85 import ROBOTIQ_2F85_BACKEND, resolve_robotiq_2f85_xml  # noqa: E402
 from stacked_grasping.gripper.graspnet_mujoco_scene import (  # noqa: E402
     LITE_GRIPPER_BACKEND,
     mujoco_body_name_for_annotation,
@@ -32,6 +33,7 @@ from stacked_grasping.gripper.graspnet_mujoco_scene import (  # noqa: E402
 from stacked_grasping.gripper.mujoco_grasp_validation import (  # noqa: E402
     FRANKA_HAND_GRIPPER_SPEC,
     LiteGraspValidationConfig,
+    ROBOTIQ_2F85_GRIPPER_SPEC,
     validate_grasp_xml,
     validate_lite_grasp_xml,
 )
@@ -55,15 +57,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--gripper-opening-margin", type=float, default=0.004)
     parser.add_argument(
         "--gripper-backend",
-        choices=[LITE_GRIPPER_BACKEND, FRANKA_HAND_BACKEND],
+        choices=[LITE_GRIPPER_BACKEND, FRANKA_HAND_BACKEND, ROBOTIQ_2F85_BACKEND],
         default=LITE_GRIPPER_BACKEND,
-        help="Use the lightweight Robotiq geometry or the real Franka/Panda hand mesh backend.",
+        help="Use the lightweight Robotiq geometry, Franka/Panda hand mesh, or Robotiq 2F-85 mesh backend.",
     )
     parser.add_argument(
         "--franka-hand-xml",
         type=Path,
         default=None,
         help="Path to the Franka/Panda hand.xml used when --gripper-backend=franka-hand.",
+    )
+    parser.add_argument(
+        "--robotiq-2f85-xml",
+        type=Path,
+        default=None,
+        help="Path to mujoco_menagerie/robotiq_2f85/2f85.xml used when --gripper-backend=robotiq-2f85.",
     )
     parser.add_argument("--settle-steps", type=int, default=20)
     parser.add_argument("--approach-steps", type=int, default=40)
@@ -93,6 +101,7 @@ def main() -> None:
         gripper_opening_margin=args.gripper_opening_margin,
         gripper_backend=args.gripper_backend,
         franka_hand_xml=args.franka_hand_xml,
+        robotiq_2f85_xml=args.robotiq_2f85_xml,
         validation_config=LiteGraspValidationConfig(
             settle_steps=args.settle_steps,
             approach_steps=args.approach_steps,
@@ -138,6 +147,7 @@ def validate_graspnet_mujoco_grasp(
     validation_config: LiteGraspValidationConfig | None = None,
     gripper_backend: str = LITE_GRIPPER_BACKEND,
     franka_hand_xml: str | Path | None = None,
+    robotiq_2f85_xml: str | Path | None = None,
 ) -> dict[str, object]:
     frame_id = normalize_frame_id(frame)
     output_dir = Path(out_dir)
@@ -175,6 +185,11 @@ def validate_graspnet_mujoco_grasp(
     resolved_franka_hand_xml = (
         resolve_franka_hand_xml(explicit_path=franka_hand_xml) if gripper_backend == FRANKA_HAND_BACKEND else None
     )
+    resolved_robotiq_2f85_xml = (
+        resolve_robotiq_2f85_xml(explicit_path=robotiq_2f85_xml)
+        if gripper_backend == ROBOTIQ_2F85_BACKEND
+        else None
+    )
 
     write_graspnet_mujoco_scene_xml(
         xml_path,
@@ -188,6 +203,7 @@ def validate_graspnet_mujoco_grasp(
             opening_margin=gripper_opening_margin,
         ),
         franka_hand_xml=resolved_franka_hand_xml,
+        robotiq_2f85_xml=resolved_robotiq_2f85_xml,
         selected_grasp_controls_gripper_pose=False,
         mesh_file=mesh_file,
     )
@@ -202,6 +218,13 @@ def validate_graspnet_mujoco_grasp(
             xml_path,
             target_body_name=target_body_name,
             gripper_spec=FRANKA_HAND_GRIPPER_SPEC,
+            config=validation_config,
+        )
+    elif gripper_backend == ROBOTIQ_2F85_BACKEND:
+        validation = validate_grasp_xml(
+            xml_path,
+            target_body_name=target_body_name,
+            gripper_spec=ROBOTIQ_2F85_GRIPPER_SPEC,
             config=validation_config,
         )
     else:
@@ -221,6 +244,7 @@ def validate_graspnet_mujoco_grasp(
         "coordinate_frame": "table_aligned" if align_transform is not None else "camera",
         "gripper_backend": gripper_backend,
         "franka_hand_xml": str(resolved_franka_hand_xml) if resolved_franka_hand_xml is not None else None,
+        "robotiq_2f85_xml": str(resolved_robotiq_2f85_xml) if resolved_robotiq_2f85_xml is not None else None,
         "gripper_opening_margin": round(float(gripper_opening_margin), 6),
         "selected_grasp_score": round(float(selected_grasp.score), 6),
         "selected_grasp_depth": round(float(selected_record.get("depth", 0.0)), 6),

@@ -18,6 +18,60 @@ from stacked_grasping.gripper.graspnet_mujoco_scene import (
 )
 
 
+def _write_minimal_2f85_xml(path: Path) -> None:
+    assets = path.parent / "assets"
+    assets.mkdir(parents=True, exist_ok=True)
+    for name in (
+        "base_mount.stl",
+        "base.stl",
+        "driver.stl",
+        "coupler.stl",
+        "follower.stl",
+        "pad.stl",
+        "silicone_pad.stl",
+        "spring_link.stl",
+    ):
+        (assets / name).write_text(
+            "\n".join(
+                [
+                    f"solid {Path(name).stem}",
+                    "facet normal 0 0 1",
+                    "outer loop",
+                    "vertex 0 0 0",
+                    "vertex 0.01 0 0",
+                    "vertex 0 0.01 0",
+                    "endloop",
+                    "endfacet",
+                    f"endsolid {Path(name).stem}",
+                    "",
+                ]
+            ),
+            encoding="utf-8",
+        )
+    path.write_text(
+        """\
+<mujoco model="robotiq_2f85">
+  <compiler angle="radian" meshdir="assets"/>
+  <default>
+    <default class="2f85">
+      <mesh scale="0.001 0.001 0.001"/>
+      <default class="driver">
+        <joint type="hinge" axis="1 0 0" range="0 0.8"/>
+      </default>
+    </default>
+  </default>
+  <asset>
+    <mesh name="base_mount" class="2f85" file="base_mount.stl"/>
+  </asset>
+  <worldbody>
+    <body name="base_mount"><body name="base"><site name="pinch" pos="0 0 0.145"/></body></body>
+  </worldbody>
+</mujoco>
+""",
+        encoding="utf-8",
+    )
+
+
 def _write_minimal_hand_xml(path: Path) -> None:
     assets = path.parent / "assets"
     assets.mkdir(parents=True, exist_ok=True)
@@ -233,6 +287,58 @@ class GraspNetMujocoSceneTests(unittest.TestCase):
         self.assertIsNotNone(franka_hand.find("freejoint[@name='franka_hand_freejoint']"))
         self.assertIsNotNone(hand_mesh)
         self.assertEqual(hand_mesh.attrib["file"], "../franka/assets/hand.stl")
+
+    def test_build_scene_xml_can_attach_robotiq_2f85_backend(self):
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            root = Path(tmp_dir)
+            dataset_root = root / "graspnet"
+            gripper_xml = root / "mujoco_menagerie" / "robotiq_2f85" / "2f85.xml"
+            output_path = root / "results" / "scene_0000_0000.xml"
+            _write_obj(dataset_root / "models" / "000" / "textured.obj")
+            _write_minimal_2f85_xml(gripper_xml)
+            annotations = [
+                AnnotationObject(
+                    object_id=0,
+                    label_id=1,
+                    name="003_cracker_box.ply",
+                    model_path="models/003_cracker_box.ply",
+                    position=np.array([0.1, 0.2, 0.3]),
+                    orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+                ),
+            ]
+            candidate = GraspPoseCandidate(
+                object_name="003_cracker_box.ply",
+                generator="graspnet-bound",
+                position=np.array([0.11, 0.21, 0.51]),
+                pregrasp_position=np.array([0.01, 0.21, 0.51]),
+                approach_direction=np.array([1.0, 0.0, 0.0]),
+                closing_axis="6d",
+                orientation_quat_wxyz=np.array([1.0, 0.0, 0.0, 0.0]),
+                required_opening=0.04,
+                score=0.9,
+                object_id=0,
+            )
+
+            xml_text = build_graspnet_mujoco_scene_xml(
+                annotations,
+                dataset_root=dataset_root,
+                output_path=output_path,
+                selected_grasp=candidate,
+                gripper_backend="robotiq-2f85",
+                robotiq_2f85_xml=gripper_xml,
+            )
+
+        xml_root = ET.fromstring(xml_text)
+        robotiq = xml_root.find(".//body[@name='robotiq_2f85']")
+        base_mount_mesh = xml_root.find(".//mesh[@name='base_mount']")
+
+        self.assertIsNotNone(robotiq)
+        self.assertIsNotNone(robotiq.find("freejoint[@name='robotiq_2f85_freejoint']"))
+        self.assertIsNotNone(base_mount_mesh)
+        self.assertEqual(
+            base_mount_mesh.attrib["file"],
+            "../mujoco_menagerie/robotiq_2f85/assets/base_mount.stl",
+        )
 
 
 if __name__ == "__main__":

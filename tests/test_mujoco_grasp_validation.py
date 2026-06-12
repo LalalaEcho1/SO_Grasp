@@ -12,6 +12,7 @@ from stacked_grasping.gripper.graspnet_mujoco_scene import robotiq_lite_config_f
 from stacked_grasping.gripper.mujoco_grasp_validation import (
     FRANKA_HAND_GRIPPER_SPEC,
     LiteGraspValidationConfig,
+    ROBOTIQ_2F85_GRIPPER_SPEC,
     _gripper_approach_axis,
     _is_unstable_lift_delta,
     validate_grasp_xml,
@@ -160,6 +161,54 @@ class MujocoGraspValidationTests(unittest.TestCase):
                 xml_path,
                 target_body_name="target_box",
                 gripper_spec=FRANKA_HAND_GRIPPER_SPEC,
+                config=LiteGraspValidationConfig(
+                    settle_steps=1,
+                    approach_steps=1,
+                    close_steps=1,
+                    lift_steps=1,
+                    hold_steps=1,
+                ),
+            )
+
+        self.assertTrue(result.compile_success)
+        self.assertEqual(result.target_body_name, "target_box")
+        self.assertNotEqual(result.failure_reason, "missing_gripper_freejoint")
+        self.assertNotEqual(result.failure_reason, "missing_finger_slide_joints")
+
+    def test_validate_grasp_xml_supports_robotiq_2f85_driver_joint_names(self):
+        xml = """\
+<mujoco>
+  <compiler angle="radian"/>
+  <option timestep="0.002" gravity="0 0 -9.81"/>
+  <worldbody>
+    <geom name="floor" type="plane" size="0.5 0.5 0.01"/>
+    <body name="target_box" pos="0 0 0.03">
+      <freejoint name="target_box_freejoint"/>
+      <geom name="target_box_geom" type="box" size="0.02 0.02 0.02" density="500"/>
+    </body>
+    <body name="robotiq_2f85" pos="0 0 0.16">
+      <freejoint name="robotiq_2f85_freejoint"/>
+      <geom name="robotiq_base" type="box" size="0.03 0.01 0.02"/>
+      <body name="left_driver">
+        <joint name="left_driver_joint" type="hinge" axis="1 0 0" range="0 0.8"/>
+        <geom name="left_driver_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+      <body name="right_driver">
+        <joint name="right_driver_joint" type="hinge" axis="1 0 0" range="0 0.8"/>
+        <geom name="right_driver_geom" type="box" size="0.004 0.004 0.03"/>
+      </body>
+    </body>
+  </worldbody>
+</mujoco>
+"""
+        with tempfile.TemporaryDirectory() as tmp_dir:
+            xml_path = Path(tmp_dir) / "robotiq_2f85_validation.xml"
+            xml_path.write_text(xml, encoding="utf-8")
+
+            result = validate_grasp_xml(
+                xml_path,
+                target_body_name="target_box",
+                gripper_spec=ROBOTIQ_2F85_GRIPPER_SPEC,
                 config=LiteGraspValidationConfig(
                     settle_steps=1,
                     approach_steps=1,
