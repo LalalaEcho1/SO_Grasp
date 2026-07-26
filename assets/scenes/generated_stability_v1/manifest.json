@@ -1,0 +1,1232 @@
+{
+  "count": 20,
+  "seed": 300,
+  "object_count": 6,
+  "min_objects": 5,
+  "stack_probability": 0.85,
+  "require_valid": true,
+  "min_contacts": 2,
+  "min_visible_edges": 5,
+  "scenes": [
+    {
+      "index": 0,
+      "seed": 300,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0000.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.07756,
+            -0.01378
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01916,
+            -0.06089
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.02023,
+            -0.05369
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.09525,
+            0.0176
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.02095,
+            -0.07308
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.01362,
+            0.08227
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "seed": 303,
+      "attempt": 3,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0001.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.10722,
+            -0.04344
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.09435,
+            -0.04507
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.09994,
+            -0.04081
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.11373,
+            -0.06515
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.11551,
+            -0.03295
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09666,
+            -0.05317
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "seed": 304,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0002.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.06414,
+            0.03034
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.05753,
+            0.05307
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.03966,
+            0.02889
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.05829,
+            0.02779
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.064,
+            0.06855
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06917,
+            0.03592
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "seed": 306,
+      "attempt": 2,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0003.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.05371,
+            -0.02179
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.05848,
+            -0.01904
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.0342,
+            0.0616
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.01446,
+            0.05721
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.1051,
+            -0.04228
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00473,
+            0.07754
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "seed": 310,
+      "attempt": 4,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0004.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 8
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.10623,
+            0.07175
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.08338,
+            -0.02585
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.09474,
+            0.06007
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09267,
+            0.07612
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.09698,
+            0.08573
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.10279,
+            0.09175
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "seed": 311,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0005.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 13
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.11293,
+            -0.06218
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01256,
+            0.00594
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06555,
+            -0.03211
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01433,
+            0.01855
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03252,
+            -0.00746
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00953,
+            0.01537
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "seed": 312,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0006.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 8
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11304,
+            -0.05535
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.04495,
+            -0.01061
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.04546,
+            -0.03014
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.1096,
+            -0.03986
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.1177,
+            -0.07629
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10209,
+            -0.05764
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "seed": 313,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0007.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.08109,
+            -0.08043
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04121,
+            -0.06384
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0069,
+            -0.01834
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.07848,
+            -0.08032
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.08572,
+            -0.08481
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.07518,
+            -0.05821
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "seed": 314,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0008.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 17
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03075,
+            -0.04784
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.07015,
+            0.00842
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.0923,
+            0.0168
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.10698,
+            0.01307
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.07921,
+            0.02488
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.06329,
+            0.01515
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "seed": 316,
+      "attempt": 2,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0009.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 20
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06002,
+            0.04752
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.0607,
+            0.07398
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.07194,
+            0.07249
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.08075,
+            -0.05356
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06234,
+            0.07119
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.06924,
+            0.06741
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "seed": 318,
+      "attempt": 2,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0010.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.07956,
+            -0.0352
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.07401,
+            -0.0219
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.06309,
+            -0.0206
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.05606,
+            -0.02144
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08434,
+            -0.01196
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.04898,
+            -0.02551
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "seed": 319,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0011.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 8
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.10461,
+            0.04932
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.10189,
+            0.07279
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.06756,
+            0.01773
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.10686,
+            0.07305
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.12133,
+            0.07196
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00021,
+            -0.02296
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "seed": 320,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0012.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04267,
+            -0.01463
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.03538,
+            -0.0287
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04287,
+            -0.02818
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.02122,
+            -0.00829
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01919,
+            0.01125
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.06257,
+            -0.01854
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "seed": 321,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0013.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.11127,
+            0.08639
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.10425,
+            -0.00811
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.06477,
+            0.02969
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09678,
+            -0.00755
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10074,
+            0.01756
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08674,
+            0.00934
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "seed": 322,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0014.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.11797,
+            -0.06204
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.13491,
+            -0.05954
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01154,
+            -0.04969
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.00789,
+            -0.06004
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.13312,
+            -0.06442
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.13694,
+            -0.04655
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "seed": 324,
+      "attempt": 2,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0015.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.018,
+            -0.02816
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.11826,
+            0.00077
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.02136,
+            -0.01617
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01778,
+            -0.01028
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.01443,
+            -0.02998
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00549,
+            -0.02032
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "seed": 325,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0016.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.10236,
+            -0.04746
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.10465,
+            -0.07611
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.09696,
+            -0.04695
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.0847,
+            -0.03773
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08029,
+            -0.021
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.07948,
+            -0.04566
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "seed": 326,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0017.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.10186,
+            0.02544
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.10158,
+            0.00607
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.09772,
+            -0.01238
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.10978,
+            0.01796
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.10185,
+            -0.01446
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.09274,
+            0.03237
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "seed": 327,
+      "attempt": 1,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0018.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 20
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.06072,
+            -0.06712
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.06841,
+            -0.09017
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.04922,
+            -0.04758
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.04974,
+            -0.08034
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.06647,
+            -0.06192
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.05743,
+            -0.05433
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "seed": 329,
+      "attempt": 2,
+      "path": "D:\\Stacked-Object Grasping\\assets\\scenes\\generated_stability_v1\\scene_0019.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.05415,
+            0.07097
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0357,
+            0.07201
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.05979,
+            0.05444
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.01311,
+            -0.04228
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.00778,
+            -0.05366
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.04482,
+            0.06321
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    }
+  ]
+}

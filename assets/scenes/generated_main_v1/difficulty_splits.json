@@ -1,0 +1,1041 @@
+{
+  "source_manifest": "assets/scenes/generated_main_v1/manifest.json",
+  "rule": "Sort by visible_edges, then contact_pairs, then max_top_z; lowest 30 easy, next 40 medium, highest 30 hard.",
+  "counts": {
+    "easy": 30,
+    "medium": 40,
+    "hard": 30
+  },
+  "groups": {
+    "easy": {
+      "visible_edges_min": 5,
+      "visible_edges_max": 8,
+      "visible_edges_mean": 6.667,
+      "contact_pairs_min": 2,
+      "contact_pairs_max": 3,
+      "contact_pairs_mean": 2.333,
+      "scenes": [
+        {
+          "index": 34,
+          "scene": "scene_0034.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0034.xml",
+          "seed": 1155,
+          "attempt": 1,
+          "contact_pairs": 2,
+          "visible_edges": 5,
+          "max_top_z": 0.558781
+        },
+        {
+          "index": 32,
+          "scene": "scene_0032.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0032.xml",
+          "seed": 1153,
+          "attempt": 2,
+          "contact_pairs": 2,
+          "visible_edges": 5,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 70,
+          "scene": "scene_0070.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0070.xml",
+          "seed": 1366,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 5,
+          "max_top_z": 0.573693
+        },
+        {
+          "index": 19,
+          "scene": "scene_0019.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0019.xml",
+          "seed": 1082,
+          "attempt": 15,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 76,
+          "scene": "scene_0076.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0076.xml",
+          "seed": 1392,
+          "attempt": 6,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 96,
+          "scene": "scene_0096.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0096.xml",
+          "seed": 1480,
+          "attempt": 1,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.619886
+        },
+        {
+          "index": 73,
+          "scene": "scene_0073.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0073.xml",
+          "seed": 1379,
+          "attempt": 7,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.621762
+        },
+        {
+          "index": 78,
+          "scene": "scene_0078.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0078.xml",
+          "seed": 1402,
+          "attempt": 2,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.636647
+        },
+        {
+          "index": 74,
+          "scene": "scene_0074.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0074.xml",
+          "seed": 1384,
+          "attempt": 5,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.659577
+        },
+        {
+          "index": 89,
+          "scene": "scene_0089.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0089.xml",
+          "seed": 1442,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.664187
+        },
+        {
+          "index": 47,
+          "scene": "scene_0047.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0047.xml",
+          "seed": 1221,
+          "attempt": 7,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.667113
+        },
+        {
+          "index": 46,
+          "scene": "scene_0046.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0046.xml",
+          "seed": 1214,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.679522
+        },
+        {
+          "index": 42,
+          "scene": "scene_0042.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0042.xml",
+          "seed": 1197,
+          "attempt": 5,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.681522
+        },
+        {
+          "index": 98,
+          "scene": "scene_0098.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0098.xml",
+          "seed": 1488,
+          "attempt": 1,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.682933
+        },
+        {
+          "index": 31,
+          "scene": "scene_0031.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0031.xml",
+          "seed": 1151,
+          "attempt": 4,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.683048
+        },
+        {
+          "index": 55,
+          "scene": "scene_0055.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0055.xml",
+          "seed": 1285,
+          "attempt": 9,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.683126
+        },
+        {
+          "index": 82,
+          "scene": "scene_0082.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0082.xml",
+          "seed": 1429,
+          "attempt": 1,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.693864
+        },
+        {
+          "index": 36,
+          "scene": "scene_0036.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0036.xml",
+          "seed": 1165,
+          "attempt": 1,
+          "contact_pairs": 2,
+          "visible_edges": 6,
+          "max_top_z": 0.812381
+        },
+        {
+          "index": 2,
+          "scene": "scene_0002.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0002.xml",
+          "seed": 1012,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 7,
+          "max_top_z": 0.590956
+        },
+        {
+          "index": 22,
+          "scene": "scene_0022.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0022.xml",
+          "seed": 1093,
+          "attempt": 2,
+          "contact_pairs": 2,
+          "visible_edges": 8,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 59,
+          "scene": "scene_0059.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0059.xml",
+          "seed": 1303,
+          "attempt": 4,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.554809
+        },
+        {
+          "index": 6,
+          "scene": "scene_0006.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0006.xml",
+          "seed": 1028,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.592028
+        },
+        {
+          "index": 51,
+          "scene": "scene_0051.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0051.xml",
+          "seed": 1270,
+          "attempt": 20,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 97,
+          "scene": "scene_0097.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0097.xml",
+          "seed": 1487,
+          "attempt": 7,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 38,
+          "scene": "scene_0038.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0038.xml",
+          "seed": 1175,
+          "attempt": 3,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.644321
+        },
+        {
+          "index": 60,
+          "scene": "scene_0060.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0060.xml",
+          "seed": 1307,
+          "attempt": 4,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.644368
+        },
+        {
+          "index": 35,
+          "scene": "scene_0035.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0035.xml",
+          "seed": 1164,
+          "attempt": 9,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.650357
+        },
+        {
+          "index": 65,
+          "scene": "scene_0065.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0065.xml",
+          "seed": 1342,
+          "attempt": 20,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.666223
+        },
+        {
+          "index": 83,
+          "scene": "scene_0083.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0083.xml",
+          "seed": 1431,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.673872
+        },
+        {
+          "index": 30,
+          "scene": "scene_0030.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0030.xml",
+          "seed": 1147,
+          "attempt": 5,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.681642
+        }
+      ]
+    },
+    "medium": {
+      "visible_edges_min": 8,
+      "visible_edges_max": 12,
+      "visible_edges_mean": 10.625,
+      "contact_pairs_min": 2,
+      "contact_pairs_max": 4,
+      "contact_pairs_mean": 3.175,
+      "scenes": [
+        {
+          "index": 69,
+          "scene": "scene_0069.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0069.xml",
+          "seed": 1363,
+          "attempt": 5,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.681895
+        },
+        {
+          "index": 75,
+          "scene": "scene_0075.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0075.xml",
+          "seed": 1386,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.688066
+        },
+        {
+          "index": 12,
+          "scene": "scene_0012.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0012.xml",
+          "seed": 1051,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 8,
+          "max_top_z": 0.695956
+        },
+        {
+          "index": 50,
+          "scene": "scene_0050.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0050.xml",
+          "seed": 1250,
+          "attempt": 1,
+          "contact_pairs": 4,
+          "visible_edges": 8,
+          "max_top_z": 0.541204
+        },
+        {
+          "index": 45,
+          "scene": "scene_0045.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0045.xml",
+          "seed": 1211,
+          "attempt": 2,
+          "contact_pairs": 4,
+          "visible_edges": 8,
+          "max_top_z": 0.549023
+        },
+        {
+          "index": 25,
+          "scene": "scene_0025.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0025.xml",
+          "seed": 1123,
+          "attempt": 14,
+          "contact_pairs": 4,
+          "visible_edges": 8,
+          "max_top_z": 0.569344
+        },
+        {
+          "index": 72,
+          "scene": "scene_0072.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0072.xml",
+          "seed": 1372,
+          "attempt": 5,
+          "contact_pairs": 2,
+          "visible_edges": 9,
+          "max_top_z": 0.592367
+        },
+        {
+          "index": 11,
+          "scene": "scene_0011.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0011.xml",
+          "seed": 1050,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 9,
+          "max_top_z": 0.719985
+        },
+        {
+          "index": 15,
+          "scene": "scene_0015.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0015.xml",
+          "seed": 1057,
+          "attempt": 4,
+          "contact_pairs": 3,
+          "visible_edges": 9,
+          "max_top_z": 0.629278
+        },
+        {
+          "index": 85,
+          "scene": "scene_0085.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0085.xml",
+          "seed": 1434,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 9,
+          "max_top_z": 0.729583
+        },
+        {
+          "index": 8,
+          "scene": "scene_0008.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0008.xml",
+          "seed": 1039,
+          "attempt": 10,
+          "contact_pairs": 4,
+          "visible_edges": 9,
+          "max_top_z": 0.560972
+        },
+        {
+          "index": 77,
+          "scene": "scene_0077.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0077.xml",
+          "seed": 1400,
+          "attempt": 8,
+          "contact_pairs": 4,
+          "visible_edges": 9,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 91,
+          "scene": "scene_0091.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0091.xml",
+          "seed": 1446,
+          "attempt": 2,
+          "contact_pairs": 4,
+          "visible_edges": 9,
+          "max_top_z": 0.699919
+        },
+        {
+          "index": 27,
+          "scene": "scene_0027.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0027.xml",
+          "seed": 1130,
+          "attempt": 3,
+          "contact_pairs": 2,
+          "visible_edges": 10,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 79,
+          "scene": "scene_0079.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0079.xml",
+          "seed": 1412,
+          "attempt": 10,
+          "contact_pairs": 3,
+          "visible_edges": 10,
+          "max_top_z": 0.711517
+        },
+        {
+          "index": 67,
+          "scene": "scene_0067.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0067.xml",
+          "seed": 1356,
+          "attempt": 13,
+          "contact_pairs": 4,
+          "visible_edges": 10,
+          "max_top_z": 0.681893
+        },
+        {
+          "index": 43,
+          "scene": "scene_0043.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0043.xml",
+          "seed": 1198,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 11,
+          "max_top_z": 0.563688
+        },
+        {
+          "index": 16,
+          "scene": "scene_0016.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0016.xml",
+          "seed": 1058,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 11,
+          "max_top_z": 0.774144
+        },
+        {
+          "index": 71,
+          "scene": "scene_0071.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0071.xml",
+          "seed": 1367,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 11,
+          "max_top_z": 0.813049
+        },
+        {
+          "index": 10,
+          "scene": "scene_0010.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0010.xml",
+          "seed": 1047,
+          "attempt": 7,
+          "contact_pairs": 4,
+          "visible_edges": 11,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 14,
+          "scene": "scene_0014.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0014.xml",
+          "seed": 1053,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 23,
+          "scene": "scene_0023.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0023.xml",
+          "seed": 1103,
+          "attempt": 10,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 57,
+          "scene": "scene_0057.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0057.xml",
+          "seed": 1297,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.560974
+        },
+        {
+          "index": 64,
+          "scene": "scene_0064.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0064.xml",
+          "seed": 1322,
+          "attempt": 7,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.563239
+        },
+        {
+          "index": 90,
+          "scene": "scene_0090.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0090.xml",
+          "seed": 1444,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.573694
+        },
+        {
+          "index": 99,
+          "scene": "scene_0099.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0099.xml",
+          "seed": 1489,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.573694
+        },
+        {
+          "index": 48,
+          "scene": "scene_0048.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0048.xml",
+          "seed": 1236,
+          "attempt": 15,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.574905
+        },
+        {
+          "index": 53,
+          "scene": "scene_0053.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0053.xml",
+          "seed": 1275,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.587001
+        },
+        {
+          "index": 94,
+          "scene": "scene_0094.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0094.xml",
+          "seed": 1459,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.598394
+        },
+        {
+          "index": 5,
+          "scene": "scene_0005.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0005.xml",
+          "seed": 1026,
+          "attempt": 3,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.689484
+        },
+        {
+          "index": 1,
+          "scene": "scene_0001.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0001.xml",
+          "seed": 1009,
+          "attempt": 9,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.697405
+        },
+        {
+          "index": 56,
+          "scene": "scene_0056.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0056.xml",
+          "seed": 1295,
+          "attempt": 10,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.705168
+        },
+        {
+          "index": 62,
+          "scene": "scene_0062.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0062.xml",
+          "seed": 1312,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.707512
+        },
+        {
+          "index": 39,
+          "scene": "scene_0039.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0039.xml",
+          "seed": 1185,
+          "attempt": 10,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.71789
+        },
+        {
+          "index": 58,
+          "scene": "scene_0058.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0058.xml",
+          "seed": 1299,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.745668
+        },
+        {
+          "index": 84,
+          "scene": "scene_0084.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0084.xml",
+          "seed": 1432,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.750178
+        },
+        {
+          "index": 95,
+          "scene": "scene_0095.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0095.xml",
+          "seed": 1479,
+          "attempt": 20,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.788937
+        },
+        {
+          "index": 93,
+          "scene": "scene_0093.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0093.xml",
+          "seed": 1457,
+          "attempt": 5,
+          "contact_pairs": 3,
+          "visible_edges": 12,
+          "max_top_z": 0.813082
+        },
+        {
+          "index": 4,
+          "scene": "scene_0004.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0004.xml",
+          "seed": 1023,
+          "attempt": 7,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.556644
+        },
+        {
+          "index": 28,
+          "scene": "scene_0028.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0028.xml",
+          "seed": 1138,
+          "attempt": 8,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.599633
+        }
+      ]
+    },
+    "hard": {
+      "visible_edges_min": 12,
+      "visible_edges_max": 30,
+      "visible_edges_mean": 16.567,
+      "contact_pairs_min": 2,
+      "contact_pairs_max": 5,
+      "contact_pairs_mean": 3.733,
+      "scenes": [
+        {
+          "index": 54,
+          "scene": "scene_0054.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0054.xml",
+          "seed": 1276,
+          "attempt": 1,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.6116
+        },
+        {
+          "index": 81,
+          "scene": "scene_0081.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0081.xml",
+          "seed": 1428,
+          "attempt": 15,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.629196
+        },
+        {
+          "index": 61,
+          "scene": "scene_0061.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0061.xml",
+          "seed": 1311,
+          "attempt": 4,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.711545
+        },
+        {
+          "index": 24,
+          "scene": "scene_0024.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0024.xml",
+          "seed": 1109,
+          "attempt": 6,
+          "contact_pairs": 4,
+          "visible_edges": 12,
+          "max_top_z": 0.783208
+        },
+        {
+          "index": 49,
+          "scene": "scene_0049.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0049.xml",
+          "seed": 1249,
+          "attempt": 13,
+          "contact_pairs": 2,
+          "visible_edges": 13,
+          "max_top_z": 0.69533
+        },
+        {
+          "index": 66,
+          "scene": "scene_0066.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0066.xml",
+          "seed": 1343,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 13,
+          "max_top_z": 0.700873
+        },
+        {
+          "index": 7,
+          "scene": "scene_0007.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0007.xml",
+          "seed": 1029,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 13,
+          "max_top_z": 0.733786
+        },
+        {
+          "index": 68,
+          "scene": "scene_0068.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0068.xml",
+          "seed": 1358,
+          "attempt": 2,
+          "contact_pairs": 3,
+          "visible_edges": 13,
+          "max_top_z": 0.735723
+        },
+        {
+          "index": 26,
+          "scene": "scene_0026.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0026.xml",
+          "seed": 1127,
+          "attempt": 4,
+          "contact_pairs": 4,
+          "visible_edges": 13,
+          "max_top_z": 0.627487
+        },
+        {
+          "index": 40,
+          "scene": "scene_0040.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0040.xml",
+          "seed": 1186,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 14,
+          "max_top_z": 0.720535
+        },
+        {
+          "index": 0,
+          "scene": "scene_0000.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0000.xml",
+          "seed": 1000,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 14,
+          "max_top_z": 0.75035
+        },
+        {
+          "index": 87,
+          "scene": "scene_0087.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0087.xml",
+          "seed": 1438,
+          "attempt": 2,
+          "contact_pairs": 4,
+          "visible_edges": 14,
+          "max_top_z": 0.606481
+        },
+        {
+          "index": 63,
+          "scene": "scene_0063.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0063.xml",
+          "seed": 1315,
+          "attempt": 3,
+          "contact_pairs": 4,
+          "visible_edges": 14,
+          "max_top_z": 0.650096
+        },
+        {
+          "index": 33,
+          "scene": "scene_0033.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0033.xml",
+          "seed": 1154,
+          "attempt": 1,
+          "contact_pairs": 4,
+          "visible_edges": 14,
+          "max_top_z": 0.693041
+        },
+        {
+          "index": 37,
+          "scene": "scene_0037.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0037.xml",
+          "seed": 1172,
+          "attempt": 7,
+          "contact_pairs": 4,
+          "visible_edges": 14,
+          "max_top_z": 0.812284
+        },
+        {
+          "index": 92,
+          "scene": "scene_0092.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0092.xml",
+          "seed": 1452,
+          "attempt": 6,
+          "contact_pairs": 3,
+          "visible_edges": 15,
+          "max_top_z": 0.629692
+        },
+        {
+          "index": 41,
+          "scene": "scene_0041.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0041.xml",
+          "seed": 1192,
+          "attempt": 6,
+          "contact_pairs": 4,
+          "visible_edges": 15,
+          "max_top_z": 0.629602
+        },
+        {
+          "index": 80,
+          "scene": "scene_0080.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0080.xml",
+          "seed": 1413,
+          "attempt": 1,
+          "contact_pairs": 4,
+          "visible_edges": 15,
+          "max_top_z": 0.711062
+        },
+        {
+          "index": 88,
+          "scene": "scene_0088.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0088.xml",
+          "seed": 1439,
+          "attempt": 1,
+          "contact_pairs": 5,
+          "visible_edges": 15,
+          "max_top_z": 0.682925
+        },
+        {
+          "index": 9,
+          "scene": "scene_0009.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0009.xml",
+          "seed": 1040,
+          "attempt": 1,
+          "contact_pairs": 3,
+          "visible_edges": 17,
+          "max_top_z": 0.705046
+        },
+        {
+          "index": 3,
+          "scene": "scene_0003.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0003.xml",
+          "seed": 1016,
+          "attempt": 4,
+          "contact_pairs": 3,
+          "visible_edges": 18,
+          "max_top_z": 0.638041
+        },
+        {
+          "index": 21,
+          "scene": "scene_0021.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0021.xml",
+          "seed": 1091,
+          "attempt": 3,
+          "contact_pairs": 4,
+          "visible_edges": 19,
+          "max_top_z": 0.812977
+        },
+        {
+          "index": 17,
+          "scene": "scene_0017.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0017.xml",
+          "seed": 1065,
+          "attempt": 7,
+          "contact_pairs": 4,
+          "visible_edges": 20,
+          "max_top_z": 0.763526
+        },
+        {
+          "index": 20,
+          "scene": "scene_0020.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0020.xml",
+          "seed": 1088,
+          "attempt": 6,
+          "contact_pairs": 4,
+          "visible_edges": 20,
+          "max_top_z": 0.813209
+        },
+        {
+          "index": 13,
+          "scene": "scene_0013.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0013.xml",
+          "seed": 1052,
+          "attempt": 1,
+          "contact_pairs": 4,
+          "visible_edges": 21,
+          "max_top_z": 0.750351
+        },
+        {
+          "index": 29,
+          "scene": "scene_0029.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0029.xml",
+          "seed": 1142,
+          "attempt": 4,
+          "contact_pairs": 3,
+          "visible_edges": 23,
+          "max_top_z": 0.803383
+        },
+        {
+          "index": 86,
+          "scene": "scene_0086.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0086.xml",
+          "seed": 1436,
+          "attempt": 2,
+          "contact_pairs": 5,
+          "visible_edges": 23,
+          "max_top_z": 0.750073
+        },
+        {
+          "index": 52,
+          "scene": "scene_0052.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0052.xml",
+          "seed": 1274,
+          "attempt": 4,
+          "contact_pairs": 4,
+          "visible_edges": 24,
+          "max_top_z": 0.707471
+        },
+        {
+          "index": 44,
+          "scene": "scene_0044.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0044.xml",
+          "seed": 1209,
+          "attempt": 11,
+          "contact_pairs": 4,
+          "visible_edges": 25,
+          "max_top_z": 0.801429
+        },
+        {
+          "index": 18,
+          "scene": "scene_0018.xml",
+          "path": "assets/scenes/generated_main_v1/scene_0018.xml",
+          "seed": 1067,
+          "attempt": 2,
+          "contact_pairs": 5,
+          "visible_edges": 30,
+          "max_top_z": 0.711086
+        }
+      ]
+    }
+  }
+}

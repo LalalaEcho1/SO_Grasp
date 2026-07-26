@@ -1,0 +1,6416 @@
+{
+  "count": 100,
+  "seed": 1000,
+  "object_count": 6,
+  "min_objects": 5,
+  "stack_probability": 0.85,
+  "max_stack_depth": 3,
+  "require_valid": true,
+  "min_contacts": 2,
+  "min_visible_edges": 5,
+  "table_margin": 0.03,
+  "table_z_margin": 0.04,
+  "max_object_top_z": 0.82,
+  "scenes": [
+    {
+      "index": 0,
+      "seed": 1000,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0000.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.75035
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.0077,
+            0.00624
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.08872,
+            0.03082
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.03258,
+            -0.00201
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0432,
+            -0.00453
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.04339,
+            -0.00635
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.02766,
+            -0.01995
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "seed": 1009,
+      "attempt": 9,
+      "path": "assets/scenes/generated_main_v1/scene_0001.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.697405
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.00071,
+            0.05688
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.00267,
+            0.03126
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.00478,
+            0.03653
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.00388,
+            0.0319
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.0114,
+            0.00954
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.01078,
+            0.01425
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "seed": 1012,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0002.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 7,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.590956
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.11285,
+            -0.04385
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08412,
+            0.00597
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.08189,
+            -0.02289
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.08317,
+            0.02887
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00383,
+            -0.0251
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01922,
+            -0.02248
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "seed": 1016,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0003.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 18,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.638041
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.01447,
+            0.02578
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03691,
+            -0.02726
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03847,
+            -0.01368
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.0435,
+            -0.0232
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.03578,
+            -0.02026
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.04024,
+            -0.03738
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "seed": 1023,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0004.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.556644
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04519,
+            0.02702
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02792,
+            0.02014
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01865,
+            0.02942
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.0376,
+            0.04916
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.06903,
+            0.01505
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.06757,
+            0.04461
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "seed": 1026,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0005.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.689484
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01829,
+            -0.01528
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02901,
+            -0.00075
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.03097,
+            -0.01051
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.05033,
+            0.03969
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.03082,
+            0.00271
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.04374,
+            0.04194
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "seed": 1028,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0006.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.592028
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.0372,
+            -0.02068
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.06045,
+            -0.00604
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01481,
+            0.00159
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.02602,
+            -0.00041
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.09613,
+            0.04592
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08687,
+            0.04744
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "seed": 1029,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0007.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 13,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.733786
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.00826,
+            0.07922
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.0015,
+            -0.01135
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.11836,
+            0.04742
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.1048,
+            0.03532
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.09613,
+            0.03441
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.14093,
+            0.03429
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "seed": 1039,
+      "attempt": 10,
+      "path": "assets/scenes/generated_main_v1/scene_0008.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560972
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09619,
+            0.05346
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.0813,
+            -0.05952
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06445,
+            -0.04908
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.07062,
+            -0.06728
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.09918,
+            0.07181
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.09819,
+            -0.07507
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "seed": 1040,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0009.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 17,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.705046
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.11872,
+            -0.04219
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.045,
+            0.01809
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04187,
+            0.02782
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.05465,
+            -0.00954
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.02383,
+            0.0089
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04984,
+            0.03195
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "seed": 1047,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0010.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 11,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.00731,
+            -0.02452
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.02539,
+            -0.02228
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.02658,
+            -0.01377
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.01905,
+            -0.0221
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02905,
+            -0.02349
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.01971,
+            -0.0197
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "seed": 1050,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0011.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.719985
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.0902,
+            -0.0592
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.06551,
+            0.05753
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01755,
+            0.08068
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.02403,
+            -0.07588
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01969,
+            -0.07956
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01696,
+            -0.06173
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 12,
+      "seed": 1051,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0012.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.695956
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.08925,
+            0.06619
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.09779,
+            0.08808
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.09202,
+            0.07348
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07394,
+            0.05851
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.11181,
+            0.07527
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.07089,
+            0.05151
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 13,
+      "seed": 1052,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0013.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 21,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.750351
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0107,
+            -0.04298
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00369,
+            -0.00566
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.00428,
+            -0.03327
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.0138,
+            -0.04526
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07159,
+            -0.07419
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.02378,
+            -0.03389
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 14,
+      "seed": 1053,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0014.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08742,
+            0.01683
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07253,
+            0.00067
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.08447,
+            -0.08555
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.07396,
+            -0.00812
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.10595,
+            0.06271
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.08222,
+            -0.00498
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 15,
+      "seed": 1057,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0015.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.629278
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.01836,
+            -0.08833
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00691,
+            -0.09043
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.09662,
+            0.01785
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.0129,
+            -0.11817
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.02578,
+            0.03866
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10997,
+            0.04258
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 16,
+      "seed": 1058,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0016.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 11,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.774144
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.05192,
+            -0.06289
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.10942,
+            -0.06942
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.00533,
+            -0.07549
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.11133,
+            -0.08696
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.00468,
+            -0.08354
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.10751,
+            -0.07747
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 17,
+      "seed": 1065,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0017.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 20,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.763526
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.10571,
+            0.01554
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.09212,
+            0.00459
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.10482,
+            0.00155
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10901,
+            0.00608
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.05433,
+            -0.03205
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.0859,
+            0.01126
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 18,
+      "seed": 1067,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0018.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 5,
+        "visible_edges": 30,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.711086
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01411,
+            -0.00072
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.00255,
+            0.02387
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.00768,
+            -0.00094
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07389,
+            -0.02111
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.03045,
+            -0.01837
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.01851,
+            -0.00135
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 19,
+      "seed": 1082,
+      "attempt": 15,
+      "path": "assets/scenes/generated_main_v1/scene_0019.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0082,
+            0.0432
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.10872,
+            -0.07566
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.09267,
+            0.07249
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00255,
+            0.00017
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.09997,
+            -0.01072
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.00574,
+            0.04879
+          ],
+          "support": "009_gelatin_box"
+        }
+      ]
+    },
+    {
+      "index": 20,
+      "seed": 1088,
+      "attempt": 6,
+      "path": "assets/scenes/generated_main_v1/scene_0020.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 20,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.813209
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03996,
+            -0.02677
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.03179,
+            -0.02069
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02499,
+            -0.02749
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.03621,
+            -0.02713
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.09783,
+            -0.06304
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.02736,
+            -0.01146
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 21,
+      "seed": 1091,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0021.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 19,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.812977
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.03862,
+            0.01392
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.11672,
+            0.03803
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.02857,
+            -0.02963
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01385,
+            -0.01079
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.11046,
+            0.048
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.01802,
+            -0.00554
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 22,
+      "seed": 1093,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0022.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.01156,
+            -0.08955
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.0792,
+            0.00944
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.02382,
+            0.03401
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.10136,
+            0.00152
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.10503,
+            -0.00126
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06316,
+            0.06162
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 23,
+      "seed": 1103,
+      "attempt": 10,
+      "path": "assets/scenes/generated_main_v1/scene_0023.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.04053,
+            -0.07572
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.05999,
+            -0.07558
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02848,
+            -0.08339
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.02531,
+            -0.07665
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.04826,
+            -0.07845
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.05915,
+            -0.076
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 24,
+      "seed": 1109,
+      "attempt": 6,
+      "path": "assets/scenes/generated_main_v1/scene_0024.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.783208
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.04839,
+            0.03113
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.0737,
+            -0.02449
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.04405,
+            0.0299
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.07184,
+            -0.02335
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.06065,
+            -0.04118
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.0718,
+            0.03187
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 25,
+      "seed": 1123,
+      "attempt": 14,
+      "path": "assets/scenes/generated_main_v1/scene_0025.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.569344
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.10916,
+            0.0514
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.08443,
+            -0.07748
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.0036,
+            -0.08914
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00636,
+            -0.07198
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.02264,
+            -0.09628
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.08228,
+            -0.0579
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 26,
+      "seed": 1127,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0026.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 13,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.627487
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.07101,
+            0.01064
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.04164,
+            0.02541
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09405,
+            0.0298
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.11977,
+            0.01948
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.09162,
+            0.01213
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.02873,
+            -0.04335
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 27,
+      "seed": 1130,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0027.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 10,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02462,
+            -0.01212
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.11625,
+            0.03381
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.08797,
+            0.05965
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.10134,
+            0.0516
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.12101,
+            0.0149
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08352,
+            0.04071
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 28,
+      "seed": 1138,
+      "attempt": 8,
+      "path": "assets/scenes/generated_main_v1/scene_0028.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.599633
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.08963,
+            0.0284
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.01279,
+            -0.0385
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00119,
+            -0.03105
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.01059,
+            -0.03476
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.08459,
+            -0.05108
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.08341,
+            -0.05921
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 29,
+      "seed": 1142,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0029.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 23,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.803383
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.03964,
+            0.03009
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10737,
+            0.07342
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.0815,
+            -0.07053
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.09535,
+            0.06954
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03429,
+            0.04498
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.04928,
+            0.01561
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 30,
+      "seed": 1147,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0030.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.681642
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11881,
+            0.03496
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.10791,
+            0.04752
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04622,
+            0.08499
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.11369,
+            0.05599
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.00735,
+            -0.07615
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.03279,
+            0.07191
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 31,
+      "seed": 1151,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0031.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.683048
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07747,
+            -0.05803
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.05983,
+            0.08657
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.03698,
+            0.03218
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07139,
+            -0.08762
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.05824,
+            -0.08823
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.07094,
+            -0.05942
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 32,
+      "seed": 1153,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0032.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 5,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08462,
+            0.058
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.09698,
+            0.07154
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.07504,
+            0.06244
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.06964,
+            -0.06647
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10136,
+            0.07361
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09083,
+            0.07367
+          ],
+          "support": "009_gelatin_box"
+        }
+      ]
+    },
+    {
+      "index": 33,
+      "seed": 1154,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0033.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.693041
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.05839,
+            -0.04539
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03232,
+            0.05212
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04906,
+            -0.04988
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.05936,
+            -0.03783
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.05008,
+            0.04999
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.06964,
+            -0.06912
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 34,
+      "seed": 1155,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0034.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 5,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.558781
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.06354,
+            -0.07859
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.11188,
+            0.01686
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.12659,
+            0.02088
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.10871,
+            0.02906
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07114,
+            0.08406
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06717,
+            0.07571
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 35,
+      "seed": 1164,
+      "attempt": 9,
+      "path": "assets/scenes/generated_main_v1/scene_0035.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.650357
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07498,
+            -0.06676
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.07187,
+            -0.05414
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.07179,
+            -0.06684
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.08529,
+            -0.05238
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.08518,
+            -0.06287
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.04087,
+            0.04794
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 36,
+      "seed": 1165,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0036.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.812381
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07101,
+            -0.04527
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.06479,
+            -0.02266
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.07641,
+            0.0409
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07577,
+            -0.05703
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06952,
+            0.08677
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.07888,
+            -0.0399
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 37,
+      "seed": 1172,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0037.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.812284
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.00989,
+            -0.08296
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.02378,
+            -0.0564
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07502,
+            0.05887
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07368,
+            0.06118
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.05999,
+            0.05699
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.0326,
+            -0.06008
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 38,
+      "seed": 1175,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0038.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.644321
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.11648,
+            -0.05061
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.12453,
+            -0.04027
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.09381,
+            -0.05344
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.10883,
+            -0.05213
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.0585,
+            0.03651
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07241,
+            0.01304
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 39,
+      "seed": 1185,
+      "attempt": 10,
+      "path": "assets/scenes/generated_main_v1/scene_0039.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.71789
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.06959,
+            0.06275
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.07508,
+            -0.07122
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.06386,
+            -0.07362
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.04615,
+            -0.07021
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.04177,
+            -0.07074
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04357,
+            0.07971
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 40,
+      "seed": 1186,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0040.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.720535
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.01583,
+            0.01356
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11039,
+            0.05878
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.1158,
+            0.0408
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.11035,
+            0.07239
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10768,
+            0.0439
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.04711,
+            -0.02834
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 41,
+      "seed": 1192,
+      "attempt": 6,
+      "path": "assets/scenes/generated_main_v1/scene_0041.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 15,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.629602
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.05563,
+            -0.0373
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.00144,
+            0.04938
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.00595,
+            0.06564
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00625,
+            0.03176
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00018,
+            0.06051
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02137,
+            0.01435
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 42,
+      "seed": 1197,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0042.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.681522
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.06911,
+            -0.02284
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.03062,
+            -0.03736
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.05341,
+            0.07858
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.03642,
+            0.0756
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.07786,
+            0.0714
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.07813,
+            0.09279
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 43,
+      "seed": 1198,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0043.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 11,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.563688
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02092,
+            -0.0252
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.10006,
+            -0.01585
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.00081,
+            -0.0357
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.08309,
+            -0.06655
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.09511,
+            -0.05512
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.0886,
+            -0.0587
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 44,
+      "seed": 1209,
+      "attempt": 11,
+      "path": "assets/scenes/generated_main_v1/scene_0044.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 25,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.801429
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.0004,
+            -0.02645
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.01966,
+            -0.04724
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.02226,
+            -0.04234
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02322,
+            -0.02061
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08077,
+            0.03499
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00297,
+            -0.0429
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 45,
+      "seed": 1211,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0045.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.549023
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.11996,
+            -0.07301
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.01223,
+            -0.06862
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0343,
+            -0.02124
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.08231,
+            -0.03726
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.09739,
+            -0.03344
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.0653,
+            -0.04428
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 46,
+      "seed": 1214,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0046.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.679522
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.01677,
+            0.02334
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.0003,
+            -0.02562
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.05577,
+            0.00079
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.05285,
+            -0.02143
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.06159,
+            0.00616
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.06861,
+            0.01384
+          ],
+          "support": "009_gelatin_box"
+        }
+      ]
+    },
+    {
+      "index": 47,
+      "seed": 1221,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0047.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.667113
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.04308,
+            0.05957
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0494,
+            0.06255
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0254,
+            0.06556
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.0253,
+            0.04245
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04737,
+            0.08129
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04509,
+            -0.06521
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 48,
+      "seed": 1236,
+      "attempt": 15,
+      "path": "assets/scenes/generated_main_v1/scene_0048.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.574905
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04057,
+            -0.07072
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.03551,
+            -0.09573
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.02227,
+            -0.06419
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01032,
+            -0.05847
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.06767,
+            -0.07605
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.06542,
+            -0.06106
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 49,
+      "seed": 1249,
+      "attempt": 13,
+      "path": "assets/scenes/generated_main_v1/scene_0049.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 13,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.69533
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.05561,
+            0.0872
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10328,
+            -0.08959
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.0213,
+            -0.06541
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.03715,
+            -0.08541
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03556,
+            -0.08528
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.08362,
+            0.02291
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 50,
+      "seed": 1250,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0050.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.541204
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.04784,
+            0.07255
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.04022,
+            0.09656
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.08714,
+            0.02218
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.04572,
+            0.06187
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04806,
+            0.04794
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.04368,
+            -0.08782
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 51,
+      "seed": 1270,
+      "attempt": 20,
+      "path": "assets/scenes/generated_main_v1/scene_0051.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.11899,
+            0.00282
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.09331,
+            0.0743
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01423,
+            0.06148
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.12431,
+            -0.00888
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.08875,
+            0.09236
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.07964,
+            0.09722
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 52,
+      "seed": 1274,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0052.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 24,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.707471
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08252,
+            0.07749
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.06639,
+            0.09605
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09114,
+            0.09121
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.09896,
+            0.07977
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.05962,
+            0.00818
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.09526,
+            0.08288
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 53,
+      "seed": 1275,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0053.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.587001
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.00498,
+            0.05806
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.0031,
+            -0.04276
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10826,
+            0.03238
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.00316,
+            -0.05001
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.02336,
+            -0.06642
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00423,
+            -0.04957
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 54,
+      "seed": 1276,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0054.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.6116
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.09601,
+            0.03472
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.0788,
+            0.00073
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.0572,
+            0.00564
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.09447,
+            0.0125
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.03509,
+            -0.03451
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.09471,
+            0.03578
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 55,
+      "seed": 1285,
+      "attempt": 9,
+      "path": "assets/scenes/generated_main_v1/scene_0055.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.683126
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.05374,
+            -0.02213
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06585,
+            0.08465
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00574,
+            -0.04034
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.03808,
+            0.01062
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03363,
+            0.00754
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.0573,
+            -0.01486
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 56,
+      "seed": 1295,
+      "attempt": 10,
+      "path": "assets/scenes/generated_main_v1/scene_0056.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.705168
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.01698,
+            0.03199
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.02301,
+            0.05429
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.02713,
+            0.00621
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.03543,
+            -0.00534
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00943,
+            0.02206
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.09435,
+            0.03064
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 57,
+      "seed": 1297,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0057.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.560974
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.02366,
+            0.03527
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.00747,
+            0.01901
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00666,
+            0.04479
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00509,
+            0.01217
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.00753,
+            -0.0825
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.00588,
+            0.04818
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 58,
+      "seed": 1299,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0058.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.745668
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04571,
+            0.00404
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03675,
+            0.03829
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.04691,
+            0.00658
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.05386,
+            0.00612
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.05049,
+            0.0069
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.04389,
+            0.08746
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 59,
+      "seed": 1303,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0059.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.554809
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.09821,
+            -0.07055
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.09779,
+            0.07768
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.10275,
+            0.06183
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.11521,
+            -0.02829
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.09507,
+            -0.02297
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.09223,
+            0.06255
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 60,
+      "seed": 1307,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0060.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.644368
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.01754,
+            0.0342
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.10726,
+            -0.02453
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.02067,
+            0.04072
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01372,
+            0.02395
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.02045,
+            -0.08916
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00106,
+            -0.07713
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 61,
+      "seed": 1311,
+      "attempt": 4,
+      "path": "assets/scenes/generated_main_v1/scene_0061.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.711545
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07267,
+            -0.03851
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.06015,
+            -0.06645
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.07327,
+            -0.06599
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.08711,
+            -0.05873
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.0957,
+            -0.06723
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.07448,
+            -0.05328
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 62,
+      "seed": 1312,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0062.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.707512
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.10587,
+            -0.004
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.04903,
+            0.00371
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.02524,
+            0.01226
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.03914,
+            0.07231
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.04324,
+            0.08799
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.01211,
+            0.07894
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 63,
+      "seed": 1315,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0063.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.650096
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.11631,
+            -0.0812
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.09205,
+            -0.08588
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.07401,
+            -0.01057
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.09871,
+            -0.08228
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.05872,
+            -0.0071
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.01222,
+            -0.07095
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 64,
+      "seed": 1322,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0064.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.563239
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10836,
+            0.06245
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.06262,
+            -0.04661
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.08402,
+            0.06215
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08782,
+            0.07114
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.10491,
+            0.06393
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.12504,
+            0.05763
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 65,
+      "seed": 1342,
+      "attempt": 20,
+      "path": "assets/scenes/generated_main_v1/scene_0065.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.666223
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.11292,
+            0.0271
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.10876,
+            -0.0524
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.00309,
+            0.01919
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.11506,
+            -0.03692
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.12507,
+            0.00927
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.11391,
+            -0.05787
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 66,
+      "seed": 1343,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0066.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 13,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.700873
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.06121,
+            0.00489
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.09973,
+            0.06911
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.1027,
+            0.08883
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.10014,
+            0.06315
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.09889,
+            0.1123
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.11436,
+            -0.07657
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 67,
+      "seed": 1356,
+      "attempt": 13,
+      "path": "assets/scenes/generated_main_v1/scene_0067.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 10,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.681893
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.08441,
+            0.05663
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.00481,
+            -0.06911
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.01802,
+            -0.06837
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.09519,
+            -0.0529
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.01422,
+            -0.06782
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10628,
+            -0.04931
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 68,
+      "seed": 1358,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0068.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 13,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.735723
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.09074,
+            0.02604
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.08859,
+            0.05207
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.09142,
+            0.0436
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.07228,
+            0.05609
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.09133,
+            0.03925
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.05085,
+            0.05671
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 69,
+      "seed": 1363,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0069.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.681895
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.06927,
+            0.07802
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10633,
+            0.01008
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.04526,
+            -0.02617
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.05062,
+            -0.02974
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.10541,
+            0.04108
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10263,
+            0.03234
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 70,
+      "seed": 1366,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0070.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 5,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.573693
+      },
+      "objects": [
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.08435,
+            -0.07044
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.08081,
+            -0.06091
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.09857,
+            -0.00069
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.08183,
+            -0.06859
+          ],
+          "support": "009_gelatin_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.10873,
+            -0.00506
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.12521,
+            0.00306
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 71,
+      "seed": 1367,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0071.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 11,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.813049
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.02406,
+            0.08414
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.04308,
+            0.08505
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.06814,
+            -0.04415
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.00511,
+            -0.01669
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.05878,
+            -0.03383
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.06338,
+            -0.02033
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 72,
+      "seed": 1372,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0072.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.592367
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00149,
+            0.08105
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.00162,
+            0.06666
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0056,
+            0.10019
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.01697,
+            -0.03927
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.00305,
+            0.12988
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.05176,
+            0.03995
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 73,
+      "seed": 1379,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0073.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.621762
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.04253,
+            0.02369
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.04837,
+            0.02499
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.05739,
+            -0.00225
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.03119,
+            0.01675
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.06637,
+            0.03211
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03383,
+            -0.00056
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 74,
+      "seed": 1384,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0074.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.659577
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.09416,
+            0.05762
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.03443,
+            -0.01831
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.04813,
+            -0.0021
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.0297,
+            -0.02452
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.04788,
+            -0.03655
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.04397,
+            -0.02864
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 75,
+      "seed": 1386,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0075.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.688066
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11324,
+            0.06572
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.09241,
+            0.0265
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.09231,
+            0.00135
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.11758,
+            0.04652
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.10984,
+            0.03847
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.00621,
+            -0.07523
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 76,
+      "seed": 1392,
+      "attempt": 6,
+      "path": "assets/scenes/generated_main_v1/scene_0076.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.07772,
+            -0.08592
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.11974,
+            -0.00153
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.13378,
+            -0.00017
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.04204,
+            -0.04606
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10132,
+            0.00215
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.11638,
+            -0.00727
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 77,
+      "seed": 1400,
+      "attempt": 8,
+      "path": "assets/scenes/generated_main_v1/scene_0077.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.02539,
+            0.07765
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.05614,
+            0.02892
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.0239,
+            0.09498
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.00271,
+            -0.08761
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.02258,
+            0.07651
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.08604,
+            0.03309
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 78,
+      "seed": 1402,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0078.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.636647
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.00039,
+            -0.04551
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.10855,
+            0.02348
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.00886,
+            -0.05048
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.03233,
+            -0.00773
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.01021,
+            -0.06594
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.10027,
+            0.07715
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 79,
+      "seed": 1412,
+      "attempt": 10,
+      "path": "assets/scenes/generated_main_v1/scene_0079.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 10,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.711517
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.08822,
+            -0.02642
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06867,
+            -0.02101
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.05778,
+            -0.03169
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07268,
+            0.00507
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.09903,
+            -0.02463
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0874,
+            -0.0159
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 80,
+      "seed": 1413,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0080.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 15,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.711062
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.08618,
+            -0.06345
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.08447,
+            -0.07432
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06156,
+            -0.05903
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.02171,
+            0.01224
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.02728,
+            0.0094
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00105,
+            -0.01212
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 81,
+      "seed": 1428,
+      "attempt": 15,
+      "path": "assets/scenes/generated_main_v1/scene_0081.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.629196
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.03225,
+            0.05118
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.03629,
+            0.06929
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.03274,
+            0.07267
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.02527,
+            0.03922
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.05033,
+            0.05478
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.04599,
+            0.0519
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 82,
+      "seed": 1429,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0082.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.693864
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00747,
+            -0.0195
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.00584,
+            -0.00087
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00246,
+            -0.04779
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.01263,
+            -0.04664
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.02297,
+            -0.02794
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.00906,
+            -0.0328
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 83,
+      "seed": 1431,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0083.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.673872
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0839,
+            0.08927
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.01778,
+            -0.06646
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.0101,
+            -0.07059
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.00027,
+            -0.08896
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.11091,
+            -0.05483
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.07699,
+            0.11046
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 84,
+      "seed": 1432,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0084.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.750178
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.0329,
+            -0.05997
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.05661,
+            -0.0696
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.04429,
+            -0.07693
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.08946,
+            0.03284
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.06448,
+            -0.08837
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.00328,
+            -0.07802
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 85,
+      "seed": 1434,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0085.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.729583
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.10909,
+            -0.08668
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.12767,
+            -0.11441
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.00886,
+            0.08917
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.09306,
+            -0.11278
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.00574,
+            0.08298
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.07708,
+            0.03465
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 86,
+      "seed": 1436,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0086.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 5,
+        "visible_edges": 23,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.750073
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.04391,
+            0.00462
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.01434,
+            -0.01343
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10484,
+            0.08639
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.10975,
+            0.08871
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.10126,
+            0.10735
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11755,
+            0.09579
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 87,
+      "seed": 1438,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0087.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 14,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.606481
+      },
+      "objects": [
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10385,
+            0.02425
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.1196,
+            0.03057
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.12907,
+            0.02273
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.04589,
+            0.01886
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.07638,
+            0.01673
+          ],
+          "support": "010_potted_meat_can"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07894,
+            0.01958
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 88,
+      "seed": 1439,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0088.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 5,
+        "visible_edges": 15,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.682925
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.11154,
+            0.0563
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.00681,
+            0.07034
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.10779,
+            0.06485
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.10637,
+            0.08029
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.10192,
+            0.05873
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.035,
+            0.0306
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 89,
+      "seed": 1442,
+      "attempt": 3,
+      "path": "assets/scenes/generated_main_v1/scene_0089.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.664187
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.06471,
+            -0.01549
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.05903,
+            0.00881
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06543,
+            -0.01333
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.05006,
+            -0.00213
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.05683,
+            -0.03782
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.06008,
+            -0.02066
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 90,
+      "seed": 1444,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0090.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.573694
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.01329,
+            0.07124
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01947,
+            0.09873
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.03432,
+            0.04461
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.01463,
+            0.07263
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.01893,
+            0.07696
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.0197,
+            0.04699
+          ],
+          "support": "003_cracker_box"
+        }
+      ]
+    },
+    {
+      "index": 91,
+      "seed": 1446,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0091.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 4,
+        "visible_edges": 9,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.699919
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02831,
+            0.04743
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.01672,
+            -0.07348
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.01905,
+            -0.08959
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.08224,
+            0.00894
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.02574,
+            -0.04407
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.02885,
+            -0.04303
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 92,
+      "seed": 1452,
+      "attempt": 6,
+      "path": "assets/scenes/generated_main_v1/scene_0092.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 15,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.629692
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.00777,
+            -0.04256
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.05045,
+            0.00968
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.06464,
+            -0.01696
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.05565,
+            -0.0084
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.073,
+            -0.02943
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.06481,
+            -0.0591
+          ],
+          "support": "008_pudding_box"
+        }
+      ]
+    },
+    {
+      "index": 93,
+      "seed": 1457,
+      "attempt": 5,
+      "path": "assets/scenes/generated_main_v1/scene_0093.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.813082
+      },
+      "objects": [
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.0151,
+            0.06408
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.09688,
+            0.038
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.09331,
+            0.06082
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.1063,
+            0.01369
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.07083,
+            -0.07307
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.12237,
+            0.01549
+          ],
+          "support": "004_sugar_box"
+        }
+      ]
+    },
+    {
+      "index": 94,
+      "seed": 1459,
+      "attempt": 2,
+      "path": "assets/scenes/generated_main_v1/scene_0094.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.01638,
+            0.05439
+          ],
+          "support": null
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.10951,
+            -0.07552
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.03511,
+            0.06333
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.02096,
+            0.06061
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.02459,
+            -0.03821
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00451,
+            0.04819
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    },
+    {
+      "index": 95,
+      "seed": 1479,
+      "attempt": 20,
+      "path": "assets/scenes/generated_main_v1/scene_0095.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.788937
+      },
+      "objects": [
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.0864,
+            0.06477
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            0.08394,
+            0.04541
+          ],
+          "support": "003_cracker_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.10413,
+            0.04741
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.0938,
+            0.04156
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            -0.08429,
+            -0.08376
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            0.1091,
+            -0.05209
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 96,
+      "seed": 1480,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0096.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.619886
+      },
+      "objects": [
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            0.03896,
+            -0.01192
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.02874,
+            0.00852
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.05364,
+            0.01687
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            0.05776,
+            -0.02568
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.04735,
+            -0.01939
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.07623,
+            0.07115
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 97,
+      "seed": 1487,
+      "attempt": 7,
+      "path": "assets/scenes/generated_main_v1/scene_0097.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 8,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.598394
+      },
+      "objects": [
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            0.07499,
+            -0.07657
+          ],
+          "support": null
+        },
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            0.07618,
+            -0.08651
+          ],
+          "support": "008_pudding_box"
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.05097,
+            0.00435
+          ],
+          "support": null
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.05156,
+            0.011
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            0.05416,
+            0.08622
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.05188,
+            -0.00977
+          ],
+          "support": "010_potted_meat_can"
+        }
+      ]
+    },
+    {
+      "index": 98,
+      "seed": 1488,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0098.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 2,
+        "visible_edges": 6,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.682933
+      },
+      "objects": [
+        {
+          "name": "005_tomato_soup_can",
+          "pos_xy": [
+            -0.0063,
+            -0.0371
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.10413,
+            -0.00411
+          ],
+          "support": null
+        },
+        {
+          "name": "004_sugar_box",
+          "pos_xy": [
+            -0.05892,
+            -0.03308
+          ],
+          "support": null
+        },
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.06485,
+            -0.00627
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.05913,
+            -0.04929
+          ],
+          "support": "004_sugar_box"
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.0686,
+            -0.05357
+          ],
+          "support": null
+        }
+      ]
+    },
+    {
+      "index": 99,
+      "seed": 1489,
+      "attempt": 1,
+      "path": "assets/scenes/generated_main_v1/scene_0099.xml",
+      "validation": {
+        "object_count": 6,
+        "contact_pairs": 3,
+        "visible_edges": 12,
+        "out_of_bounds_objects": 0,
+        "below_table_objects": 0,
+        "max_top_z": 0.573694
+      },
+      "objects": [
+        {
+          "name": "061_foam_brick",
+          "pos_xy": [
+            -0.00258,
+            0.06435
+          ],
+          "support": null
+        },
+        {
+          "name": "009_gelatin_box",
+          "pos_xy": [
+            -0.01196,
+            0.07199
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "003_cracker_box",
+          "pos_xy": [
+            -0.09157,
+            -0.06979
+          ],
+          "support": null
+        },
+        {
+          "name": "008_pudding_box",
+          "pos_xy": [
+            -0.10563,
+            -0.002
+          ],
+          "support": null
+        },
+        {
+          "name": "007_tuna_fish_can",
+          "pos_xy": [
+            0.00502,
+            0.06489
+          ],
+          "support": "061_foam_brick"
+        },
+        {
+          "name": "010_potted_meat_can",
+          "pos_xy": [
+            -0.00098,
+            0.06299
+          ],
+          "support": "061_foam_brick"
+        }
+      ]
+    }
+  ]
+}

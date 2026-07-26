@@ -1,0 +1,53 @@
+<mujoco model="stacked_blocks">
+  <compiler angle="radian" autolimits="true"/>
+
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4"/>
+  <visual>
+    <global offwidth="1280" offheight="900"/>
+  </visual>
+
+  <default>
+    <joint damping="0.01"/>
+    <geom condim="4" friction="1.0 0.005 0.0001" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+  </default>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.82 0.82 0.82" rgb2="0.68 0.68 0.68"/>
+    <material name="floor_mat" texture="grid" texrepeat="2 2" reflectance="0.15"/>
+    <material name="table_mat" rgba="0.35 0.31 0.27 1"/>
+    <material name="red_mat" rgba="0.75 0.18 0.16 1"/>
+    <material name="blue_mat" rgba="0.16 0.32 0.78 1"/>
+    <material name="green_mat" rgba="0.18 0.58 0.28 1"/>
+    <material name="yellow_mat" rgba="0.86 0.66 0.12 1"/>
+  </asset>
+
+  <worldbody>
+    <light name="key_light" pos="0.2 -0.5 1.2" dir="-0.2 0.4 -1"/>
+    <camera name="overview" pos="0.55 -0.65 0.75" xyaxes="0.76 0.65 0 -0.37 0.43 0.82" fovy="45"/>
+    <geom name="floor" type="plane" size="1.2 1.2 0.02" material="floor_mat"/>
+
+    <body name="table" pos="0 0 0.35">
+      <geom name="table_top" type="box" size="0.45 0.35 0.035" material="table_mat"/>
+    </body>
+
+    <body name="obj_red_box" pos="-0.045 0.000 0.455">
+      <freejoint/>
+      <geom name="obj_red_box_geom" type="box" size="0.060 0.045 0.030" mass="0.18" material="red_mat"/>
+    </body>
+
+    <body name="obj_blue_box" pos="0.055 0.010 0.455">
+      <freejoint/>
+      <geom name="obj_blue_box_geom" type="box" size="0.055 0.050 0.030" mass="0.18" material="blue_mat"/>
+    </body>
+
+    <body name="obj_green_top_box" pos="0.005 0.005 0.525">
+      <freejoint/>
+      <geom name="obj_green_top_box_geom" type="box" size="0.050 0.040 0.025" mass="0.14" material="green_mat"/>
+    </body>
+
+    <body name="obj_yellow_cylinder" pos="0.120 -0.060 0.465">
+      <freejoint/>
+      <geom name="obj_yellow_cylinder_geom" type="cylinder" size="0.027 0.040" mass="0.12" material="yellow_mat"/>
+    </body>
+  </worldbody>
+</mujoco>

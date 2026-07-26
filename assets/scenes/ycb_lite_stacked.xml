@@ -1,0 +1,80 @@
+<mujoco model="ycb_lite_stacked">
+  <compiler angle="radian" autolimits="true"/>
+
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="RK4"/>
+  <visual>
+    <global offwidth="1280" offheight="900"/>
+  </visual>
+
+  <default>
+    <joint damping="0.01"/>
+    <geom condim="4" friction="1.05 0.006 0.0001" solref="0.01 1" solimp="0.9 0.95 0.001"/>
+  </default>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512" rgb1="0.82 0.82 0.82" rgb2="0.68 0.68 0.68"/>
+    <material name="floor_mat" texture="grid" texrepeat="2 2" reflectance="0.15"/>
+    <material name="table_mat" rgba="0.35 0.31 0.27 1"/>
+    <material name="cracker_mat" rgba="0.86 0.44 0.18 1"/>
+    <material name="sugar_mat" rgba="0.92 0.86 0.62 1"/>
+    <material name="pudding_mat" rgba="0.95 0.76 0.22 1"/>
+    <material name="gelatin_mat" rgba="0.78 0.16 0.22 1"/>
+    <material name="soup_mat" rgba="0.82 0.14 0.10 1"/>
+    <material name="tuna_mat" rgba="0.20 0.42 0.72 1"/>
+    <material name="foam_mat" rgba="0.35 0.72 0.45 1"/>
+    <material name="meat_mat" rgba="0.63 0.38 0.25 1"/>
+  </asset>
+
+  <worldbody>
+    <light name="key_light" pos="0.25 -0.55 1.2" dir="-0.2 0.45 -1"/>
+    <camera name="overview" mode="targetbody" target="table" pos="0.82 -0.92 1.08" fovy="62"/>
+    <camera name="topdown" mode="targetbody" target="table" pos="0.00 0.00 1.45" fovy="54"/>
+    <camera name="front" mode="targetbody" target="table" pos="0.00 -1.20 0.72" fovy="55"/>
+    <geom name="floor" type="plane" size="1.2 1.2 0.02" material="floor_mat"/>
+
+    <body name="table" pos="0 0 0.35">
+      <geom name="table_top" type="box" size="0.50 0.38 0.035" material="table_mat"/>
+    </body>
+
+    <!-- YCB-Lite starter set. Collision geoms are simplified to stable primitives. -->
+    <body name="obj_003_cracker_box" pos="-0.080 0.000 0.490">
+      <freejoint/>
+      <geom name="obj_003_cracker_box_geom" type="box" size="0.030 0.079 0.105" mass="0.411" material="cracker_mat"/>
+    </body>
+
+    <body name="obj_004_sugar_box" pos="0.015 0.010 0.475">
+      <freejoint/>
+      <geom name="obj_004_sugar_box_geom" type="box" size="0.032 0.045 0.088" mass="0.514" material="sugar_mat"/>
+    </body>
+
+    <body name="obj_008_pudding_box" pos="-0.040 0.005 0.615">
+      <freejoint/>
+      <geom name="obj_008_pudding_box_geom" type="box" size="0.018 0.055 0.045" mass="0.187" material="pudding_mat"/>
+    </body>
+
+    <body name="obj_009_gelatin_box" pos="0.040 0.015 0.585">
+      <freejoint/>
+      <geom name="obj_009_gelatin_box_geom" type="box" size="0.014 0.043 0.037" mass="0.097" material="gelatin_mat"/>
+    </body>
+
+    <body name="obj_005_tomato_soup_can" pos="0.130 -0.075 0.435">
+      <freejoint/>
+      <geom name="obj_005_tomato_soup_can_geom" type="cylinder" size="0.033 0.051" mass="0.349" material="soup_mat"/>
+    </body>
+
+    <body name="obj_007_tuna_fish_can" pos="0.178 -0.020 0.405">
+      <freejoint/>
+      <geom name="obj_007_tuna_fish_can_geom" type="cylinder" size="0.043 0.017" mass="0.171" material="tuna_mat"/>
+    </body>
+
+    <body name="obj_061_foam_brick" pos="-0.150 -0.090 0.410">
+      <freejoint/>
+      <geom name="obj_061_foam_brick_geom" type="box" size="0.038 0.025 0.025" mass="0.028" material="foam_mat"/>
+    </body>
+
+    <body name="obj_010_potted_meat_can" pos="0.090 0.085 0.420">
+      <freejoint/>
+      <geom name="obj_010_potted_meat_can_geom" type="box" size="0.049 0.041 0.025" mass="0.370" material="meat_mat"/>
+    </body>
+  </worldbody>
+</mujoco>
