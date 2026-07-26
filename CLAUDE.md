@@ -34,8 +34,8 @@ GraspNet 数据布局：`<prediction-root>/scene_XXXX/realsense/帧号.npy`；�
 ## 当前状态与已定结论（2026-07-26）
 
 - `adaptive_score_v2` 排序键（低风险→高度→抓取风险→综合分→名称）是**刻意设计**，有单测保障；不要"修复"。
-- 真实数据管线（scene_0007，40 帧，首抓）：基线 57.5% 成功的瓶颈在**候选供给**，不在排序。已定推荐参数：`--clamp-width --collision-threshold 0.02`（绑定参数保持默认 r=3, tol=0.12）→ 87.5%，risk 阈值 0.45 不动。
-- 绑定诊断结论：放宽深度容差/半径只提高绑定率不提高成功率（视差导致像素落在后方表面，深度检查在正确拦截绑错）；30% 候选打在背景上属上游预测质量问题。下一步方法改进：**3D 最近物体绑定**。
+- 真实数据管线（scene_0007，40 帧，首抓）：基线 57.5% 成功的瓶颈在**候选供给**，不在排序。当前推荐操作点：`--binding-mode 3d --binding-3d-max-distance-m 0.03 --clamp-width --collision-threshold 0.02` → 成功率 87.5%、可行候选 9.7/帧（risk 阈值 0.45 不动）；纯 pixel 绑定下 clamp+ct0.02 同为 87.5% 但仅 6.9/帧。
+- 绑定诊断结论：放宽像素绑定的深度容差/半径只提高绑定率不提高成功率（视差导致像素落在后方表面，深度检查在正确拦截绑错）——正解是 **3D 最近物体绑定**（已实现，`bind_graspnet_records_to_objects_3d`；max_distance 0.05 过松会吸入邻近物体点）。30% 候选打在背景上属上游预测质量问题。
 - 供给修复后多策略首抓对比（scene_0007）：adaptive-score-v2-graspnet 85% >> od-only 60% > lowest-blocked 57.5% >> highest-first 35% ≈ random 32.5%。真实数据上可行性门控是决定性差异（抽象实验中 highest-first 曾与 v2 打平）。
 - 待办：结论需在 split_v1 五场景（0007/0009/0011/0015/0017）上验证泛化；risk 阈值需用 Robotiq 动态验证标定（`scripts/calibrate_risk_threshold.py` 已就绪）；v3（adaptive-score-v3-candidate）代码在服务器，需同步进主仓库。
 

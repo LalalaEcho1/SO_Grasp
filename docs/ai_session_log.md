@@ -17,11 +17,12 @@
    - 30%（1184/4000）候选 15px 内无任何标签，属 GraspNet 预测打在背景，是上游候选质量问题，可作为论文指标。
    - 供给修复后多策略首抓对比：adaptive-score-v2-graspnet **85%** >> od-only 60% > lowest-blocked 57.5% >> highest-first 35% ≈ random 32.5%。可行性门控是真实数据上的决定性差异。
 5. 写入 `CLAUDE.md` / `AGENTS.md`（本协作说明）与本日志。
+6. （同日晚间追加）实现 **3D 最近物体绑定** `bind_graspnet_records_to_objects_3d`（graspnet_binding.py，含 5 个单测；`bind_graspnet_records` 统一分发，脚本加 `--binding-mode {pixel,3d}` 与 `--binding-3d-max-distance-m`）。scene_0007 端到端：`3d, maxdist=0.03` + clamp + ct0.02 → 绑定 54.1%、可行 **9.7/帧**（pixel 为 6.9）、成功率 87.5% 持平且不再有视差绑错；maxdist=0.05 过松（82.5%）。**新推荐操作点：`--binding-mode 3d --binding-3d-max-distance-m 0.03 --clamp-width --collision-threshold 0.02`**，待 split_v1 验证。
 
-**仓库状态**：main @ be0eef6 + 本次未提交改动（10 个代码/测试文件 + 3 个文档 + results/cloud_runs）。`external/cloud_transfer/` 为传输中转（gitignored），可清理。
+**仓库状态**：main @ e0cd137（用户已推送 8e23555 工具批次与文档批次）+ 本次未提交改动（3D 绑定相关 4 个代码/测试文件 + 本日志 + CLAUDE.md/AGENTS.md 更新）。`external/cloud_transfer/` 为传输中转（gitignored），可清理。
 
 **留给下一个执行者**
 
 - [ ] 用户：`git add -A && git commit && git push`（本机）；删除仓库根 `_to_delete/`。
 - [ ] 服务器（Claude Code / Codex）：同步 v3（adaptive-score-v3-candidate）进仓库；在 split_v1 五场景上跑 `diagnose_graspnet_binding` 与 `sweep_pointcloud_feasibility_grid` 验证推荐参数泛化；跑 Robotiq 动态验证批量，产出 (risk, lift_success) 对，供 `calibrate_risk_threshold.py` 标定阈值。
-- [ ] 云端 Claude：拿到 split_v1 结果后出论文表格（按 difficulty/场景分组 + 配对检验）；实现 3D 最近物体绑定（配单测）。
+- [ ] 云端 Claude：拿到 split_v1 结果后出论文表格（按 difficulty/场景分组 + 配对检验）。3D 绑定已完成，服务器验证时用 `--binding-mode 3d --binding-3d-max-distance-m 0.03` 与 pixel 模式各跑一遍以便对比。

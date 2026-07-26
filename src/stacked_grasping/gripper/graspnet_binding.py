@@ -10,8 +10,15 @@ from typing import Mapping, Sequence
 import numpy as np
 
 from stacked_grasping.gripper.candidate_io import records_from_graspnet_array
-from stacked_grasping.gripper.external_graspnet_data import AnnotationObject, RealSenseFrame, normalize_frame_id
+from stacked_grasping.gripper.external_graspnet_data import (
+    AnnotationObject,
+    RealSenseFrame,
+    depth_to_point_cloud,
+    normalize_frame_id,
+)
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_outputs_to_candidates
+
+BINDING_MODES = ("pixel", "3d")
 
 
 @dataclass(frozen=True)
@@ -167,6 +174,117 @@ def bind_graspnet_records_to_frame_labels(
             )
         )
     return bound
+
+
+def bind_graspnet_records_to_objects_3d(
+    records: Sequence[Mapping[str, object]],
+    frame: RealSenseFrame,
+    annotation_objects: Sequence[AnnotationObject] = (),
+    *,
+    max_distance_m: float = 0.05,
+    point_stride: int = 4,
+) -> list[BoundGraspNetCandidate]:
+    """Bind each grasp to the nearest labeled 3D point instead of its pixel projection.
+
+    Motivated by the 2026-07-26 diagnosis: pixel projection suffers from parallax —
+    grasp centers frequently project onto a surface *behind* the intended object
+    (signed depth offsets clustered around -0.17 m), so a single-pixel lookup binds
+    to the wrong label or to background. Nearest-3D-point association is immune to
+    that failure mode. ``depth_error_m`` carries the 3D distance for bound results.
+    """
+    if frame.label is None:
+        return [_unbound(record, frame.frame, "no-label") for record in records]
+
+    points, valid_mask = depth_to_point_cloud(
+        frame.depth_raw,
+        frame.intrinsic_matrix,
+        factor_depth=frame.factor_depth,
+    )
+    labels = np.asarray(frame.label).reshape(-1)[np.asarray(valid_mask).reshape(-1)]
+    labeled = labels > 0
+    labeled_points = np.asarray(points, dtype=float).reshape(-1, 3)[labeled]
+    labeled_ids = labels[labeled]
+    stride = max(int(point_stride), 1)
+    labeled_points = labeled_points[::stride]
+    labeled_ids = labeled_ids[::stride]
+    if labeled_points.shape[0] == 0:
+        return [_unbound(record, frame.frame, "no-label") for record in records]
+
+    label_to_object = {obj.label_id: obj for obj in annotation_objects}
+    translations = np.array([record.get("translation", [np.nan, np.nan, np.nan]) for record in records], dtype=float)
+    pixels, _ = project_camera_points_to_pixels(translations, frame.intrinsic_matrix)
+
+    bound: list[BoundGraspNetCandidate] = []
+    for record, point, pixel in zip(records, translations, pixels):
+        if not np.isfinite(point).all():
+            bound.append(_unbound(record, frame.frame, "invalid-translation"))
+            continue
+        distances = np.linalg.norm(labeled_points - point[None, :], axis=1)
+        nearest = int(np.argmin(distances))
+        nearest_distance = float(distances[nearest])
+        pixel_uv = (
+            (int(round(float(pixel[0]))), int(round(float(pixel[1]))))
+            if np.isfinite(pixel).all()
+            else None
+        )
+        if nearest_distance > float(max_distance_m):
+            bound.append(
+                _unbound(
+                    record,
+                    frame.frame,
+                    "no-nearby-points",
+                    pixel=pixel_uv,
+                    depth_error_m=nearest_distance,
+                )
+            )
+            continue
+        label_id = int(labeled_ids[nearest])
+        annotation = label_to_object.get(label_id)
+        bound.append(
+            BoundGraspNetCandidate(
+                record=record,
+                frame=frame.frame,
+                status="bound",
+                pixel=pixel_uv,
+                label_id=label_id,
+                object_id=annotation.object_id if annotation is not None else label_id - 1,
+                object_name=annotation.name if annotation is not None else None,
+                depth_error_m=nearest_distance,
+            )
+        )
+    return bound
+
+
+def bind_graspnet_records(
+    records: Sequence[Mapping[str, object]],
+    frame: RealSenseFrame,
+    annotation_objects: Sequence[AnnotationObject] = (),
+    *,
+    mode: str = "pixel",
+    pixel_radius: int = 2,
+    depth_tolerance_m: float | None = 0.08,
+    max_distance_m: float = 0.05,
+    point_stride: int = 4,
+) -> list[BoundGraspNetCandidate]:
+    """Dispatch to pixel-projection or nearest-3D-point binding."""
+    if mode == "pixel":
+        return bind_graspnet_records_to_frame_labels(
+            records,
+            frame,
+            annotation_objects,
+            pixel_radius=pixel_radius,
+            depth_tolerance_m=depth_tolerance_m,
+        )
+    if mode == "3d":
+        return bind_graspnet_records_to_objects_3d(
+            records,
+            frame,
+            annotation_objects,
+            max_distance_m=max_distance_m,
+            point_stride=point_stride,
+        )
+    valid = ", ".join(BINDING_MODES)
+    raise ValueError(f"Unknown binding mode {mode!r}. Valid modes: {valid}")
 
 
 def bound_candidates_to_grasp_poses_by_object(
