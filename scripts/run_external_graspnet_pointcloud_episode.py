@@ -48,6 +48,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--binding-depth-tolerance-m", type=float, default=0.12)
     parser.add_argument("--binding-mode", choices=BINDING_MODES, default="pixel")
     parser.add_argument("--binding-3d-max-distance-m", type=float, default=0.05)
+    parser.add_argument("--max-steps", type=int, default=1, help="Steps per frame episode; <=0 clears until failure or empty.")
+    parser.add_argument("--policy", default="adaptive-score-v2-graspnet")
     parser.add_argument("--min-points-per-object", type=int, default=20)
     parser.add_argument("--min-half-extent", type=float, default=0.01)
     parser.add_argument("--object-padding", type=float, default=0.002)
@@ -81,6 +83,8 @@ def main() -> None:
         binding_depth_tolerance_m=args.binding_depth_tolerance_m,
         binding_mode=args.binding_mode,
         binding_3d_max_distance_m=args.binding_3d_max_distance_m,
+        max_steps=args.max_steps if args.max_steps and args.max_steps > 0 else None,
+        policy=args.policy,
         min_points_per_object=args.min_points_per_object,
         min_half_extent=args.min_half_extent,
         object_padding=args.object_padding,
@@ -122,6 +126,8 @@ def run_external_graspnet_pointcloud_episodes(
     binding_depth_tolerance_m: float | None = 0.12,
     binding_mode: str = "pixel",
     binding_3d_max_distance_m: float = 0.05,
+    max_steps: int | None = 1,
+    policy: str = "adaptive-score-v2-graspnet",
     min_points_per_object: int = 20,
     min_half_extent: float = 0.01,
     object_padding: float = 0.002,
@@ -151,6 +157,8 @@ def run_external_graspnet_pointcloud_episodes(
                     binding_depth_tolerance_m=binding_depth_tolerance_m,
                     binding_mode=binding_mode,
                     binding_3d_max_distance_m=binding_3d_max_distance_m,
+                    max_steps=max_steps,
+                    policy=policy,
                     min_points_per_object=min_points_per_object,
                     min_half_extent=min_half_extent,
                     object_padding=object_padding,
@@ -186,6 +194,8 @@ def run_frame_episode_summary(
     binding_depth_tolerance_m: float | None = 0.12,
     binding_mode: str = "pixel",
     binding_3d_max_distance_m: float = 0.05,
+    max_steps: int | None = 1,
+    policy: str = "adaptive-score-v2-graspnet",
     min_points_per_object: int = 20,
     min_half_extent: float = 0.01,
     object_padding: float = 0.002,
@@ -226,13 +236,26 @@ def run_frame_episode_summary(
         padding=object_padding,
         min_boundary_pixels=min_boundary_pixels,
     )
-    points, _ = depth_to_point_cloud(frame.depth_raw, frame.intrinsic_matrix, factor_depth=frame.factor_depth)
-    points = sample_points(points, limit=point_sample_limit, seed=point_sample_seed)
+    points, valid_mask = depth_to_point_cloud(frame.depth_raw, frame.intrinsic_matrix, factor_depth=frame.factor_depth)
+    point_labels = np.asarray(frame.label).reshape(-1)[np.asarray(valid_mask).reshape(-1)] if frame.label is not None else np.zeros(len(points), dtype=int)
+    points, point_labels = sample_points_with_labels(points, point_labels, limit=point_sample_limit, seed=point_sample_seed)
+    label_by_object_name = {annotation.name: int(annotation.label_id) for annotation in annotations}
+    initial_labels = {
+        label_by_object_name[obj.name]
+        for obj in episode_inputs.scene.read_objects()
+        if obj.name in label_by_object_name
+    }
 
     def gripper_provider(objects):
+        # Grasped objects vanish from the collision cloud: points carrying the label
+        # of a removed object are filtered out, while background/table points and
+        # labels never present in the episode stay untouched.
+        active_labels = {label_by_object_name[obj.name] for obj in objects if obj.name in label_by_object_name}
+        removed_labels = sorted(initial_labels - active_labels)
+        step_points = points if not removed_labels else points[~np.isin(point_labels, removed_labels)]
         return assess_scene_bound_graspnet_pointcloud_feasibility(
             objects,
-            points,
+            step_points,
             bindings,
             config=pointcloud_config,
         )
@@ -240,12 +263,12 @@ def run_frame_episode_summary(
     gripper_feasibilities = list(gripper_provider(episode_inputs.scene.read_objects()))
     result = run_policy_episode(
         episode_inputs.scene,
-        policy="adaptive-score-v2-graspnet",
-        max_steps=1,
+        policy=policy,
+        max_steps=max_steps,
         post_grasp_settle_steps=0,
         failure_mode="risk-threshold",
         risk_threshold=risk_threshold,
-        gripper_feasibility_provider=lambda objects: gripper_feasibilities,
+        gripper_feasibility_provider=gripper_provider,
     )
     return compact_frame_summary(
         frame=frame.frame,
@@ -278,6 +301,7 @@ def compact_frame_summary(
     )
     step = result.steps[0] if result.steps else None
     selected_pose = step.selected_grasp_pose if step and step.selected_grasp_pose else None
+    num_successes = sum(1 for item in result.steps if item.grasp_success)
     return {
         "frame": frame,
         "object_count": object_count,
@@ -296,6 +320,11 @@ def compact_frame_summary(
         "gripper_feasible_grasp_count": step.gripper_feasible_grasp_count if step else None,
         "selected_pose_generator": selected_pose.generator if selected_pose else None,
         "selected_pose_score": round(float(selected_pose.score), 6) if selected_pose else None,
+        "num_steps": len(result.steps),
+        "num_successes": num_successes,
+        "cleared_objects": num_successes,
+        "clearance_rate": float(num_successes / object_count) if object_count else None,
+        "episode_failure_reason": getattr(result, "failure_reason", None),
     }
 
 
@@ -320,7 +349,15 @@ def aggregate_frame_summaries(frame_results: Sequence[dict[str, object]]) -> dic
         "success_rate": float(success_count / len(frame_results)) if frame_results else None,
         "failure_reason_counts": dict(sorted(failure_counter.items())),
         "selected_object_counts": dict(sorted(selected_counter.items())),
+        "mean_clearance_rate": _mean_optional([item.get("clearance_rate") for item in frame_results]),
+        "full_clear_frame_count": sum(1 for item in frame_results if item.get("clearance_rate") == 1.0),
+        "mean_steps": _mean_optional([item.get("num_steps") for item in frame_results]),
     }
+
+
+def _mean_optional(values: Sequence[object]) -> float | None:
+    numbers = [float(value) for value in values if value is not None]
+    return float(sum(numbers) / len(numbers)) if numbers else None
 
 
 def select_matching_frame_ids(
@@ -351,6 +388,25 @@ def sample_points(points: np.ndarray, *, limit: int | None, seed: int) -> np.nda
     return arr[rng.choice(arr.shape[0], int(limit), replace=False)]
 
 
+def sample_points_with_labels(
+    points: np.ndarray,
+    labels: np.ndarray,
+    *,
+    limit: int | None,
+    seed: int,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Jointly subsample a point cloud and its per-point labels with shared indices."""
+    arr = np.asarray(points, dtype=float).reshape(-1, 3)
+    label_arr = np.asarray(labels).reshape(-1)
+    if arr.shape[0] != label_arr.shape[0]:
+        raise ValueError("points and labels must have matching lengths.")
+    if limit is None or limit <= 0 or arr.shape[0] <= limit:
+        return arr, label_arr
+    rng = np.random.default_rng(seed)
+    indices = rng.choice(arr.shape[0], int(limit), replace=False)
+    return arr[indices], label_arr[indices]
+
+
 def write_frame_results_csv(path: Path, frame_results: Sequence[dict[str, object]]) -> None:
     fieldnames = [
         "frame",
@@ -369,6 +425,11 @@ def write_frame_results_csv(path: Path, frame_results: Sequence[dict[str, object
         "gripper_feasible_grasp_count",
         "selected_pose_generator",
         "selected_pose_score",
+        "num_steps",
+        "num_successes",
+        "cleared_objects",
+        "clearance_rate",
+        "episode_failure_reason",
     ]
     with path.open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=fieldnames, extrasaction="ignore")

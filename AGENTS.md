@@ -37,7 +37,8 @@ GraspNet 数据布局：`<prediction-root>/scene_XXXX/realsense/帧号.npy`；�
 - 真实数据管线（scene_0007，40 帧，首抓）：基线 57.5% 成功的瓶颈在**候选供给**，不在排序。当前推荐操作点：`--binding-mode 3d --binding-3d-max-distance-m 0.03 --clamp-width --collision-threshold 0.02` → 成功率 87.5%、可行候选 9.7/帧（risk 阈值 0.45 不动）；纯 pixel 绑定下 clamp+ct0.02 同为 87.5% 但仅 6.9/帧。
 - 绑定诊断结论：放宽像素绑定的深度容差/半径只提高绑定率不提高成功率（视差导致像素落在后方表面，深度检查在正确拦截绑错）——正解是 **3D 最近物体绑定**（已实现，`bind_graspnet_records_to_objects_3d`；max_distance 0.05 过松会吸入邻近物体点）。30% 候选打在背景上属上游预测质量问题。
 - 供给修复后多策略首抓对比（scene_0007）：adaptive-score-v2-graspnet 85% >> od-only 60% > lowest-blocked 57.5% >> highest-first 35% ≈ random 32.5%。真实数据上可行性门控是决定性差异（抽象实验中 highest-first 曾与 v2 打平）。
-- 新策略 `adaptive-score-v2-riskaware`：用裁判同款完整风险（基础+夹爪项）做选择门控，修复 v2-graspnet"选择与判定度量不一致"的问题；scene_0007 首抓 **100%（40/40）**（3d 绑定 0.03 + clamp + ct0.02，阈值 0.45）。**该数字未过 split_v1 / 多步 / 动态验证三个泛化关口，论文暂不可引用。**
+- 新策略 `adaptive-score-v2-riskaware`：用裁判同款完整风险（基础+夹爪项）做选择门控，修复 v2-graspnet"选择与判定度量不一致"的问题；scene_0007 首抓 **100%（40/40）**（3d 绑定 0.03 + clamp + ct0.02，阈值 0.45）。**该数字未过 split_v1 / 动态验证等泛化关口，论文暂不可引用。**
+- 多步清场（`run_external_graspnet_pointcloud_episode.py --max-steps 0 --policy ...`，已抓物体的点按标签逐步移除）：riskaware 清空率 44.6% > graspnet 33.4% > od-only 16.9% > highest-first 13.8% > random 4.2%（scene_0007）。静态单帧无法模拟逐步重新感知，候选集固定导致清空率有天花板——多步数字用于相对比较，完整清场指标由 MuJoCo formal 实验承担。
 - 待办：结论需在 split_v1 五场景（0007/0009/0011/0015/0017）上验证泛化；risk 阈值需用 Robotiq 动态验证标定（`scripts/calibrate_risk_threshold.py` 已就绪）；v3（adaptive-score-v3-candidate）代码在服务器，需同步进主仓库。
 
 ## 关键入口
