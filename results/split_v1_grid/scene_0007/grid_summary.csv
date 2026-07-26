@@ -1,0 +1,9 @@
+cell_id,clamp_width,collision_threshold,empty_threshold,frame_count,pointcloud_feasible_candidate_count,mean_pointcloud_feasible_candidate_count,pointcloud_feasible_frame_count,clamp_recovered_candidate_count,successful_frame_count,success_rate,failure_reason_counts
+clamp-off_ct-0.005_et-0.01,False,0.005,0.01,10,525,52.5,10,0,10,1.0,{}
+clamp-off_ct-0.01_et-0.01,False,0.01,0.01,10,576,57.6,10,0,10,1.0,{}
+clamp-off_ct-0.02_et-0.01,False,0.02,0.01,10,618,61.8,10,0,10,1.0,{}
+clamp-off_ct-0.03_et-0.01,False,0.03,0.01,10,636,63.6,10,0,10,1.0,{}
+clamp-on_ct-0.005_et-0.01,True,0.005,0.01,10,525,52.5,10,0,10,1.0,{}
+clamp-on_ct-0.01_et-0.01,True,0.01,0.01,10,576,57.6,10,0,10,1.0,{}
+clamp-on_ct-0.02_et-0.01,True,0.02,0.01,10,618,61.8,10,0,10,1.0,{}
+clamp-on_ct-0.03_et-0.01,True,0.03,0.01,10,636,63.6,10,0,10,1.0,{}

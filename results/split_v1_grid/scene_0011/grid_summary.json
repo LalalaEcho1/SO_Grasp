@@ -1,0 +1,1514 @@
+{
+  "output_dir": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp_codex_latest/results/split_v1_grid/scene_0011",
+  "created_at": "2026-07-27T01:54:27",
+  "realsense_path": "/home/bobo/99-students/2023_2026_gxl/Python_Program/graspnet-baseline/graspnet数据集/graspnet/scenes/scene_0011/realsense",
+  "prediction_path": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp/data/graspnet_predictions/senior_improved_pointnetplus_split_v1/scene_0011/realsense",
+  "selected_frames": [
+    "0000",
+    "0012",
+    "0036",
+    "0060",
+    "0072",
+    "0109",
+    "0132",
+    "0218",
+    "0248",
+    "0255"
+  ],
+  "policy": "adaptive-score-v2-graspnet",
+  "risk_threshold": 0.45,
+  "max_opening": 0.085,
+  "cell_count": 8,
+  "cells": [
+    {
+      "cell_id": "clamp-off_ct-0.005_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.005,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 570,
+        "mean_pointcloud_feasible_candidate_count": 57.0,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 9,
+        "success_rate": 0.9,
+        "failure_reason_counts": {
+          "risk-threshold": 1
+        },
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 570,
+          "pointcloud-collision": 190
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 39,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 39,
+            "pointcloud-collision": 40
+          },
+          "selected_object": "025_mug.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.28794,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 128,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 128,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.140583,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 36,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 36,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.21513,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 41,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 41,
+            "pointcloud-collision": 24
+          },
+          "selected_object": "large_elephant.ply",
+          "grasp_success": false,
+          "grasp_risk": 0.499827,
+          "failure_reason": "risk-threshold"
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 49,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 49,
+            "pointcloud-collision": 15
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 48,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 48,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "072-d_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.277116,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 44,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 44,
+            "pointcloud-collision": 30
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.222358,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 80,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 80,
+            "pointcloud-collision": 32
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.20882,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.01_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.01,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 625,
+        "mean_pointcloud_feasible_candidate_count": 62.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 625,
+          "pointcloud-collision": 135
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 44,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 44,
+            "pointcloud-collision": 35
+          },
+          "selected_object": "025_mug.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.28794,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 131,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 131,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.267359,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 41,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 41,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 49,
+            "pointcloud-collision": 16
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.125549,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 51,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 51,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 53,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 53,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 51,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 51,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 61,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 61,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 54,
+            "pointcloud-collision": 20
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.222358,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 90,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 90,
+            "pointcloud-collision": 22
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.02_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.02,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 675,
+        "mean_pointcloud_feasible_candidate_count": 67.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 675,
+          "pointcloud-collision": 85
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 25
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.18983,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 137,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 137,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.24565,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 43,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 43,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 53,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 53,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.282762,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 55,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 63,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 63,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 61,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 61,
+            "pointcloud-collision": 13
+          },
+          "selected_object": "018_plum.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.078244,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 100,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 100,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.03_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.03,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 694,
+        "mean_pointcloud_feasible_candidate_count": 69.4,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 694,
+          "pointcloud-collision": 66
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 58,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 58,
+            "pointcloud-collision": 21
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.18983,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 138,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 138,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.24565,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 45,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 45,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 57,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 57,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.282762,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 55,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 63,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 63,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "018_plum.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.078244,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 102,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 102,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.005_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.005,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 570,
+        "mean_pointcloud_feasible_candidate_count": 57.0,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 9,
+        "success_rate": 0.9,
+        "failure_reason_counts": {
+          "risk-threshold": 1
+        },
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 570,
+          "pointcloud-collision": 190
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 39,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 39,
+            "pointcloud-collision": 40
+          },
+          "selected_object": "025_mug.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.28794,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 128,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 128,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.140583,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 36,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 36,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.21513,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 41,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 41,
+            "pointcloud-collision": 24
+          },
+          "selected_object": "large_elephant.ply",
+          "grasp_success": false,
+          "grasp_risk": 0.499827,
+          "failure_reason": "risk-threshold"
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 49,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 49,
+            "pointcloud-collision": 15
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 48,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 48,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "072-d_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.277116,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 44,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 44,
+            "pointcloud-collision": 30
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.222358,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 80,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 80,
+            "pointcloud-collision": 32
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.20882,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.01_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.01,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 625,
+        "mean_pointcloud_feasible_candidate_count": 62.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 625,
+          "pointcloud-collision": 135
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 44,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 44,
+            "pointcloud-collision": 35
+          },
+          "selected_object": "025_mug.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.28794,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 131,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 131,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.267359,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 41,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 41,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 49,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 49,
+            "pointcloud-collision": 16
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.125549,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 51,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 51,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 53,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 53,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 51,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 51,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 61,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 61,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 54,
+            "pointcloud-collision": 20
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.222358,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 90,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 90,
+            "pointcloud-collision": 22
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.02_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.02,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 675,
+        "mean_pointcloud_feasible_candidate_count": 67.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 675,
+          "pointcloud-collision": 85
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 25
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.18983,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 137,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 137,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.24565,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 43,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 43,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 53,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 53,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.282762,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 55,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 63,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 63,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 61,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 61,
+            "pointcloud-collision": 13
+          },
+          "selected_object": "018_plum.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.078244,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 100,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 100,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.03_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.03,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 694,
+        "mean_pointcloud_feasible_candidate_count": 69.4,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 5,
+          "feasible": 694,
+          "pointcloud-collision": 66
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 124,
+          "bound_count": 79,
+          "pointcloud_feasible_candidate_count": 58,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 58,
+            "pointcloud-collision": 21
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.18983,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 161,
+          "bound_count": 140,
+          "pointcloud_feasible_candidate_count": 138,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 138,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.24565,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 83,
+          "bound_count": 46,
+          "pointcloud_feasible_candidate_count": 45,
+          "pointcloud_feasible_object_count": 6,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 45,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177809,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 113,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 57,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 57,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.282762,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 121,
+          "bound_count": 55,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.113431,
+          "failure_reason": null
+        },
+        {
+          "frame": "0109",
+          "total_candidates": 110,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 55,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187176,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 112,
+          "bound_count": 60,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "dabao_sod.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.167564,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 100,
+          "bound_count": 66,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "nzskincare_mouth_rinse.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.129634,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 133,
+          "bound_count": 77,
+          "pointcloud_feasible_candidate_count": 63,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 63,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "018_plum.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.078244,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 168,
+          "bound_count": 112,
+          "pointcloud_feasible_candidate_count": 102,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 102,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "072-j_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.213038,
+          "failure_reason": null
+        }
+      ]
+    }
+  ]
+}

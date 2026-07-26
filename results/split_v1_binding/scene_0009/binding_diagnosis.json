@@ -1,0 +1,514 @@
+{
+  "output_dir": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp_codex_latest/results/split_v1_binding/scene_0009",
+  "created_at": "2026-07-27T01:53:59",
+  "realsense_path": "/home/bobo/99-students/2023_2026_gxl/Python_Program/graspnet-baseline/graspnet数据集/graspnet/scenes/scene_0009/realsense",
+  "prediction_path": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp/data/graspnet_predictions/senior_improved_pointnetplus_split_v1/scene_0009/realsense",
+  "selected_frames": [
+    "0000",
+    "0012",
+    "0036",
+    "0060",
+    "0072",
+    "0109",
+    "0132",
+    "0182",
+    "0248",
+    "0255"
+  ],
+  "base_pixel_radius": 3,
+  "base_depth_tolerance_m": 0.12,
+  "aggregate": {
+    "frame_count": 10,
+    "total_candidates": 1444,
+    "bound_count": 561,
+    "bound_ratio": 0.38850415512465375,
+    "status_totals": {
+      "background": 880,
+      "bound": 561,
+      "depth-mismatch": 3
+    },
+    "background_needed_radius_totals": {
+      "4": 22,
+      "5": 22,
+      "6": 26,
+      "7": 16,
+      "8": 12,
+      "9": 16,
+      "10": 16,
+      "11": 12,
+      "12": 7,
+      "13": 11,
+      "14": 10,
+      "15": 13,
+      ">15": 697
+    },
+    "depth_mismatch_error_quantiles_m": {
+      "p50": 0.17099997401237488,
+      "p75": 0.2029999941587448,
+      "p90": 0.22220000624656677,
+      "p95": 0.22860001027584076,
+      "max": 0.23500001430511475
+    },
+    "depth_mismatch_count": 3
+  },
+  "sweep_cells": [
+    {
+      "pixel_radius": 0,
+      "depth_tolerance_m": 0.08,
+      "total_candidates": 1444,
+      "bound_count": 485,
+      "bound_ratio": 0.33587257617728533,
+      "status_counts": {
+        "background": 959,
+        "bound": 485
+      }
+    },
+    {
+      "pixel_radius": 0,
+      "depth_tolerance_m": 0.12,
+      "total_candidates": 1444,
+      "bound_count": 485,
+      "bound_ratio": 0.33587257617728533,
+      "status_counts": {
+        "background": 959,
+        "bound": 485
+      }
+    },
+    {
+      "pixel_radius": 0,
+      "depth_tolerance_m": 0.2,
+      "total_candidates": 1444,
+      "bound_count": 485,
+      "bound_ratio": 0.33587257617728533,
+      "status_counts": {
+        "background": 959,
+        "bound": 485
+      }
+    },
+    {
+      "pixel_radius": 0,
+      "depth_tolerance_m": null,
+      "total_candidates": 1444,
+      "bound_count": 485,
+      "bound_ratio": 0.33587257617728533,
+      "status_counts": {
+        "background": 959,
+        "bound": 485
+      }
+    },
+    {
+      "pixel_radius": 2,
+      "depth_tolerance_m": 0.08,
+      "total_candidates": 1444,
+      "bound_count": 527,
+      "bound_ratio": 0.3649584487534626,
+      "status_counts": {
+        "background": 915,
+        "bound": 527,
+        "depth-mismatch": 2
+      }
+    },
+    {
+      "pixel_radius": 2,
+      "depth_tolerance_m": 0.12,
+      "total_candidates": 1444,
+      "bound_count": 527,
+      "bound_ratio": 0.3649584487534626,
+      "status_counts": {
+        "background": 915,
+        "bound": 527,
+        "depth-mismatch": 2
+      }
+    },
+    {
+      "pixel_radius": 2,
+      "depth_tolerance_m": 0.2,
+      "total_candidates": 1444,
+      "bound_count": 528,
+      "bound_ratio": 0.3656509695290859,
+      "status_counts": {
+        "background": 915,
+        "bound": 528,
+        "depth-mismatch": 1
+      }
+    },
+    {
+      "pixel_radius": 2,
+      "depth_tolerance_m": null,
+      "total_candidates": 1444,
+      "bound_count": 529,
+      "bound_ratio": 0.36634349030470914,
+      "status_counts": {
+        "background": 915,
+        "bound": 529
+      }
+    },
+    {
+      "pixel_radius": 3,
+      "depth_tolerance_m": 0.08,
+      "total_candidates": 1444,
+      "bound_count": 561,
+      "bound_ratio": 0.38850415512465375,
+      "status_counts": {
+        "background": 880,
+        "bound": 561,
+        "depth-mismatch": 3
+      }
+    },
+    {
+      "pixel_radius": 3,
+      "depth_tolerance_m": 0.12,
+      "total_candidates": 1444,
+      "bound_count": 561,
+      "bound_ratio": 0.38850415512465375,
+      "status_counts": {
+        "background": 880,
+        "bound": 561,
+        "depth-mismatch": 3
+      }
+    },
+    {
+      "pixel_radius": 3,
+      "depth_tolerance_m": 0.2,
+      "total_candidates": 1444,
+      "bound_count": 563,
+      "bound_ratio": 0.3898891966759003,
+      "status_counts": {
+        "background": 880,
+        "bound": 563,
+        "depth-mismatch": 1
+      }
+    },
+    {
+      "pixel_radius": 3,
+      "depth_tolerance_m": null,
+      "total_candidates": 1444,
+      "bound_count": 564,
+      "bound_ratio": 0.39058171745152354,
+      "status_counts": {
+        "background": 880,
+        "bound": 564
+      }
+    },
+    {
+      "pixel_radius": 5,
+      "depth_tolerance_m": 0.08,
+      "total_candidates": 1444,
+      "bound_count": 595,
+      "bound_ratio": 0.4120498614958449,
+      "status_counts": {
+        "background": 836,
+        "bound": 595,
+        "depth-mismatch": 13
+      }
+    },
+    {
+      "pixel_radius": 5,
+      "depth_tolerance_m": 0.12,
+      "total_candidates": 1444,
+      "bound_count": 597,
+      "bound_ratio": 0.4134349030470914,
+      "status_counts": {
+        "background": 836,
+        "bound": 597,
+        "depth-mismatch": 11
+      }
+    },
+    {
+      "pixel_radius": 5,
+      "depth_tolerance_m": 0.2,
+      "total_candidates": 1444,
+      "bound_count": 605,
+      "bound_ratio": 0.41897506925207756,
+      "status_counts": {
+        "background": 836,
+        "bound": 605,
+        "depth-mismatch": 3
+      }
+    },
+    {
+      "pixel_radius": 5,
+      "depth_tolerance_m": null,
+      "total_candidates": 1444,
+      "bound_count": 608,
+      "bound_ratio": 0.42105263157894735,
+      "status_counts": {
+        "background": 836,
+        "bound": 608
+      }
+    },
+    {
+      "pixel_radius": 8,
+      "depth_tolerance_m": 0.08,
+      "total_candidates": 1444,
+      "bound_count": 632,
+      "bound_ratio": 0.4376731301939058,
+      "status_counts": {
+        "background": 782,
+        "bound": 632,
+        "depth-mismatch": 30
+      }
+    },
+    {
+      "pixel_radius": 8,
+      "depth_tolerance_m": 0.12,
+      "total_candidates": 1444,
+      "bound_count": 635,
+      "bound_ratio": 0.43975069252077564,
+      "status_counts": {
+        "background": 782,
+        "bound": 635,
+        "depth-mismatch": 27
+      }
+    },
+    {
+      "pixel_radius": 8,
+      "depth_tolerance_m": 0.2,
+      "total_candidates": 1444,
+      "bound_count": 653,
+      "bound_ratio": 0.45221606648199447,
+      "status_counts": {
+        "background": 782,
+        "bound": 653,
+        "depth-mismatch": 9
+      }
+    },
+    {
+      "pixel_radius": 8,
+      "depth_tolerance_m": null,
+      "total_candidates": 1444,
+      "bound_count": 662,
+      "bound_ratio": 0.4584487534626039,
+      "status_counts": {
+        "background": 782,
+        "bound": 662
+      }
+    }
+  ],
+  "frame_diagnostics": [
+    {
+      "frame": "0000",
+      "total_candidates": 126,
+      "bound_count": 45,
+      "status_counts": {
+        "background": 81,
+        "bound": 45
+      },
+      "background_needed_radius_counts": {
+        "4": 2,
+        "5": 1,
+        "6": 3,
+        "8": 1,
+        "10": 1,
+        "11": 1,
+        "13": 2,
+        "14": 1,
+        "15": 2,
+        ">15": 67
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0012",
+      "total_candidates": 121,
+      "bound_count": 53,
+      "status_counts": {
+        "background": 68,
+        "bound": 53
+      },
+      "background_needed_radius_counts": {
+        "5": 2,
+        "6": 3,
+        "7": 2,
+        "8": 1,
+        "9": 1,
+        "10": 2,
+        "11": 2,
+        "12": 1,
+        "14": 1,
+        "15": 1,
+        ">15": 52
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0036",
+      "total_candidates": 158,
+      "bound_count": 79,
+      "status_counts": {
+        "background": 79,
+        "bound": 79
+      },
+      "background_needed_radius_counts": {
+        "4": 2,
+        "5": 1,
+        "6": 2,
+        "7": 3,
+        "8": 2,
+        "12": 1,
+        "15": 1,
+        ">15": 67
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0060",
+      "total_candidates": 107,
+      "bound_count": 43,
+      "status_counts": {
+        "background": 63,
+        "bound": 43,
+        "depth-mismatch": 1
+      },
+      "background_needed_radius_counts": {
+        "4": 1,
+        "6": 1,
+        "9": 1,
+        "13": 1,
+        ">15": 59
+      },
+      "depth_mismatch_errors_m": [
+        0.17099997401237488
+      ]
+    },
+    {
+      "frame": "0072",
+      "total_candidates": 127,
+      "bound_count": 44,
+      "status_counts": {
+        "background": 82,
+        "bound": 44,
+        "depth-mismatch": 1
+      },
+      "background_needed_radius_counts": {
+        "4": 3,
+        "5": 1,
+        "6": 5,
+        "7": 3,
+        "9": 3,
+        "10": 3,
+        "13": 1,
+        "14": 1,
+        "15": 1,
+        ">15": 61
+      },
+      "depth_mismatch_errors_m": [
+        0.23500001430511475
+      ]
+    },
+    {
+      "frame": "0109",
+      "total_candidates": 154,
+      "bound_count": 53,
+      "status_counts": {
+        "background": 101,
+        "bound": 53
+      },
+      "background_needed_radius_counts": {
+        "5": 3,
+        "6": 4,
+        "8": 1,
+        "10": 4,
+        "11": 1,
+        "13": 1,
+        "14": 1,
+        ">15": 86
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0132",
+      "total_candidates": 187,
+      "bound_count": 60,
+      "status_counts": {
+        "background": 127,
+        "bound": 60
+      },
+      "background_needed_radius_counts": {
+        "4": 2,
+        "5": 5,
+        "7": 3,
+        "8": 1,
+        "9": 6,
+        "10": 3,
+        "11": 2,
+        "13": 1,
+        "14": 2,
+        "15": 1,
+        ">15": 101
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0182",
+      "total_candidates": 87,
+      "bound_count": 28,
+      "status_counts": {
+        "background": 58,
+        "bound": 28,
+        "depth-mismatch": 1
+      },
+      "background_needed_radius_counts": {
+        "4": 5,
+        "5": 2,
+        "6": 1,
+        "7": 2,
+        "8": 2,
+        "12": 2,
+        "13": 2,
+        ">15": 42
+      },
+      "depth_mismatch_errors_m": [
+        0.14100000262260437
+      ]
+    },
+    {
+      "frame": "0248",
+      "total_candidates": 158,
+      "bound_count": 75,
+      "status_counts": {
+        "background": 83,
+        "bound": 75
+      },
+      "background_needed_radius_counts": {
+        "4": 2,
+        "5": 2,
+        "6": 3,
+        "8": 1,
+        "9": 3,
+        "10": 1,
+        "12": 1,
+        "13": 1,
+        "14": 1,
+        "15": 3,
+        ">15": 65
+      },
+      "depth_mismatch_errors_m": []
+    },
+    {
+      "frame": "0255",
+      "total_candidates": 219,
+      "bound_count": 81,
+      "status_counts": {
+        "background": 138,
+        "bound": 81
+      },
+      "background_needed_radius_counts": {
+        "4": 5,
+        "5": 5,
+        "6": 4,
+        "7": 3,
+        "8": 3,
+        "9": 2,
+        "10": 2,
+        "11": 6,
+        "12": 2,
+        "13": 2,
+        "14": 3,
+        "15": 4,
+        ">15": 97
+      },
+      "depth_mismatch_errors_m": []
+    }
+  ]
+}

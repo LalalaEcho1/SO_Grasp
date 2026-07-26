@@ -1,0 +1,1514 @@
+{
+  "output_dir": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp_codex_latest/results/split_v1_grid/scene_0015",
+  "created_at": "2026-07-27T01:55:00",
+  "realsense_path": "/home/bobo/99-students/2023_2026_gxl/Python_Program/graspnet-baseline/graspnet数据集/graspnet/scenes/scene_0015/realsense",
+  "prediction_path": "/home/bobo/99-students/2024_2027_wtt/SO_Grasp/data/graspnet_predictions/senior_improved_pointnetplus_split_v1/scene_0015/realsense",
+  "selected_frames": [
+    "0000",
+    "0012",
+    "0036",
+    "0060",
+    "0072",
+    "0132",
+    "0145",
+    "0218",
+    "0248",
+    "0255"
+  ],
+  "policy": "adaptive-score-v2-graspnet",
+  "risk_threshold": 0.45,
+  "max_opening": 0.085,
+  "cell_count": 8,
+  "cells": [
+    {
+      "cell_id": "clamp-off_ct-0.005_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.005,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 587,
+        "mean_pointcloud_feasible_candidate_count": 58.7,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 587,
+          "pointcloud-collision": 175
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55,
+            "pointcloud-collision": 19
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 29,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 29,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.072603,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 48,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 48,
+            "pointcloud-collision": 14
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.049887,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 52,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 52,
+            "pointcloud-collision": 19
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.162479,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 59,
+            "pointcloud-collision": 22
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.258106,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 70,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 70,
+            "pointcloud-collision": 17
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.09182,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 50,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 50,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.253147,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 83,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 83,
+            "pointcloud-collision": 28
+          },
+          "selected_object": "072-i_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.143289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 77,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 77,
+            "pointcloud-collision": 25
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 64,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 64,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.01_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.01,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 655,
+        "mean_pointcloud_feasible_candidate_count": 65.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 655,
+          "pointcloud-collision": 107
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 32,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 32,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "016_pear.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.124332,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 56,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "065-b_cups.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.048678,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 15
+          },
+          "selected_object": "016_pear.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.111676,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 68,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 68,
+            "pointcloud-collision": 13
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.258106,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 77,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 77,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.09182,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.253147,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 95,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 95,
+            "pointcloud-collision": 16
+          },
+          "selected_object": "072-i_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.143289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 84,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 84,
+            "pointcloud-collision": 18
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 68,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 68,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.02_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.02,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 713,
+        "mean_pointcloud_feasible_candidate_count": 71.3,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 713,
+          "pointcloud-collision": 49
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 70,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 70,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 38,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 38
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.180612,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.034289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.061526,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 73,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 73,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.335031,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 80,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 80,
+            "pointcloud-collision": 7
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.199615,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.050473,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 106,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 106,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.347623,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 91,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 91,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 72,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 72,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-off_ct-0.03_et-0.01",
+      "clamp_width": false,
+      "collision_threshold": 0.03,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 733,
+        "mean_pointcloud_feasible_candidate_count": 73.3,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 733,
+          "pointcloud-collision": 29
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 71,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 71,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.095154,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 38,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 38
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.180612,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.034289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 66,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 66,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.061526,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 79,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 79,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177028,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 83,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 83,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.199615,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 62,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 62
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.032596,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 107,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 107,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.307952,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 95,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 95,
+            "pointcloud-collision": 7
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.094121,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 73,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 73,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.060968,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.005_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.005,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 587,
+        "mean_pointcloud_feasible_candidate_count": 58.7,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 587,
+          "pointcloud-collision": 175
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 55,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 55,
+            "pointcloud-collision": 19
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 29,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 29,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.072603,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 48,
+          "pointcloud_feasible_object_count": 7,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 48,
+            "pointcloud-collision": 14
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.049887,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 52,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 52,
+            "pointcloud-collision": 19
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.162479,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 59,
+            "pointcloud-collision": 22
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.258106,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 70,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 70,
+            "pointcloud-collision": 17
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.09182,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 50,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 50,
+            "pointcloud-collision": 12
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.253147,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 83,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 83,
+            "pointcloud-collision": 28
+          },
+          "selected_object": "072-i_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.143289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 77,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 77,
+            "pointcloud-collision": 25
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 64,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 64,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.01_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.01,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 655,
+        "mean_pointcloud_feasible_candidate_count": 65.5,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 655,
+          "pointcloud-collision": 107
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 9
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 32,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 32,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "016_pear.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.124332,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 56,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "065-b_cups.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.048678,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 56,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 56,
+            "pointcloud-collision": 15
+          },
+          "selected_object": "016_pear.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.111676,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 68,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 68,
+            "pointcloud-collision": 13
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.258106,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 77,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 77,
+            "pointcloud-collision": 10
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.09182,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 54,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 54,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.253147,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 95,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 95,
+            "pointcloud-collision": 16
+          },
+          "selected_object": "072-i_toy_airplane.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.143289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 84,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 84,
+            "pointcloud-collision": 18
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 68,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 68,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.02_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.02,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 713,
+        "mean_pointcloud_feasible_candidate_count": 71.3,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 713,
+          "pointcloud-collision": 49
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 70,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 70,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.295744,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 38,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 38
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.180612,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.034289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 65,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 65,
+            "pointcloud-collision": 6
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.061526,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 73,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 73,
+            "pointcloud-collision": 8
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.335031,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 80,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 80,
+            "pointcloud-collision": 7
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.199615,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.050473,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 106,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 106,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.347623,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 91,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 91,
+            "pointcloud-collision": 11
+          },
+          "selected_object": "035_power_drill.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.327724,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 72,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 72,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.187489,
+          "failure_reason": null
+        }
+      ]
+    },
+    {
+      "cell_id": "clamp-on_ct-0.03_et-0.01",
+      "clamp_width": true,
+      "collision_threshold": 0.03,
+      "empty_threshold": 0.01,
+      "aggregate": {
+        "frame_count": 10,
+        "pointcloud_feasible_candidate_count": 733,
+        "mean_pointcloud_feasible_candidate_count": 73.3,
+        "pointcloud_feasible_frame_count": 10,
+        "clamp_recovered_candidate_count": 0,
+        "successful_frame_count": 10,
+        "success_rate": 1.0,
+        "failure_reason_counts": {},
+        "pointcloud_reason_totals": {
+          "empty-grasp": 12,
+          "feasible": 733,
+          "pointcloud-collision": 29
+        }
+      },
+      "frame_results": [
+        {
+          "frame": "0000",
+          "total_candidates": 145,
+          "bound_count": 74,
+          "pointcloud_feasible_candidate_count": 71,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 71,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.095154,
+          "failure_reason": null
+        },
+        {
+          "frame": "0012",
+          "total_candidates": 86,
+          "bound_count": 43,
+          "pointcloud_feasible_candidate_count": 38,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 38
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.180612,
+          "failure_reason": null
+        },
+        {
+          "frame": "0036",
+          "total_candidates": 115,
+          "bound_count": 65,
+          "pointcloud_feasible_candidate_count": 59,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 3,
+            "feasible": 59,
+            "pointcloud-collision": 3
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.034289,
+          "failure_reason": null
+        },
+        {
+          "frame": "0060",
+          "total_candidates": 124,
+          "bound_count": 71,
+          "pointcloud_feasible_candidate_count": 66,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 66,
+            "pointcloud-collision": 5
+          },
+          "selected_object": "015_peach.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.061526,
+          "failure_reason": null
+        },
+        {
+          "frame": "0072",
+          "total_candidates": 149,
+          "bound_count": 82,
+          "pointcloud_feasible_candidate_count": 79,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 1,
+            "feasible": 79,
+            "pointcloud-collision": 2
+          },
+          "selected_object": "032_knife.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.177028,
+          "failure_reason": null
+        },
+        {
+          "frame": "0132",
+          "total_candidates": 181,
+          "bound_count": 87,
+          "pointcloud_feasible_candidate_count": 83,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 83,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.199615,
+          "failure_reason": null
+        },
+        {
+          "frame": "0145",
+          "total_candidates": 138,
+          "bound_count": 62,
+          "pointcloud_feasible_candidate_count": 62,
+          "pointcloud_feasible_object_count": 9,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 62
+          },
+          "selected_object": "rhinocero.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.032596,
+          "failure_reason": null
+        },
+        {
+          "frame": "0218",
+          "total_candidates": 158,
+          "bound_count": 111,
+          "pointcloud_feasible_candidate_count": 107,
+          "pointcloud_feasible_object_count": 8,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 107,
+            "pointcloud-collision": 4
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.307952,
+          "failure_reason": null
+        },
+        {
+          "frame": "0248",
+          "total_candidates": 153,
+          "bound_count": 102,
+          "pointcloud_feasible_candidate_count": 95,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "feasible": 95,
+            "pointcloud-collision": 7
+          },
+          "selected_object": "head_shoulders_supreme.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.094121,
+          "failure_reason": null
+        },
+        {
+          "frame": "0255",
+          "total_candidates": 140,
+          "bound_count": 78,
+          "pointcloud_feasible_candidate_count": 73,
+          "pointcloud_feasible_object_count": 10,
+          "clamp_recovered_candidate_count": 0,
+          "pointcloud_reason_counts": {
+            "empty-grasp": 4,
+            "feasible": 73,
+            "pointcloud-collision": 1
+          },
+          "selected_object": "kispa_cleanser.ply",
+          "grasp_success": true,
+          "grasp_risk": 0.060968,
+          "failure_reason": null
+        }
+      ]
+    }
+  ]
+}
