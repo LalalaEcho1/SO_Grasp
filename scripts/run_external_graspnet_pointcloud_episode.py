@@ -55,6 +55,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-opening", type=float, default=0.085)
     parser.add_argument("--collision-threshold", type=float, default=0.01)
     parser.add_argument("--empty-threshold", type=float, default=0.01)
+    parser.add_argument(
+        "--clamp-width",
+        action="store_true",
+        help="Clamp candidate opening to --max-opening and re-check instead of rejecting as opening-too-small.",
+    )
     parser.add_argument("--json", action="store_true", help="Print machine-readable JSON only.")
     return parser.parse_args()
 
@@ -82,6 +87,7 @@ def main() -> None:
             max_opening=args.max_opening,
             collision_threshold=args.collision_threshold,
             empty_threshold=args.empty_threshold,
+            clamp_width_to_max_opening=args.clamp_width,
         ),
     )
 

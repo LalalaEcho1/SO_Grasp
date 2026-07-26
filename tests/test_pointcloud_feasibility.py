@@ -87,5 +87,56 @@ class PointCloudFeasibilityTests(unittest.TestCase):
         self.assertEqual(results[1].candidates, [])
 
 
+class PointCloudWidthClampTests(unittest.TestCase):
+    def test_clamp_recovers_wide_candidate_on_thin_object(self):
+        points = np.array([[0.0, 0.0, 0.0]] * 10, dtype=float)
+        config = PointCloudCollisionConfig(max_opening=0.085, clamp_width_to_max_opening=True)
+
+        results = assess_bound_graspnet_candidates_with_point_cloud(points, [_binding(width=0.12)], config=config)
+
+        self.assertTrue(results[0].feasible)
+        self.assertEqual(results[0].feasible_grasp_count, 1)
+        self.assertIsNone(results[0].candidates[0].reason)
+
+    def test_clamp_still_rejects_object_thicker_than_max_opening(self):
+        inner_points = np.array([[0.0, 0.0, 0.0]] * 10, dtype=float)
+        # Points at y=0.05 sit inside a 0.12-wide opening but land in the finger
+        # volume once the opening is clamped to 0.085 (half width 0.0425).
+        finger_points = np.array([[0.0, 0.05, 0.0]] * 30, dtype=float)
+        points = np.vstack([inner_points, finger_points])
+        config = PointCloudCollisionConfig(max_opening=0.085, clamp_width_to_max_opening=True)
+
+        results = assess_bound_graspnet_candidates_with_point_cloud(points, [_binding(width=0.12)], config=config)
+
+        self.assertFalse(results[0].feasible)
+        self.assertEqual(results[0].candidates[0].reason, "pointcloud-collision")
+
+    def test_clamp_disabled_keeps_hard_reject_behaviour(self):
+        points = np.array([[0.0, 0.0, 0.0]] * 10, dtype=float)
+        config = PointCloudCollisionConfig(max_opening=0.085)
+
+        results = assess_bound_graspnet_candidates_with_point_cloud(points, [_binding(width=0.12)], config=config)
+
+        self.assertFalse(results[0].feasible)
+        self.assertEqual(results[0].candidates[0].reason, "opening-too-small")
+
+    def test_clamp_does_not_change_candidates_within_opening_limit(self):
+        points = np.array([[0.0, 0.0, 0.0]] * 10, dtype=float)
+        clamped = assess_bound_graspnet_candidates_with_point_cloud(
+            points,
+            [_binding(width=0.04)],
+            config=PointCloudCollisionConfig(clamp_width_to_max_opening=True),
+        )
+        default = assess_bound_graspnet_candidates_with_point_cloud(
+            points,
+            [_binding(width=0.04)],
+            config=PointCloudCollisionConfig(),
+        )
+
+        self.assertTrue(clamped[0].feasible)
+        self.assertTrue(default[0].feasible)
+        self.assertEqual(clamped[0].feasible_grasp_count, default[0].feasible_grasp_count)
+
+
 if __name__ == "__main__":
     unittest.main()

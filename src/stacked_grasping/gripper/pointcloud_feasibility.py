@@ -20,6 +20,11 @@ class PointCloudCollisionConfig:
     voxel_size: float = 0.005
     collision_threshold: float = 0.01
     empty_threshold: float = 0.01
+    # When enabled, candidates whose predicted opening exceeds max_opening are not
+    # rejected outright: their opening is clamped to max_opening and the clamped
+    # geometry is re-checked for collision/empty instead. Default keeps the
+    # historical hard-reject behaviour.
+    clamp_width_to_max_opening: bool = False
 
 
 @dataclass(frozen=True)
@@ -29,6 +34,7 @@ class PointCloudCandidateDiagnostic:
     collision: bool
     empty: bool
     opening_too_small: bool
+    opening_clamped: bool = False
 
     @property
     def feasible(self) -> bool:
@@ -145,6 +151,13 @@ def diagnose_graspnet_pointcloud_collisions(
     heights = np.array([float(record.get("height", 0.02)) for record in records], dtype=float)[:, None]
     depths = np.array([float(record.get("depth", 0.03)) for record in records], dtype=float)[:, None]
     widths = np.array([float(record["width"]) for record in records], dtype=float)[:, None]
+    over_opening = widths.reshape(-1) > cfg.max_opening
+    if cfg.clamp_width_to_max_opening:
+        # Re-check the clamped gripper geometry instead of hard-rejecting wide
+        # predictions: the predicted width is a pre-close opening, so a gripper
+        # approaching at its own max opening can still be valid when the object
+        # itself fits between the fingers.
+        widths = np.minimum(widths, float(cfg.max_opening))
 
     targets = scene_points[None, :, :] - translations[:, None, :]
     targets = np.matmul(targets, rotations)
@@ -180,7 +193,12 @@ def diagnose_graspnet_pointcloud_collisions(
     inner_volume = (heights * cfg.finger_length * widths / voxel_volume).reshape(-1)
     empty_ratio = inner_mask.sum(axis=1) / (inner_volume + 1e-6)
 
-    opening_bad = widths.reshape(-1) > cfg.max_opening
+    if cfg.clamp_width_to_max_opening:
+        opening_bad = np.zeros(len(records), dtype=bool)
+        opening_clamped = over_opening
+    else:
+        opening_bad = over_opening
+        opening_clamped = np.zeros(len(records), dtype=bool)
     return [
         PointCloudCandidateDiagnostic(
             collision_iou=float(iou),
@@ -188,8 +206,9 @@ def diagnose_graspnet_pointcloud_collisions(
             collision=bool(iou > cfg.collision_threshold),
             empty=bool(empty < cfg.empty_threshold),
             opening_too_small=bool(is_opening_bad),
+            opening_clamped=bool(is_clamped),
         )
-        for iou, empty, is_opening_bad in zip(collision_iou, empty_ratio, opening_bad)
+        for iou, empty, is_opening_bad, is_clamped in zip(collision_iou, empty_ratio, opening_bad, opening_clamped)
     ]
 
 
