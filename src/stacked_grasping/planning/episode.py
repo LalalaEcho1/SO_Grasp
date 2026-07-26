@@ -177,7 +177,13 @@ def run_policy_episode(
                 config=gripper_config,
             )
         gripper_feasibility_by_name = {item.object_name: item for item in gripper_feasibilities}
-        decision = select_object(policy, graph, rng, gripper_feasibilities=gripper_feasibilities)
+        decision = select_object(
+            policy,
+            graph,
+            rng,
+            gripper_feasibilities=gripper_feasibilities,
+            risk_config=risk_config,
+        )
         selected_object = decision.selected_object
         selected_score = _selected_score(ranking, selected_object)
         gripper_feasibility = gripper_feasibility_by_name[selected_object]

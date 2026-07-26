@@ -19,7 +19,11 @@
 5. 写入 `CLAUDE.md` / `AGENTS.md`（本协作说明）与本日志。
 6. （同日晚间追加）实现 **3D 最近物体绑定** `bind_graspnet_records_to_objects_3d`（graspnet_binding.py，含 5 个单测；`bind_graspnet_records` 统一分发，脚本加 `--binding-mode {pixel,3d}` 与 `--binding-3d-max-distance-m`）。scene_0007 端到端：`3d, maxdist=0.03` + clamp + ct0.02 → 绑定 54.1%、可行 **9.7/帧**（pixel 为 6.9）、成功率 87.5% 持平且不再有视差绑错；maxdist=0.05 过松（82.5%）。**新推荐操作点：`--binding-mode 3d --binding-3d-max-distance-m 0.03 --clamp-width --collision-threshold 0.02`**，待 split_v1 验证。
 
-**仓库状态**：main @ e0cd137（用户已推送 8e23555 工具批次与文档批次）+ 本次未提交改动（3D 绑定相关 4 个代码/测试文件 + 本日志 + CLAUDE.md/AGENTS.md 更新）。`external/cloud_transfer/` 为传输中转（gitignored），可清理。
+7. （同日深夜追加）失败帧解剖 + **adaptive-score-v2-riskaware** 新策略。oracle 分析显示 5 个失败帧全部是选择失误（每帧都存在完整风险<0.45 的可行物体），病因：v2-graspnet 排序按夹爪碰撞风险字典序排列，但成败判定用的是含夹爪项的完整风险——选择与裁判度量不一致。新策略用裁判同款完整风险做门控（预测成功集合内仍保持"高度优先"的 v2 精神；全部预测失败时回退到最低完整风险），作为独立策略加入 VALID_POLICIES，不改动任何既有策略；`select_object`/episode 增加 risk_config 传递。scene_0007 40 帧、3d 绑定 0.03 + clamp + ct0.02：**首抓成功率 100%（40/40）**，可行候选 9.7/帧。全链路：57.5% → 87.5%（供给修复）→ 100%（选择对齐），risk 阈值 0.45 全程未动。
+
+**仓库状态**：main @ d2d9dcc + 本次未提交改动（riskaware 策略 3 个代码/测试文件 + 文档更新）。`external/cloud_transfer/` 为传输中转（gitignored），可清理。
+
+**重要注意**：以上均为 scene_0007 单场景、首抓层面、risk-threshold 判定下的结果——三个泛化关口还没过：split_v1 五场景验证、多步清场 episode、Robotiq 动态验证标定（100% 是模型内成功，不是物理成功）。论文表述在验证完成前不要引用 100% 这个数。
 
 **留给下一个执行者**
 

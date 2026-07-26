@@ -7,6 +7,7 @@ from typing import Dict, List, Sequence
 from stacked_grasping.gripper.feasibility import ObjectGraspFeasibility
 from stacked_grasping.planning.adaptive_score import rank_objects
 from stacked_grasping.planning.adaptive_score_v2 import rank_objects_v2
+from stacked_grasping.planning.grasp_risk import GraspRiskConfig, assess_grasp_risk
 from stacked_grasping.relations.graph import RelationGraph
 
 
@@ -15,6 +16,7 @@ VALID_POLICIES = (
     "adaptive-score-v2",
     "adaptive-score-v2-gripper",
     "adaptive-score-v2-graspnet",
+    "adaptive-score-v2-riskaware",
     "od-only",
     "highest-first",
     "lowest-blocked",
@@ -41,6 +43,7 @@ def select_object(
     graph: RelationGraph,
     rng: Random,
     gripper_feasibilities: Sequence[ObjectGraspFeasibility] | None = None,
+    risk_config: GraspRiskConfig | None = None,
 ) -> PolicyDecision:
     if policy == "adaptive-score":
         ranking = [score.to_dict() for score in rank_objects(graph)]
@@ -50,6 +53,8 @@ def select_object(
         return _decision_from_ranking(policy, ranking)
     if policy in {"adaptive-score-v2-gripper", "adaptive-score-v2-graspnet"}:
         return _rank_adaptive_score_v2_gripper(policy, graph, gripper_feasibilities)
+    if policy == "adaptive-score-v2-riskaware":
+        return _rank_adaptive_score_v2_riskaware(policy, graph, gripper_feasibilities, risk_config)
     if policy == "od-only":
         return _rank_by_incoming_od(policy, graph)
     if policy == "highest-first":
@@ -104,6 +109,65 @@ def _rank_adaptive_score_v2_gripper(
             bool(item["high_risk"]),
             -float(item["height_priority"]),
             float(item["grasp_risk"]),
+            -float(item["adaptive_v2_score"]),
+            str(item["name"]),
+        )
+    )
+    return _decision_from_ranking(policy, ranking)
+
+
+def _rank_adaptive_score_v2_riskaware(
+    policy: str,
+    graph: RelationGraph,
+    gripper_feasibilities: Sequence[ObjectGraspFeasibility] | None,
+    risk_config: GraspRiskConfig | None = None,
+) -> PolicyDecision:
+    """Gripper-aware v2 ranking gated by the same full risk the episode judge uses.
+
+    adaptive-score-v2-graspnet sorts lexicographically by gripper collision risk
+    before any aggregate risk, while episode success is judged on the FULL risk
+    (base + gripper term) against the threshold. This policy closes that gap:
+    objects predicted to succeed under the judge's own metric come first (highest
+    first, keeping the v2 safety/height spirit); if no object is predicted to
+    succeed, it falls back to the lowest full risk.
+    """
+    cfg = risk_config or GraspRiskConfig()
+    feasibility_by_name = {item.object_name: item for item in gripper_feasibilities or []}
+    ranking = []
+    for score in rank_objects_v2(graph):
+        item = score.to_dict()
+        feasibility = feasibility_by_name.get(score.name)
+        assessment = assess_grasp_risk(score.base_score, cfg, gripper_feasibility=feasibility)
+        if feasibility is None:
+            item.update(
+                {
+                    "gripper_feasible": True,
+                    "gripper_feasible_grasp_count": None,
+                    "gripper_collision_risk": 0.0,
+                }
+            )
+        else:
+            item.update(
+                {
+                    "gripper_feasible": feasibility.feasible,
+                    "gripper_feasible_grasp_count": feasibility.feasible_grasp_count,
+                    "gripper_collision_risk": round(feasibility.gripper_collision_risk, 6),
+                }
+            )
+        item.update(
+            {
+                "full_grasp_risk": round(assessment.risk, 6),
+                "predicted_success": bool(assessment.success),
+            }
+        )
+        ranking.append(item)
+
+    ranking.sort(
+        key=lambda item: (
+            not bool(item["gripper_feasible"]),
+            not bool(item["predicted_success"]),
+            -float(item["height_priority"]) if item["predicted_success"] else 0.0,
+            float(item["full_grasp_risk"]),
             -float(item["adaptive_v2_score"]),
             str(item["name"]),
         )
