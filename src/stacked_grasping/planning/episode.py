@@ -62,6 +62,20 @@ class EpisodeStep:
     def selected_grasp_pose(self) -> GraspPoseCandidate | None:
         if self.gripper_feasibility is None:
             return None
+        selected_candidate_index = (
+            self.policy_decision.selected_candidate_index
+            if self.policy_decision is not None
+            else None
+        )
+        if selected_candidate_index is not None:
+            for candidate in self.gripper_feasibility.candidates:
+                pose = candidate.pose
+                if (
+                    candidate.feasible
+                    and pose is not None
+                    and pose.candidate_index == selected_candidate_index
+                ):
+                    return pose
         return self.gripper_feasibility.selected_grasp_pose
 
     def to_dict(self) -> Dict[str, object]:

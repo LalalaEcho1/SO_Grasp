@@ -73,6 +73,7 @@ class GraspCandidateIOTests(unittest.TestCase):
                     "depth": 0.04,
                     "rotation_matrix": np.eye(3).tolist(),
                     "translation": [0.11, -0.21, 0.55],
+                    "candidate_index": 0,
                     "object_id": 7,
                     "object_name": "obj_007",
                 }

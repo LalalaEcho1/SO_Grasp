@@ -9,6 +9,9 @@ import numpy as np
 from stacked_grasping.gripper.grasp_pose import GraspPoseCandidate, graspnet_outputs_to_candidates
 
 
+CANDIDATE_SCORE_FIELDS = ("score", "pa_grasp_score", "original_score", "grasp_tolerance")
+
+
 def load_graspnet_candidates(
     path: str | Path,
     object_id_to_name: Mapping[int | str, str] | None = None,
@@ -77,7 +80,17 @@ def _normalize_json_record(record: object) -> Dict[str, object]:
         "rotation_matrix": np.array(rotation, dtype=float).reshape(3, 3).tolist(),
         "translation": np.array(translation, dtype=float).reshape(3).tolist(),
     }
-    for key in ("height", "depth", "object_id", "object_name", "closing_axis"):
+    for key in (
+        "height",
+        "depth",
+        "object_id",
+        "object_name",
+        "closing_axis",
+        "candidate_index",
+        "pa_grasp_score",
+        "original_score",
+        "grasp_tolerance",
+    ):
         if key in record:
             normalized[key] = record[key]
     return normalized
@@ -91,7 +104,7 @@ def _records_from_graspnet_array(array: np.ndarray) -> List[Dict[str, object]]:
         raise ValueError("GraspNet npy array must have shape (N, >=16).")
 
     records: List[Dict[str, object]] = []
-    for row in arr:
+    for candidate_index, row in enumerate(arr):
         record: Dict[str, object] = {
             "score": float(row[0]),
             "width": float(row[1]),
@@ -99,12 +112,40 @@ def _records_from_graspnet_array(array: np.ndarray) -> List[Dict[str, object]]:
             "depth": float(row[3]) if row.shape[0] > 3 else 0.0,
             "rotation_matrix": row[4:13].reshape(3, 3).tolist(),
             "translation": row[13:16].tolist(),
+            "candidate_index": int(candidate_index),
         }
         if row.shape[0] > 16:
             object_id = row[16]
             record["object_id"] = int(object_id) if float(object_id).is_integer() else float(object_id)
+        if row.shape[0] > 17:
+            record["pa_grasp_score"] = float(row[0])
+            record["original_score"] = float(row[17])
+        if row.shape[0] > 18:
+            record["grasp_tolerance"] = float(row[18])
         records.append(record)
     return records
+
+
+def candidate_score_value(record: Mapping[str, object], score_field: str = "score") -> float:
+    field = _canonical_score_field(score_field)
+    if field == "score":
+        return float(record.get("score", 0.0))
+    if field == "pa_grasp_score":
+        return float(record.get("pa_grasp_score", record.get("score", 0.0)))
+    return float(record.get(field, 0.0))
+
+
+def _canonical_score_field(score_field: str) -> str:
+    aliases = {
+        "physics_score": "pa_grasp_score",
+        "processed_score": "pa_grasp_score",
+        "tolerance": "grasp_tolerance",
+    }
+    field = aliases.get(str(score_field), str(score_field))
+    if field not in CANDIDATE_SCORE_FIELDS:
+        allowed = ", ".join(CANDIDATE_SCORE_FIELDS)
+        raise ValueError(f"Unsupported candidate score field: {score_field}. Allowed: {allowed}.")
+    return field
 
 
 def _with_object_name(

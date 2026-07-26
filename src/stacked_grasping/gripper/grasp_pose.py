@@ -24,11 +24,16 @@ class GraspPoseCandidate:
     failure_reason: str | None = None
     collision_objects: Tuple[str, ...] = ()
     object_id: int | str | None = None
+    candidate_index: int | None = None
+    pa_grasp_score: float | None = None
+    original_score: float | None = None
+    grasp_tolerance: float | None = None
 
     def to_dict(self) -> Dict[str, object]:
         return {
             "object_name": self.object_name,
             "object_id": self.object_id,
+            "candidate_index": self.candidate_index,
             "generator": self.generator,
             "position": self.position.round(6).tolist(),
             "pregrasp_position": self.pregrasp_position.round(6).tolist(),
@@ -37,6 +42,9 @@ class GraspPoseCandidate:
             "orientation_quat_wxyz": self.orientation_quat_wxyz.round(6).tolist(),
             "required_opening": round(self.required_opening, 6),
             "score": round(self.score, 6),
+            "pa_grasp_score": _round_optional(self.pa_grasp_score),
+            "original_score": _round_optional(self.original_score),
+            "grasp_tolerance": _round_optional(self.grasp_tolerance),
             "feasible": self.feasible,
             "failure_reason": self.failure_reason,
             "collision_objects": list(self.collision_objects),
@@ -237,6 +245,10 @@ def graspnet_outputs_to_candidates(
                 required_opening=float(record["width"]),
                 score=float(record.get("score", 1.0)),
                 object_id=record.get("object_id"),
+                candidate_index=_optional_int(record.get("candidate_index")),
+                pa_grasp_score=_optional_float(record.get("pa_grasp_score")),
+                original_score=_optional_float(record.get("original_score")),
+                grasp_tolerance=_optional_float(record.get("grasp_tolerance")),
             )
         )
     return candidates
@@ -270,6 +282,22 @@ def _candidate_owner(
     if not containing:
         return None
     return min(containing, key=lambda obj: float(np.linalg.norm(point - obj.position)))
+
+
+def _optional_int(value: object) -> int | None:
+    if value is None:
+        return None
+    return int(value)
+
+
+def _optional_float(value: object) -> float | None:
+    if value is None:
+        return None
+    return float(value)
+
+
+def _round_optional(value: float | None) -> float | None:
+    return round(float(value), 6) if value is not None else None
 
 
 def _rotation_matrix_to_quat_wxyz(rotation: np.ndarray) -> np.ndarray:

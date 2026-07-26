@@ -76,11 +76,23 @@ class ObjectGraspFeasibility:
         return sorted(
             feasible_candidates,
             key=lambda candidate: (
-                -float(candidate.pose.score if candidate.pose else 0.0),
+                -_candidate_quality_score(candidate),
                 float(candidate.required_opening),
                 candidate.closing_axis,
             ),
         )[0]
+
+    @property
+    def best_grasp_score(self) -> float | None:
+        return _max_feasible_pose_value(self.candidates, "score")
+
+    @property
+    def best_grasp_tolerance(self) -> float | None:
+        return _max_feasible_pose_value(self.candidates, "grasp_tolerance")
+
+    @property
+    def graspnet_quality_score(self) -> float | None:
+        return self.best_grasp_tolerance if self.best_grasp_tolerance is not None else self.best_grasp_score
 
     @property
     def selected_grasp_pose(self) -> GraspPoseCandidate | None:
@@ -95,10 +107,37 @@ class ObjectGraspFeasibility:
             "feasible": self.feasible,
             "feasible_grasp_count": self.feasible_grasp_count,
             "gripper_collision_risk": round(self.gripper_collision_risk, 6),
+            "best_grasp_score": _round_optional(self.best_grasp_score),
+            "best_grasp_tolerance": _round_optional(self.best_grasp_tolerance),
+            "graspnet_quality_score": _round_optional(self.graspnet_quality_score),
             "selected_candidate": self.selected_candidate.to_dict() if self.selected_candidate else None,
             "selected_grasp_pose": self.selected_grasp_pose.to_dict() if self.selected_grasp_pose else None,
             "candidates": [candidate.to_dict() for candidate in self.candidates],
         }
+
+
+def _candidate_quality_score(candidate: GraspCandidate) -> float:
+    pose = candidate.pose
+    if pose is None:
+        return 0.0
+    if pose.grasp_tolerance is not None:
+        return float(pose.grasp_tolerance)
+    return float(pose.score)
+
+
+def _max_feasible_pose_value(candidates: Sequence[GraspCandidate], attr: str) -> float | None:
+    values = []
+    for candidate in candidates:
+        if not candidate.feasible or candidate.pose is None:
+            continue
+        value = getattr(candidate.pose, attr)
+        if value is not None:
+            values.append(float(value))
+    return max(values) if values else None
+
+
+def _round_optional(value: float | None) -> float | None:
+    return round(float(value), 6) if value is not None else None
 
 
 def assess_scene_topdown_grasps(

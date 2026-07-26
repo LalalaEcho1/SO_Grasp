@@ -20,6 +20,7 @@ if str(PROJECT_ROOT) not in sys.path:
 from scripts.run_external_graspnet_pointcloud_episode import sample_points  # noqa: E402
 from scripts.run_graspnet_split_od_baselines import flatten_split_config  # noqa: E402
 from scripts.run_graspnet_split_pointcloud_episodes import prediction_path_for_scene, realsense_path_for_scene  # noqa: E402
+from stacked_grasping.gripper.candidate_io import candidate_score_value  # noqa: E402
 from stacked_grasping.gripper.external_graspnet_data import (  # noqa: E402
     GraspNetRealSenseSource,
     RealSenseFrame,
@@ -31,6 +32,7 @@ from stacked_grasping.gripper.external_graspnet_scene import (  # noqa: E402
 )
 from stacked_grasping.gripper.graspnet_binding import (  # noqa: E402
     BINDING_MODES,
+    BoundGraspNetCandidate,
     GraspNetPredictionSource,
     bind_graspnet_records,
 )
@@ -64,6 +66,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--min-boundary-pixels", type=int, default=50)
     parser.add_argument("--point-sample-limit", type=int, default=60000)
     parser.add_argument("--point-sample-seed", type=int, default=1234)
+    parser.add_argument(
+        "--candidate-pool-top-k",
+        type=int,
+        default=None,
+        help="Keep only the Top-K GraspNet records by score after binding. Defaults to all records.",
+    )
+    parser.add_argument(
+        "--candidate-pool-min-bound-per-object",
+        type=int,
+        default=0,
+        help="Additionally reserve at least this many bound candidates for each object.",
+    )
     parser.add_argument("--risk-threshold", type=float, default=0.45)
     parser.add_argument("--max-opening", type=float, default=0.085)
     parser.add_argument("--collision-threshold", type=float, default=0.01)
@@ -99,6 +113,8 @@ def main() -> None:
         min_boundary_pixels=args.min_boundary_pixels,
         point_sample_limit=args.point_sample_limit,
         point_sample_seed=args.point_sample_seed,
+        candidate_pool_top_k=args.candidate_pool_top_k,
+        candidate_pool_min_bound_per_object=args.candidate_pool_min_bound_per_object,
         risk_threshold=args.risk_threshold,
         pointcloud_config=PointCloudCollisionConfig(
             max_opening=args.max_opening,
@@ -142,6 +158,8 @@ def run_graspnet_split_policy_comparison(
     min_boundary_pixels: int = 50,
     point_sample_limit: int | None = 60000,
     point_sample_seed: int = 1234,
+    candidate_pool_top_k: int | None = None,
+    candidate_pool_min_bound_per_object: int = 0,
     risk_threshold: float = 0.45,
     pointcloud_config: PointCloudCollisionConfig | None = None,
     save_outputs: bool = True,
@@ -177,6 +195,8 @@ def run_graspnet_split_policy_comparison(
             min_boundary_pixels=min_boundary_pixels,
             point_sample_limit=point_sample_limit,
             point_sample_seed=point_sample_seed,
+            candidate_pool_top_k=candidate_pool_top_k,
+            candidate_pool_min_bound_per_object=candidate_pool_min_bound_per_object,
             risk_threshold=risk_threshold,
             pointcloud_config=pointcloud_config,
         )
@@ -193,6 +213,8 @@ def run_graspnet_split_policy_comparison(
         "output_dir": str(target),
         "output_saved": bool(save_outputs),
         "policies": list(policies),
+        "candidate_pool_top_k": candidate_pool_top_k,
+        "candidate_pool_min_bound_per_object": int(candidate_pool_min_bound_per_object),
         "policy_count": len(policies),
         "frame_count": len(entries),
         "processed_frame_count": len({(row["scene"], row["frame"]) for row in results}),
@@ -231,6 +253,8 @@ def run_split_entry_policy_comparison(
     min_boundary_pixels: int,
     point_sample_limit: int | None,
     point_sample_seed: int,
+    candidate_pool_top_k: int | None,
+    candidate_pool_min_bound_per_object: int,
     risk_threshold: float,
     pointcloud_config: PointCloudCollisionConfig | None,
 ) -> dict[str, object]:
@@ -255,10 +279,10 @@ def run_split_entry_policy_comparison(
             factor_depth=factor_depth,
         )
         annotations = realsense_source.load_annotation_objects(frame.frame)
-        records = prediction_source.load_records(frame.frame)
+        raw_records = prediction_source.load_records(frame.frame)
 
-    bindings = bind_graspnet_records(
-        records,
+    all_bindings = bind_graspnet_records(
+        raw_records,
         frame,
         annotations,
         mode=binding_mode,
@@ -266,6 +290,12 @@ def run_split_entry_policy_comparison(
         depth_tolerance_m=binding_depth_tolerance_m,
         max_distance_m=binding_3d_max_distance_m,
     )
+    bindings = _limit_bound_candidates_by_score(
+        all_bindings,
+        top_k=candidate_pool_top_k,
+        min_bound_per_object=candidate_pool_min_bound_per_object,
+    )
+    records = [binding.record for binding in bindings]
     episode_inputs = build_external_graspnet_episode_inputs(
         frame,
         annotations,
@@ -281,6 +311,7 @@ def run_split_entry_policy_comparison(
     points = sample_points(points, limit=point_sample_limit, seed=point_sample_seed)
     common = {
         **_entry_prefix(entry),
+        "raw_candidate_count": len(raw_records),
         "total_candidates": len(records),
         "bound_count": sum(1 for binding in bindings if binding.status == "bound"),
         "object_count": len(objects),
@@ -319,6 +350,62 @@ def run_split_entry_policy_comparison(
     return {"policy_results": policy_results}
 
 
+def _limit_bound_candidates_by_score(
+    bindings: Sequence[BoundGraspNetCandidate],
+    *,
+    top_k: int | None,
+    min_bound_per_object: int = 0,
+) -> list[BoundGraspNetCandidate]:
+    if (top_k is None or int(top_k) <= 0) and int(min_bound_per_object) <= 0:
+        return list(bindings)
+
+    indexed = list(enumerate(bindings))
+    ranked = sorted(
+        indexed,
+        key=lambda item: (
+            -candidate_score_value(item[1].record, "score"),
+            int(item[1].record.get("candidate_index", 10**9)),
+            item[0],
+        ),
+    )
+    selected_indices: set[int] = set()
+    if top_k is None or int(top_k) <= 0:
+        selected_indices.update(index for index, _ in indexed)
+    else:
+        selected_indices.update(index for index, _ in ranked[: int(top_k)])
+
+    reserve_count = max(int(min_bound_per_object), 0)
+    if reserve_count > 0:
+        by_object: dict[str, list[tuple[int, BoundGraspNetCandidate]]] = defaultdict(list)
+        for index, binding in indexed:
+            object_name = _bound_candidate_object_name(binding)
+            if binding.status != "bound" or object_name is None:
+                continue
+            by_object[object_name].append((index, binding))
+        for items in by_object.values():
+            for index, _ in sorted(
+                items,
+                key=lambda item: (
+                    -candidate_score_value(item[1].record, "score"),
+                    int(item[1].record.get("candidate_index", 10**9)),
+                    item[0],
+                ),
+            )[:reserve_count]:
+                selected_indices.add(index)
+
+    return [binding for index, binding in ranked if index in selected_indices]
+
+
+def _bound_candidate_object_name(binding: BoundGraspNetCandidate) -> str | None:
+    if binding.object_name:
+        return str(binding.object_name)
+    if binding.object_id is not None:
+        return f"object_{binding.object_id}"
+    if binding.label_id is not None:
+        return f"label_{binding.label_id}"
+    return None
+
+
 def policy_result_row(
     common: dict[str, object],
     policy: str,
@@ -347,7 +434,25 @@ def policy_result_row(
         "gripper_feasible_grasp_count": first_step.gripper_feasible_grasp_count if first_step else None,
         "gripper_collision_risk": round(float(first_step.gripper_collision_risk), 6) if first_step else None,
         "selected_pose_generator": selected_pose.generator if selected_pose else None,
+        "selected_pose_candidate_index": selected_pose.candidate_index if selected_pose else None,
+        "selected_object_candidate_indices": _selected_object_candidate_indices(
+            getattr(first_step, "gripper_feasibility", None) if first_step else None,
+            score_field=(
+                "score"
+                if policy in {
+                    "adaptive-score-v3-candidate",
+                    "adaptive-score-v3-candidate-reserve",
+                    "graspnet-score-first",
+                }
+                else "quality"
+            ),
+        )
+        or ([selected_pose.candidate_index] if selected_pose and selected_pose.candidate_index is not None else []),
+        "policy_ranking_candidate_specs": _policy_ranking_candidate_specs(first_step),
         "selected_pose_score": round(float(selected_pose.score), 6) if selected_pose else None,
+        "selected_pose_pa_grasp_score": _round_optional(selected_pose.pa_grasp_score) if selected_pose else None,
+        "selected_pose_original_score": _round_optional(selected_pose.original_score) if selected_pose else None,
+        "selected_pose_grasp_tolerance": _round_optional(selected_pose.grasp_tolerance) if selected_pose else None,
     }
 
 
@@ -384,6 +489,7 @@ def write_policy_results_csv(path: Path, rows: Sequence[dict[str, object]]) -> N
         "frame",
         "role",
         "policy",
+        "raw_candidate_count",
         "total_candidates",
         "bound_count",
         "binding_ratio",
@@ -403,7 +509,13 @@ def write_policy_results_csv(path: Path, rows: Sequence[dict[str, object]]) -> N
         "gripper_feasible_grasp_count",
         "gripper_collision_risk",
         "selected_pose_generator",
+        "selected_pose_candidate_index",
+        "selected_object_candidate_indices",
+        "policy_ranking_candidate_specs",
         "selected_pose_score",
+        "selected_pose_pa_grasp_score",
+        "selected_pose_original_score",
+        "selected_pose_grasp_tolerance",
         "prediction_path",
     ]
     _write_csv(path, fieldnames, rows)
@@ -448,6 +560,63 @@ def _csv_value(value: object) -> object:
     if isinstance(value, (dict, list)):
         return json.dumps(value, ensure_ascii=False)
     return value
+
+
+def _selected_object_candidate_indices(feasibility: object, score_field: str = "quality") -> list[int]:
+    if feasibility is None:
+        return []
+    candidates = [
+        candidate
+        for candidate in getattr(feasibility, "candidates", [])
+        if getattr(candidate, "feasible", False)
+        and getattr(candidate, "pose", None) is not None
+        and candidate.pose.candidate_index is not None
+    ]
+    candidates.sort(
+        key=lambda candidate: (
+            -_pose_quality(candidate.pose, score_field=score_field),
+            int(candidate.pose.candidate_index),
+        )
+    )
+    return [int(candidate.pose.candidate_index) for candidate in candidates]
+
+
+def _policy_ranking_candidate_specs(step: object | None) -> list[dict[str, object]]:
+    if step is None:
+        return []
+    decision = getattr(step, "policy_decision", None)
+    ranking = getattr(decision, "ranking", [])
+    specs = []
+    for item in ranking:
+        if not isinstance(item, dict):
+            continue
+        candidate_index = item.get("selected_candidate_index")
+        object_name = item.get("name")
+        if candidate_index is None or object_name is None:
+            continue
+        spec = {"object_name": str(object_name), "candidate_index": int(candidate_index)}
+        candidate_indices = item.get("candidate_indices")
+        if isinstance(candidate_indices, list):
+            spec["candidate_indices"] = [
+                int(value)
+                for value in candidate_indices
+                if value is not None
+            ]
+        specs.append(spec)
+    return specs
+
+
+def _pose_quality(pose: object, score_field: str = "quality") -> float:
+    if score_field == "score":
+        return float(getattr(pose, "score", 0.0))
+    tolerance = getattr(pose, "grasp_tolerance", None)
+    if tolerance is not None:
+        return float(tolerance)
+    return float(getattr(pose, "score", 0.0))
+
+
+def _round_optional(value: float | None) -> float | None:
+    return round(float(value), 6) if value is not None else None
 
 
 def _mean(values: Sequence[float]) -> float | None:
