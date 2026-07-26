@@ -30,8 +30,9 @@ from stacked_grasping.gripper.external_graspnet_scene import (  # noqa: E402
     build_external_graspnet_episode_inputs,
 )
 from stacked_grasping.gripper.graspnet_binding import (  # noqa: E402
+    BINDING_MODES,
     GraspNetPredictionSource,
-    bind_graspnet_records_to_frame_labels,
+    bind_graspnet_records,
 )
 from stacked_grasping.gripper.pointcloud_feasibility import (  # noqa: E402
     PointCloudCollisionConfig,
@@ -55,6 +56,8 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--factor-depth", type=int, default=1000)
     parser.add_argument("--binding-pixel-radius", type=int, default=3)
     parser.add_argument("--binding-depth-tolerance-m", type=float, default=0.12)
+    parser.add_argument("--binding-mode", choices=BINDING_MODES, default="pixel")
+    parser.add_argument("--binding-3d-max-distance-m", type=float, default=0.05)
     parser.add_argument("--min-points-per-object", type=int, default=20)
     parser.add_argument("--min-half-extent", type=float, default=0.01)
     parser.add_argument("--object-padding", type=float, default=0.002)
@@ -88,6 +91,8 @@ def main() -> None:
         factor_depth=args.factor_depth,
         binding_pixel_radius=args.binding_pixel_radius,
         binding_depth_tolerance_m=args.binding_depth_tolerance_m,
+        binding_mode=args.binding_mode,
+        binding_3d_max_distance_m=args.binding_3d_max_distance_m,
         min_points_per_object=args.min_points_per_object,
         min_half_extent=args.min_half_extent,
         object_padding=args.object_padding,
@@ -129,6 +134,8 @@ def run_graspnet_split_policy_comparison(
     factor_depth: int = 1000,
     binding_pixel_radius: int = 3,
     binding_depth_tolerance_m: float | None = 0.12,
+    binding_mode: str = "pixel",
+    binding_3d_max_distance_m: float = 0.05,
     min_points_per_object: int = 20,
     min_half_extent: float = 0.01,
     object_padding: float = 0.002,
@@ -162,6 +169,8 @@ def run_graspnet_split_policy_comparison(
             factor_depth=factor_depth,
             binding_pixel_radius=binding_pixel_radius,
             binding_depth_tolerance_m=binding_depth_tolerance_m,
+            binding_mode=binding_mode,
+            binding_3d_max_distance_m=binding_3d_max_distance_m,
             min_points_per_object=min_points_per_object,
             min_half_extent=min_half_extent,
             object_padding=object_padding,
@@ -214,7 +223,9 @@ def run_split_entry_policy_comparison(
     factor_depth: int,
     binding_pixel_radius: int,
     binding_depth_tolerance_m: float | None,
-    min_points_per_object: int,
+    binding_mode: str = "pixel",
+    binding_3d_max_distance_m: float = 0.05,
+    min_points_per_object: int = 20,
     min_half_extent: float,
     object_padding: float,
     min_boundary_pixels: int,
@@ -246,12 +257,14 @@ def run_split_entry_policy_comparison(
         annotations = realsense_source.load_annotation_objects(frame.frame)
         records = prediction_source.load_records(frame.frame)
 
-    bindings = bind_graspnet_records_to_frame_labels(
+    bindings = bind_graspnet_records(
         records,
         frame,
         annotations,
+        mode=binding_mode,
         pixel_radius=binding_pixel_radius,
         depth_tolerance_m=binding_depth_tolerance_m,
+        max_distance_m=binding_3d_max_distance_m,
     )
     episode_inputs = build_external_graspnet_episode_inputs(
         frame,

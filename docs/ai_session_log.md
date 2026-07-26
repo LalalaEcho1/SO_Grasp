@@ -27,6 +27,45 @@
 
 **重要注意**：以上均为 scene_0007 单场景、risk-threshold 判定下的结果——泛化关口：split_v1 五场景验证、Robotiq 动态验证标定（模型内成功≠物理成功）、以及多步清场的静态帧限制（见第 8 条）。论文表述在验证完成前不要引用 100%/44.6% 这些数。
 
+**服务器执行手册（无 Claude Code 版，Codex 或用户手动均可）**
+
+前提：本仓库已 `git pull` 到最新 main。若发现本机有 adaptive-score-v3-candidate 代码，先合并进仓库、跑全量测试、commit + push——这是第一优先级。
+
+split_v1 验证（在服务器 SO_Grasp 目录执行；结果目录整个 commit 回仓库）：
+
+```bash
+source .venv/bin/activate  # 或本机等效环境
+python -m unittest discover -s tests   # 预期全绿（本机有 mujoco）
+
+# 1) 主表：15 个 selected 帧 × 全策略 × pixel/3d 两种绑定
+for m in pixel 3d; do
+  python scripts/run_graspnet_split_policy_comparison.py \
+    --config configs/graspnet_candidate_split.json \
+    --prediction-root data/graspnet_predictions/senior_improved_pointnetplus_split_v1 \
+    --policies adaptive-score-v2-riskaware adaptive-score-v2-graspnet od-only highest-first lowest-blocked random \
+    --clamp-width --collision-threshold 0.02 \
+    --binding-mode $m --binding-3d-max-distance-m 0.03 \
+    --out-dir results/split_v1_policy_comparison_$m
+done
+
+# 2) 逐场景漏斗与绑定诊断（验证 scene_0007 结论泛化）
+for s in 0007 0009 0011 0015 0017; do
+  python scripts/sweep_pointcloud_feasibility_grid.py \
+    --realsense data/graspnet/scenes/scene_$s/realsense \
+    --prediction data/graspnet_predictions/senior_improved_pointnetplus_split_v1/scene_$s/realsense \
+    --binding-mode 3d --binding-3d-max-distance-m 0.03 \
+    --out-dir results/split_v1_grid/scene_$s
+  python scripts/diagnose_graspnet_binding.py \
+    --realsense data/graspnet/scenes/scene_$s/realsense \
+    --prediction data/graspnet_predictions/senior_improved_pointnetplus_split_v1/scene_$s/realsense \
+    --out-dir results/split_v1_binding/scene_$s
+done
+```
+
+第一个看的数：主表的 `missing_prediction_count`（应为 0）；然后各场景 feasible/帧 与成功率是否复现 scene_0007 的量级。跑完 commit + push，云端 Claude 接手出论文表格。
+
+第三件事（只有本机能做）：Robotiq 动态验证批量跑 split 帧的实际抓取，产出含 `validation.lift_success` 的 summary JSON 目录，之后用 `scripts/calibrate_risk_threshold.py --frame-results <episode frame_results.csv> --validation-dir <目录>` 标定 risk 阈值。
+
 **留给下一个执行者**
 
 - [ ] 用户：`git add -A && git commit && git push`（本机）；删除仓库根 `_to_delete/`。
