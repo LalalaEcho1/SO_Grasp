@@ -31,7 +31,7 @@
 
 前提：本仓库已 `git pull` 到最新 main。若发现本机有 adaptive-score-v3-candidate 代码，先合并进仓库、跑全量测试、commit + push——这是第一优先级。
 
-split_v1 验证（在服务器 SO_Grasp 目录执行；结果目录整个 commit 回仓库）：
+split_v1 验证（在服务器 SO_Grasp 目录执行）：
 
 ```bash
 source .venv/bin/activate  # 或本机等效环境
@@ -62,7 +62,9 @@ for s in 0007 0009 0011 0015 0017; do
 done
 ```
 
-第一个看的数：主表的 `missing_prediction_count`（应为 0）；然后各场景 feasible/帧 与成功率是否复现 scene_0007 的量级。跑完 commit + push，云端 Claude 接手出论文表格。
+第一个看的数：主表的 `missing_prediction_count`（应为 0）；然后各场景 feasible/帧 与成功率是否复现 scene_0007 的量级。
+
+**实验记录规范（重要）**：`results/` 在 .gitignore 里，原始输出留在跑实验的机器上即可；每个实验完成后，把小体积汇总文件（`summary.json`、`*_summary.csv`、`grid_summary.*`、`binding_diagnosis.json`、`binding_sweep.csv` 等）拷贝到被 git 跟踪的 **`docs/experiment_records/<日期>_<主题>/<实验名>/`**，连同 `docs/ai_session_log.md` 的会话条目一起 commit + push。这样实验记录随仓库同步到每台机器（用户 D 盘 pull 后本地即有），云端 Claude 拉取后出论文表格。首批示例见 `docs/experiment_records/2026-07-26_scene0007_cloud/`。
 
 第三件事（只有本机能做）：Robotiq 动态验证批量跑 split 帧的实际抓取，产出含 `validation.lift_success` 的 summary JSON 目录，之后用 `scripts/calibrate_risk_threshold.py --frame-results <episode frame_results.csv> --validation-dir <目录>` 标定 risk 阈值。
 

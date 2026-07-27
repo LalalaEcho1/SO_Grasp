@@ -1,0 +1,2 @@
+cell_id,clamp_width,collision_threshold,empty_threshold,frame_count,pointcloud_feasible_candidate_count,mean_pointcloud_feasible_candidate_count,pointcloud_feasible_frame_count,clamp_recovered_candidate_count,successful_frame_count,success_rate,failure_reason_counts
+clamp-on_ct-0.02_et-0.01,True,0.02,0.01,40,389,9.725,40,131,40,1.0,{}
